@@ -84,6 +84,8 @@ export default {
   },
   created() {
     this.$root.$on( 'quote-click', this.addQuote );
+    const text = window.localStorage.getItem( this.$route.fullPath );
+    this.content = text === 'null' ? '' : text;
   },
   methods: {
     addQuote( quote ) {

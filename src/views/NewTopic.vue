@@ -14,6 +14,7 @@
           placeholder="Type title here"
           :maxlength="64"
           expanded
+          @input="handleTitleChange"
         />
       </b-field>
       <b-field label="Category">
@@ -90,6 +91,8 @@ export default {
   },
   mounted() {
     this.setSelectedCategory( this.categoryList );
+    const title = window.localStorage.getItem( this.$route.fullPath + '-TITLE' );
+    this.title = title === 'null' ? '' : title;
   },
   methods: {
     setSelectedCategory( categoryList ) {
@@ -123,6 +126,8 @@ export default {
 
       this.$store.dispatch( 'topics/createTopic', payload )
         .then( () => {
+          window.localStorage.removeItem( this.$route.fullPath );
+          window.localStorage.removeItem( this.$route.fullPath + '-TITLE' );
           this.$store.dispatch( 'topics/fetchAll' ).then( () => {
             this.$router.push( { path: '/topic-list', query: { category: this.selectedCategory.slug } } );
             Toast.open( {
@@ -144,8 +149,14 @@ export default {
     },
     handleTextChange( text ) {
       this.content = text;
+      window.localStorage.setItem( this.$route.fullPath, text );
+    },
+    handleTitleChange( text ) {
+      window.localStorage.setItem( this.$route.fullPath + '-TITLE', text );
     },
     onCancel( evt ) {
+      window.localStorage.removeItem( this.$route.fullPath );
+      window.localStorage.removeItem( this.$route.fullPath + '-TITLE' );
       evt.preventDefault();
       this.$router.go( -1 );
     },

@@ -169,6 +169,7 @@ export default {
   methods: {
     onReplyInput( text ) {
       this.replyText = text;
+      window.localStorage.setItem( this.$route.fullPath, text );
     },
     onReplySubmit() {
       const payload = {
@@ -178,6 +179,7 @@ export default {
 
       this.$store.dispatch( 'replies/submitReply', payload )
         .then( ( reply ) => {
+          window.localStorage.removeItem( this.$route.fullPath );
           if ( reply ) {
             this.fetchTopic( true );
             this.replyText = '';
