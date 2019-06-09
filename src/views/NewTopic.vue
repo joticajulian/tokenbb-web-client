@@ -92,7 +92,11 @@ export default {
   mounted() {
     this.setSelectedCategory( this.categoryList );
     const title = window.localStorage.getItem( this.$route.fullPath + '-TITLE' );
-    this.title = title === 'null' ? '' : title;
+    if ( !title || title === 'null' ) {
+      window.localStorage.setItem( this.$route.fullPath + '-TITLE', this.title );
+    } else {
+      this.title = title;
+    }
   },
   methods: {
     setSelectedCategory( categoryList ) {
