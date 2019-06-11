@@ -345,6 +345,14 @@ a.pagination-link.is-current {
 }
   // Dashboard Style //
   .dashboard {
+    section {
+      min-height: 0px;
+    }
+    input {
+      border-radius: 0px;
+      height: 40px;
+      padding-top: 10px;
+    }
     .field {
       width: 50%;
     }
@@ -365,6 +373,17 @@ a.pagination-link.is-current {
       color: white;
       padding-bottom: 1rem;
     }
+    .administrators {
+      border: 1px solid $link;
+      border-radius: 2px;
+      padding: 25px;
+    }
+    .moderators {
+      border: 1px solid $link;
+      border-radius: 2px;
+      margin-top: 1.2rem;
+      padding: 25px;
+    }
     &__section {
     }
 
@@ -383,7 +402,6 @@ a.pagination-link.is-current {
       font-size: 1rem;
     }
     &__form {
-      border-bottom: 1px solid $link;
       padding-bottom: 1rem;
     }
 
