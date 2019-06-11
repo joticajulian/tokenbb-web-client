@@ -22,11 +22,40 @@ const router = new Router( {
       name: 'topic-list',
       component: loadView( 'TopicList' ),
     },
-
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: loadView( 'Dashboard' ),
+    },
     {
       path: '/settings',
       name: 'settings',
       component: loadView( 'Settings' ),
+    },
+    {
+      path: '/statistics',
+      name: 'statistics',
+      component: loadView( 'Statistics' ),
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: loadView( 'Admin' ),
+    },
+    {
+      path: '/categories',
+      name: 'categories',
+      component: loadView( 'Categories' ),
+    },
+    {
+      path: '/beneficiaries',
+      name: 'beneficiaries',
+      component: loadView( 'Beneficiaries' ),
+    },
+    {
+      path: '/tokenization',
+      name: 'tokenization',
+      component: loadView( 'Tokenization' ),
     },
     {
       path: '/create-forum',

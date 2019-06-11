@@ -1,330 +1,371 @@
 <template>
-  <div class="container setting-view">
-    <p>Settings</p>
-
-    <h3 class="title">
-      Admins
-    </h3>
-    <b-table
-      :data="ownerData"
-      :loading="fetching"
-      mobile-cards
-    >
-      <template slot-scope="oprops">
-        <div class="columns is-tablet box">
-          <div class="column">
-            {{ oprops.row.username }}
-          </div>
-          <div class="column">
-            <button
-              class="button is-small"
-              :class="{ 'is-loading': fetching }"
-              :disabled="fetching"
-              @click="removeAdmin(oprops.row.username)"
+  <div class="container">
+    <section class="main-content columns is-fullheight">
+      <aside class="column is-2 is-narrow-mobile is-fullheight section is-hidden-mobile">
+        <p class="menu-label is-hidden-touch">
+          Navigation
+        </p>
+        <ul class="menu-list">
+          <li>
+            <a
+              href="#"
+              class=""
             >
-              Remove
-            </button>
-          </div>
-        </div>
-      </template>
-    </b-table>
-    <form
-      @submit.prevent="addAdmin"
-    >
-      <b-field
-        label="Add Admin"
-      >
-        <b-input
-          v-model="newAdmin"
-          placeholder="BT username"
-        />
-      </b-field>
-      <button
-        role="submit"
-        :class="{ 'is-loading': fetching }"
-        class="button is-small"
-      >
-        Add
-      </button>
-    </form>
-
-    <h3 class="title">
-      Mods
-    </h3>
-    <b-table
-      :data="modData"
-      :loading="fetching"
-      mobile-cards
-    >
-      <template slot-scope="mprops">
-        <div class="columns is-tablet box">
-          <div class="column">
-            {{ mprops.row.username }}
-          </div>
-          <div class="column">
-            <button
-              class="button is-small"
-              :class="{ 'is-loading': fetching }"
-              :disabled="fetching"
-              @click="removeMod(mprops.row.username)"
-            >
-              Remove
-            </button>
-          </div>
-        </div>
-      </template>
-    </b-table>
-    <form
-      @submit.prevent="addMod"
-    >
-      <b-field
-        label="Add Mod"
-      >
-        <b-input
-          v-model="newMod"
-          placeholder="BT username"
-        />
-      </b-field>
-      <button
-        role="submit"
-        :class="{ 'is-loading': fetching }"
-        class="button is-small"
-      >
-        Add
-      </button>
-    </form>
-
-
-    <h3 class="title">
-      Categories
-    </h3>
-
-    <div class="card-content content">
-      <div v-if="orderEdit">
-        <button
-          class="button is-small"
-          :class="{ 'is-loading': fetching }"
-          :disabled="fetching"
-          @click="saveOrdering()"
-        >
-          Save Ordering
-        </button>
-        <button
-          class="button is-small"
-          :class="{ 'is-loading': fetching }"
-          :disabled="fetching"
-          @click="cancelOrdering()"
-        >
-          Cancel
-        </button>
-      </div>
-      <div v-else>
-        <button
-          class="button is-small"
-          :class="{ 'is-loading': fetching }"
-          :disabled="fetching || activeEdits"
-          @click="enableOrderingEdit()"
-        >
-          Modify Order
-        </button>
-      </div>
-      <Tree
-        :data="[ categoryTree.tree ]"
-        draggable
-      >
-        <template slot-scope="props">
-          <div
-            v-if="props.data.isGroup"
-            class="is-tablet box cat-style"
+              Forum Settings
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              Forum Statistics
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              Admins & Mods
+            </a>
+          </li>
+          <li>
+            <a href="">
+              Categories
+            </a>
+          </li>
+          <li>
+            <a href="">
+              Beneficiaries
+            </a>
+          </li>
+          <li>
+            <a href="">
+              Tokenization
+            </a>
+          </li>
+        </ul>
+      </aside>
+      <div class="container column is-10">
+        <div class="section">
+          <b-table
+            :data="ownerData"
+            :loading="fetching"
+            mobile-cards
+          >
+            <template slot-scope="oprops">
+              <div class="columns is-tablet box">
+                <div class="column">
+                  {{ oprops.row.username }}
+                </div>
+                <div class="column">
+                  <button
+                    class="button is-small"
+                    :class="{ 'is-loading': fetching }"
+                    :disabled="fetching"
+                    @click="removeAdmin(oprops.row.username)"
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+            </template>
+          </b-table>
+          <form
+            @submit.prevent="addAdmin"
           >
             <b-field
-              v-if="props.data.edit"
+              label="Add Admin"
             >
               <b-input
-                v-model="props.data.edit.name"
-                placeholder="Name"
-                :maxlength="64"
-                :has-counter="false"
+                v-model="newAdmin"
+                placeholder="BT username"
               />
+            </b-field>
+            <button
+              role="submit"
+              :class="{ 'is-loading': fetching }"
+              class="button is-small"
+            >
+              Add
+            </button>
+          </form>
+
+          <h3 class="title">
+            Mods
+          </h3>
+          <b-table
+            :data="modData"
+            :loading="fetching"
+            mobile-cards
+          >
+            <template slot-scope="mprops">
+              <div class="columns is-tablet box">
+                <div class="column">
+                  {{ mprops.row.username }}
+                </div>
+                <div class="column">
+                  <button
+                    class="button is-small"
+                    :class="{ 'is-loading': fetching }"
+                    :disabled="fetching"
+                    @click="removeMod(mprops.row.username)"
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+            </template>
+          </b-table>
+          <form
+            @submit.prevent="addMod"
+          >
+            <b-field
+              label="Add Mod"
+            >
+              <b-input
+                v-model="newMod"
+                placeholder="BT username"
+              />
+            </b-field>
+            <button
+              role="submit"
+              :class="{ 'is-loading': fetching }"
+              class="button is-small"
+            >
+              Add
+            </button>
+          </form>
+
+
+          <h3 class="title">
+            Categories
+          </h3>
+
+          <div class="card-content content">
+            <div v-if="orderEdit">
               <button
-                v-if="props.data.edit"
                 class="button is-small"
                 :class="{ 'is-loading': fetching }"
                 :disabled="fetching"
-                @click="saveGroup( props.data.nav )"
+                @click="saveOrdering()"
               >
-                Save
+                Save Ordering
               </button>
               <button
                 class="button is-small"
                 :class="{ 'is-loading': fetching }"
                 :disabled="fetching"
-                @click="cancelGroupEdit( props.data.nav )"
+                @click="cancelOrdering()"
               >
                 Cancel
               </button>
-            </b-field>
-            <div
-              v-else
+            </div>
+            <div v-else>
+              <button
+                class="button is-small"
+                :class="{ 'is-loading': fetching }"
+                :disabled="fetching || activeEdits"
+                @click="enableOrderingEdit()"
+              >
+                Modify Order
+              </button>
+            </div>
+            <Tree
+              :data="[ categoryTree.tree ]"
+              draggable
             >
-              <a
-                class=""
-                @click="props.store.toggleOpen( props.data )"
-              >
-                <b-icon
-                  :icon="props.data.open ? 'menu-up' : 'menu-down'"
-                />
-              </a>
-              {{ props.data.name }}
-              <button
-                class="button is-small"
-                :class="{ 'is-loading': fetching }"
-                :disabled="fetching || activeEdits"
-                @click="enableGroupEdit(props.data.nav)"
-              >
-                Edit
-              </button>
-              <button
-                v-if="props.data.children.length == 0"
-                class="button is-small"
-                :class="{ 'is-loading': fetching }"
-                :disabled="fetching || activeEdits"
-                @click="removeGroup(props.data.nav)"
-              >
-                Remove
-              </button>
-            </div>
-            <div v-if="props.data.open">
-              <button
-                class="button is-small"
-                :class="{ 'is-loading': fetching }"
-                :disabled="fetching || activeEdits"
-                @click="addGroupToGroup(props.data.nav)"
-              >
-                Add Category Group
-              </button>
-              <button
-                class="button is-small"
-                :class="{ 'is-loading': fetching }"
-                :disabled="fetching || activeEdits"
-                @click="addCategoryToGroup(props.data.nav)"
-              >
-                Add Category
-              </button>
-            </div>
-          </div>
-          <div
-            v-else
-            class="columns is-tablet box cat-style"
-          >
-            <div class="column cat-stats">
-              <span class="cprops-title">{{ props.data.slug }}</span>
-            </div>
-            <div class="column cat-stats">
-              <b-field
-                v-if="props.data.edit"
-              >
-                Name
-                <b-input
-                  v-model="props.data.edit.name"
-                  placeholder="Name"
-                  :maxlength="64"
-                  :has-counter="false"
-                />
-              </b-field>
-              <div
-                v-else
-              >
-                {{ props.data.name }}
-              </div>
-            </div>
-            <div class="column cat-stats">
-              <b-field
-                v-if="props.data.edit"
-              >
-                Title
-                <b-input
-                  v-model="props.data.edit.title"
-                  placeholder="Title"
-                  :maxlength="64"
-                  :has-counter="false"
-                />
-              </b-field>
-              <div
-                v-else
-              >
-                {{ props.data.title }}
-              </div>
-            </div>
-            <div class="column cat-stats">
-              <b-field
-                v-if="props.data.edit"
-              >
-                Description
-                <b-input
-                  v-model="props.data.edit.description"
-                  placeholder="Description"
-                  :maxlength="320"
-                  :has-counter="false"
-                />
-              </b-field>
-              <div
-                v-else
-              >
-                {{ props.data.description }}
-              </div>
-            </div>
-            <div class="column cat-stats">
-              <b-field
-                v-if="props.data.edit"
-              >
-                <b-checkbox
-                  v-model="props.data.edit.hidden"
+              <template slot-scope="props">
+                <div
+                  v-if="props.data.isGroup"
+                  class="is-tablet box cat-style"
                 >
-                  Hidden
-                </b-checkbox>
-              </b-field>
-              <div
-                v-else
-              >
-                <b-checkbox
-                  v-model="props.data.hidden"
-                  disabled
+                  <b-field
+                    v-if="props.data.edit"
+                  >
+                    <b-input
+                      v-model="props.data.edit.name"
+                      placeholder="Name"
+                      :maxlength="64"
+                      :has-counter="false"
+                    />
+                    <button
+                      v-if="props.data.edit"
+                      class="button is-small"
+                      :class="{ 'is-loading': fetching }"
+                      :disabled="fetching"
+                      @click="saveGroup( props.data.nav )"
+                    >
+                      Save
+                    </button>
+                    <button
+                      class="button is-small"
+                      :class="{ 'is-loading': fetching }"
+                      :disabled="fetching"
+                      @click="cancelGroupEdit( props.data.nav )"
+                    >
+                      Cancel
+                    </button>
+                  </b-field>
+                  <div
+                    v-else
+                  >
+                    <a
+                      class=""
+                      @click="props.store.toggleOpen( props.data )"
+                    >
+                      <b-icon
+                        :icon="props.data.open ? 'menu-up' : 'menu-down'"
+                      />
+                    </a>
+                    {{ props.data.name }}
+                    <button
+                      class="button is-small"
+                      :class="{ 'is-loading': fetching }"
+                      :disabled="fetching || activeEdits"
+                      @click="enableGroupEdit(props.data.nav)"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      v-if="props.data.children.length == 0"
+                      class="button is-small"
+                      :class="{ 'is-loading': fetching }"
+                      :disabled="fetching || activeEdits"
+                      @click="removeGroup(props.data.nav)"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                  <div v-if="props.data.open">
+                    <button
+                      class="button is-small"
+                      :class="{ 'is-loading': fetching }"
+                      :disabled="fetching || activeEdits"
+                      @click="addGroupToGroup(props.data.nav)"
+                    >
+                      Add Category Group
+                    </button>
+                    <button
+                      class="button is-small"
+                      :class="{ 'is-loading': fetching }"
+                      :disabled="fetching || activeEdits"
+                      @click="addCategoryToGroup(props.data.nav)"
+                    >
+                      Add Category
+                    </button>
+                  </div>
+                </div>
+                <div
+                  v-else
+                  class="columns is-tablet box cat-style"
                 >
-                  Hidden
-                </b-checkbox>
-              </div>
-            </div>
-            <div class="column">
-              <button
-                v-if="props.data.edit"
-                class="button is-small"
-                style="min-width: 40px; max-width: 40px ; width: 40px"
-                :class="{ 'is-loading': fetching }"
-                :disabled="fetching"
-                @click="props.data.slug ? saveCategory( props.data.slug ) : addCategory( props.data.nav )"
-              >
-                Save
-              </button>
-              <button
-                class="button is-small"
-                style="min-width: 40px; max-width: 40px ; width: 40px"
-                :class="{ 'is-loading': fetching }"
-                :disabled="fetching || ( !props.data.edit && activeEdits )"
-                @click="props.data.slug ? toggleCategoryEdit( props.data.slug ) : cancelAdd( props.data.nav )"
-              >
-                <div v-if="props.data.edit">
-                  Cancel
+                  <div class="column cat-stats">
+                    <span class="cprops-title">{{ props.data.slug }}</span>
+                  </div>
+                  <div class="column cat-stats">
+                    <b-field
+                      v-if="props.data.edit"
+                    >
+                      Name
+                      <b-input
+                        v-model="props.data.edit.name"
+                        placeholder="Name"
+                        :maxlength="64"
+                        :has-counter="false"
+                      />
+                    </b-field>
+                    <div
+                      v-else
+                    >
+                      {{ props.data.name }}
+                    </div>
+                  </div>
+                  <div class="column cat-stats">
+                    <b-field
+                      v-if="props.data.edit"
+                    >
+                      Title
+                      <b-input
+                        v-model="props.data.edit.title"
+                        placeholder="Title"
+                        :maxlength="64"
+                        :has-counter="false"
+                      />
+                    </b-field>
+                    <div
+                      v-else
+                    >
+                      {{ props.data.title }}
+                    </div>
+                  </div>
+                  <div class="column cat-stats">
+                    <b-field
+                      v-if="props.data.edit"
+                    >
+                      Description
+                      <b-input
+                        v-model="props.data.edit.description"
+                        placeholder="Description"
+                        :maxlength="320"
+                        :has-counter="false"
+                      />
+                    </b-field>
+                    <div
+                      v-else
+                    >
+                      {{ props.data.description }}
+                    </div>
+                  </div>
+                  <div class="column cat-stats">
+                    <b-field
+                      v-if="props.data.edit"
+                    >
+                      <b-checkbox
+                        v-model="props.data.edit.hidden"
+                      >
+                        Hidden
+                      </b-checkbox>
+                    </b-field>
+                    <div
+                      v-else
+                    >
+                      <b-checkbox
+                        v-model="props.data.hidden"
+                        disabled
+                      >
+                        Hidden
+                      </b-checkbox>
+                    </div>
+                  </div>
+                  <div class="column">
+                    <button
+                      v-if="props.data.edit"
+                      class="button is-small"
+                      style="min-width: 40px; max-width: 40px ; width: 40px"
+                      :class="{ 'is-loading': fetching }"
+                      :disabled="fetching"
+                      @click="props.data.slug ? saveCategory( props.data.slug ) : addCategory( props.data.nav )"
+                    >
+                      Save
+                    </button>
+                    <button
+                      class="button is-small"
+                      style="min-width: 40px; max-width: 40px ; width: 40px"
+                      :class="{ 'is-loading': fetching }"
+                      :disabled="fetching || ( !props.data.edit && activeEdits )"
+                      @click="props.data.slug ? toggleCategoryEdit( props.data.slug ) : cancelAdd( props.data.nav )"
+                    >
+                      <div v-if="props.data.edit">
+                        Cancel
+                      </div>
+                      <div v-else>
+                        Edit
+                      </div>
+                    </button>
+                  </div>
                 </div>
-                <div v-else>
-                  Edit
-                </div>
-              </button>
-            </div>
+              </template>
+            </Tree>
           </div>
-        </template>
-      </Tree>
-    </div>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 

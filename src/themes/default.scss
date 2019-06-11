@@ -190,7 +190,12 @@ button.dropdown-item {
 .topic-nav {
   margin: 10px 0 10px 0;
 }
-//Category Page {
+// Setting Page {
+.menu-list li a {
+  color: $link;
+}
+
+
   .card-header {
     border-bottom: 1px solid $background;
     box-shadow: none;
@@ -228,7 +233,7 @@ button.dropdown-item {
 
 
   .setting-view {
-    h1,h2,h3,h4,h5,h6 {
+    h1,h2,h3,h4,h5,h6, {
       color: $content;
     }
   }
@@ -338,6 +343,14 @@ a.pagination-link.is-current {
   background-color: $background;
   border-color: $primary;
 }
+  // Dashboard Style //
+  .dashboard {
+    h1 {
+      color: white !important;
+      font-size: 2rem;
+    }
+
+  }
 // make sure to have all sensible defaults set
   @import "./global/sensible-defaults.scss";
 }
