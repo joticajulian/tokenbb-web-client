@@ -345,10 +345,48 @@ a.pagination-link.is-current {
 }
   // Dashboard Style //
   .dashboard {
-    h1 {
-      color: white !important;
-      font-size: 2rem;
+    .field {
+      width: 50%;
     }
+    .b-table .table {
+      padding: 0px;
+    }
+    .level {
+      padding-bottom: 1rem;
+    }
+    .header {
+      text-transform: uppercase;
+      font-size: 1.6rem;
+      color: white;
+    }
+    .sub-header {
+      text-transform: uppercase;
+      font-size: 1.2rem;
+      color: white;
+      padding-bottom: 1rem;
+    }
+    &__section {
+    }
+
+    &__admins {
+      border-bottom: 1px solid $link;
+      border-radius: 2px;
+      margin-bottom: 1rem;
+    }
+
+    &__mods {
+      border-bottom: 1px solid $link;
+      margin-bottom: 1rem;
+    }
+    &__username {
+      color: white;
+      font-size: 1rem;
+    }
+    &__form {
+      border-bottom: 1px solid $link;
+      padding-bottom: 1rem;
+    }
+
 
   }
 // make sure to have all sensible defaults set

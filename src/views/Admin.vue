@@ -1,6 +1,8 @@
 <template>
   <div class="container dashboard">
-    <h1>Admins & Mods</h1>
+    <h1 class="header">
+      Admins & Mods
+    </h1>
     <section class="main-content columns is-fullheight">
       <aside class="column is-2 is-narrow-mobile is-fullheight section is-hidden-mobile">
         <p class="menu-label is-hidden-touch">
@@ -43,18 +45,21 @@
         </ul>
       </aside>
       <div class="container column is-10">
-        <div class="section">
+        <div class="dashboard__section">
+          <h2 class="sub-header">
+            Administrators
+          </h2>
           <b-table
             :data="ownerData"
             :loading="fetching"
             mobile-cards
           >
             <template slot-scope="oprops">
-              <div class="columns is-tablet box">
-                <div class="column">
+              <div class="level is-tablet dashboard__admins">
+                <div class="level-left dashboard__username">
                   {{ oprops.row.username }}
                 </div>
-                <div class="column">
+                <div class="level-right">
                   <button
                     class="button is-small"
                     :class="{ 'is-loading': fetching }"
@@ -68,39 +73,38 @@
             </template>
           </b-table>
           <form
+            class="dashboard__form level"
             @submit.prevent="addAdmin"
           >
-            <b-field
-              label="Add Admin"
-            >
+            <b-field>
               <b-input
                 v-model="newAdmin"
                 placeholder="BT username"
+                class="level-left"
               />
             </b-field>
             <button
               role="submit"
               :class="{ 'is-loading': fetching }"
-              class="button is-small"
+              class="button is-small level-right"
             >
               Add
             </button>
           </form>
-
-          <h3 class="title">
-            Mods
-          </h3>
+          <h2 class="sub-header">
+            Moderators
+          </h2>
           <b-table
             :data="modData"
             :loading="fetching"
             mobile-cards
           >
             <template slot-scope="mprops">
-              <div class="columns is-tablet box">
-                <div class="column">
+              <div class="level dashboard__mods">
+                <div class="level-left dashboard__username">
                   {{ mprops.row.username }}
                 </div>
-                <div class="column">
+                <div class="level-right">
                   <button
                     class="button is-small"
                     :class="{ 'is-loading': fetching }"
@@ -114,20 +118,20 @@
             </template>
           </b-table>
           <form
+            class="level"
             @submit.prevent="addMod"
           >
-            <b-field
-              label="Add Mod"
-            >
+            <b-field>
               <b-input
                 v-model="newMod"
                 placeholder="BT username"
+                class="level-left"
               />
             </b-field>
             <button
               role="submit"
               :class="{ 'is-loading': fetching }"
-              class="button is-small"
+              class="button is-small level-right"
             >
               Add
             </button>
