@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container dashboard">
     <section class="main-content columns is-fullheight">
       <aside class="column is-2 is-narrow-mobile is-fullheight section is-hidden-mobile">
         <p class="menu-label is-hidden-touch">
@@ -8,34 +8,34 @@
         <ul class="menu-list">
           <li>
             <a
-              href="#"
+              href="/settings"
               class=""
             >
               Forum Settings
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="/statistics">
               Forum Statistics
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="/admin">
               Admins & Mods
             </a>
           </li>
           <li>
-            <a href="">
+            <a href="/categories">
               Categories
             </a>
           </li>
           <li>
-            <a href="">
+            <a href="/beneficiaries">
               Beneficiaries
             </a>
           </li>
           <li>
-            <a href="">
+            <a href="/tokenization">
               Tokenization
             </a>
           </li>
@@ -43,99 +43,9 @@
       </aside>
       <div class="container column is-10">
         <div class="section">
-          <b-table
-            :data="ownerData"
-            :loading="fetching"
-            mobile-cards
-          >
-            <template slot-scope="oprops">
-              <div class="columns is-tablet box">
-                <div class="column">
-                  {{ oprops.row.username }}
-                </div>
-                <div class="column">
-                  <button
-                    class="button is-small"
-                    :class="{ 'is-loading': fetching }"
-                    :disabled="fetching"
-                    @click="removeAdmin(oprops.row.username)"
-                  >
-                    Remove
-                  </button>
-                </div>
-              </div>
-            </template>
-          </b-table>
-          <form
-            @submit.prevent="addAdmin"
-          >
-            <b-field
-              label="Add Admin"
-            >
-              <b-input
-                v-model="newAdmin"
-                placeholder="BT username"
-              />
-            </b-field>
-            <button
-              role="submit"
-              :class="{ 'is-loading': fetching }"
-              class="button is-small"
-            >
-              Add
-            </button>
-          </form>
-
-          <h3 class="title">
-            Mods
-          </h3>
-          <b-table
-            :data="modData"
-            :loading="fetching"
-            mobile-cards
-          >
-            <template slot-scope="mprops">
-              <div class="columns is-tablet box">
-                <div class="column">
-                  {{ mprops.row.username }}
-                </div>
-                <div class="column">
-                  <button
-                    class="button is-small"
-                    :class="{ 'is-loading': fetching }"
-                    :disabled="fetching"
-                    @click="removeMod(mprops.row.username)"
-                  >
-                    Remove
-                  </button>
-                </div>
-              </div>
-            </template>
-          </b-table>
-          <form
-            @submit.prevent="addMod"
-          >
-            <b-field
-              label="Add Mod"
-            >
-              <b-input
-                v-model="newMod"
-                placeholder="BT username"
-              />
-            </b-field>
-            <button
-              role="submit"
-              :class="{ 'is-loading': fetching }"
-              class="button is-small"
-            >
-              Add
-            </button>
-          </form>
-
-
-          <h3 class="title">
+          <h1 class="title">
             Categories
-          </h3>
+          </h1>
 
           <div class="card-content content">
             <div v-if="orderEdit">
@@ -407,7 +317,6 @@ export default {
     BField: Field,
     BInput: Input,
     Tree: DraggableTree,
-    BTable: Table,
   },
   data() {
     return {
