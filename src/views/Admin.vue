@@ -1,10 +1,10 @@
 <template>
   <div class="container dashboard">
-    <h1 class="header">
-      Admins & Mods
-    </h1>
     <section class="main-content columns is-fullheight">
       <aside class="column is-2 is-narrow-mobile is-fullheight section is-hidden-mobile">
+        <h1 class="header">
+          Admins & Mods
+        </h1>
         <p class="menu-label is-hidden-touch">
           Navigation
         </p>
@@ -44,7 +44,7 @@
           </li>
         </ul>
       </aside>
-      <div class="container column is-10">
+      <div class="container column">
         <div class="dashboard__section">
           <section class="administrators">
             <h2 class="sub-header">

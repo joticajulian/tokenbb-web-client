@@ -41,7 +41,7 @@
           </li>
         </ul>
       </aside>
-      <div class="container column is-10 dashboard__categories">
+      <div class="container column dashboard__categories">
         <div class="level">
           <h1 class="header level-left">
             Categories
