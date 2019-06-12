@@ -384,9 +384,6 @@ a.pagination-link.is-current {
       margin-top: 1.2rem;
       padding: 25px;
     }
-    &__section {
-    }
-
     &__admins {
       border-bottom: 1px solid $link;
       border-radius: 2px;
@@ -404,7 +401,16 @@ a.pagination-link.is-current {
     &__form {
       padding-bottom: 1rem;
     }
+    // Categories Ordering Page
+    &__categories {
 
+      .save-ordering {
+        margin-right: 10px;
+      }
+      .section {
+        padding: 0px;
+      }
+    }
 
   }
 // make sure to have all sensible defaults set

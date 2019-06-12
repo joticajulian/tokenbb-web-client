@@ -41,41 +41,45 @@
           </li>
         </ul>
       </aside>
-      <div class="container column is-10">
-        <div class="section">
-          <h1 class="title">
+      <div class="container column is-10 dashboard__categories">
+        <div class="level">
+          <h1 class="header level-left">
             Categories
           </h1>
-
-          <div class="card-content content">
-            <div v-if="orderEdit">
-              <button
-                class="button is-small"
-                :class="{ 'is-loading': fetching }"
-                :disabled="fetching"
-                @click="saveOrdering()"
-              >
-                Save Ordering
-              </button>
-              <button
-                class="button is-small"
-                :class="{ 'is-loading': fetching }"
-                :disabled="fetching"
-                @click="cancelOrdering()"
-              >
-                Cancel
-              </button>
-            </div>
-            <div v-else>
-              <button
-                class="button is-small"
-                :class="{ 'is-loading': fetching }"
-                :disabled="fetching || activeEdits"
-                @click="enableOrderingEdit()"
-              >
-                Modify Order
-              </button>
-            </div>
+          <div
+            v-if="orderEdit"
+            class="level-right"
+          >
+            <button
+              class="button is-small save-ordering"
+              :class="{ 'is-loading': fetching }"
+              :disabled="fetching"
+              @click="saveOrdering()"
+            >
+              Save Ordering
+            </button>
+            <button
+              class="button is-small cancel-ordering"
+              :class="{ 'is-loading': fetching }"
+              :disabled="fetching"
+              @click="cancelOrdering()"
+            >
+              Cancel
+            </button>
+          </div>
+          <div v-else>
+            <button
+              class="button is-small modify-ordering"
+              :class="{ 'is-loading': fetching }"
+              :disabled="fetching || activeEdits"
+              @click="enableOrderingEdit()"
+            >
+              Modify Order
+            </button>
+          </div>
+        </div>
+        <div class="section">
+          <div class="">
             <Tree
               :data="[ categoryTree.tree ]"
               draggable
@@ -83,7 +87,7 @@
               <template slot-scope="props">
                 <div
                   v-if="props.data.isGroup"
-                  class="is-tablet box cat-style"
+                  class="is-tablet level"
                 >
                   <b-field
                     v-if="props.data.edit"
@@ -114,18 +118,11 @@
                   </b-field>
                   <div
                     v-else
+                    class="level-left"
                   >
-                    <a
-                      class=""
-                      @click="props.store.toggleOpen( props.data )"
-                    >
-                      <b-icon
-                        :icon="props.data.open ? 'menu-up' : 'menu-down'"
-                      />
-                    </a>
                     {{ props.data.name }}
                     <button
-                      class="button is-small"
+                      class="button is-small level-right"
                       :class="{ 'is-loading': fetching }"
                       :disabled="fetching || activeEdits"
                       @click="enableGroupEdit(props.data.nav)"
@@ -160,15 +157,23 @@
                       Add Category
                     </button>
                   </div>
+                  <a
+                    class="level-right"
+                    @click="props.store.toggleOpen( props.data )"
+                  >
+                    <b-icon
+                      :icon="props.data.open ? 'menu-up' : 'menu-down'"
+                    />
+                  </a>
                 </div>
                 <div
                   v-else
-                  class="columns is-tablet box cat-style"
+                  class="columns is-tablet"
                 >
-                  <div class="column cat-stats">
+                  <div class="column">
                     <span class="cprops-title">{{ props.data.slug }}</span>
                   </div>
-                  <div class="column cat-stats">
+                  <div class="column">
                     <b-field
                       v-if="props.data.edit"
                     >
@@ -186,7 +191,7 @@
                       {{ props.data.name }}
                     </div>
                   </div>
-                  <div class="column cat-stats">
+                  <div class="column">
                     <b-field
                       v-if="props.data.edit"
                     >
@@ -204,7 +209,7 @@
                       {{ props.data.title }}
                     </div>
                   </div>
-                  <div class="column cat-stats">
+                  <div class="column">
                     <b-field
                       v-if="props.data.edit"
                     >
@@ -222,7 +227,7 @@
                       {{ props.data.description }}
                     </div>
                   </div>
-                  <div class="column cat-stats">
+                  <div class="column">
                     <b-field
                       v-if="props.data.edit"
                     >

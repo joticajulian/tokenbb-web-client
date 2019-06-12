@@ -1,6 +1,8 @@
 <template>
   <div class="container dashboard">
-    <h1>Forum Beneficiaries</h1>
+    <h1 class="header">
+      Forum Beneficiaries
+    </h1>
     <section class="main-content columns is-fullheight">
       <aside class="column is-2 is-narrow-mobile is-fullheight section is-hidden-mobile">
         <p class="menu-label is-hidden-touch">
@@ -43,7 +45,11 @@
         </ul>
       </aside>
       <div class="container column is-10">
-        <div class="section" />
+        <div class="section">
+          <h2 class="sub-header">
+            Feature Coming Soon™
+          </h2>
+        </div>
       </div>
     </section>
   </div>

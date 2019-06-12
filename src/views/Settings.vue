@@ -43,7 +43,11 @@
         </ul>
       </aside>
       <div class="container column is-10">
-        <div class="section" />
+        <div class="section">
+          <h2 class="sub-header">
+            Feature Coming Soon™
+          </h2>
+        </div>
       </div>
     </section>
   </div>
