@@ -22,6 +22,7 @@
 @import "./themes/steem.scss";
 @import "./themes/lightmode.scss";
 @import "./themes/darkmode.scss";
+@import "./themes/nextcolony.scss";
 </style>
 
 <script>
