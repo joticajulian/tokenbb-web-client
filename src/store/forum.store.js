@@ -34,6 +34,10 @@ export default {
       symbol: '',
       precision: 3,
     },
+    beneficiaries: {
+      max: 1000,
+      split: [],
+    },
   },
   mutations: {
     setFetching( state, fetching ) {
@@ -57,6 +61,23 @@ export default {
       state.token.enabled = Boolean( forum.token && forum.token.SCOT );
       state.token.symbol = ( forum.token && forum.token.symbol ) || '';
       state.token.precision = ( forum.token && forum.token.precision ) || 3;
+      state.beneficiaries.max = ( forum.beneficiaries && forum.beneficiaries.max ) || 1000;
+      state.beneficiaries.split = ( forum.beneficiaries && forum.beneficiaries.split ) || [];
+      let overallRewards = 0;
+      const beneficiaries = state.beneficiaries.split
+        .map( ( beneficiary ) => {
+          const weight = beneficiary.share;
+          const account = beneficiary.steemaccount;
+          overallRewards += weight;
+          return { account, weight };
+        } );
+      const btWeight = Math.floor( state.beneficiaries.max - overallRewards );
+      if ( btWeight > 0 ) {
+        beneficiaries.push( {
+          account: 'tokenbb',
+          weight: btWeight,
+        } );
+      }
       this.commit( 'categories/updateCategoryOrderingData' );
     },
   },

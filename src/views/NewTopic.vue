@@ -47,6 +47,9 @@
       >
         Cancel
       </button>
+      <span class="label is-small has-text-grey-light">
+        This forum takes {{ (this.beneficiaries.max/100).toFixed(2) }}% beneficiaries
+      </span>
     </form>
   </div>
 </template>
@@ -82,6 +85,9 @@ export default {
   computed: {
     ...mapState( 'categories', [
       'categoryList',
+    ] ),
+    ...mapState( 'forum', [
+      'beneficiaries',
     ] ),
   },
   watch: {
