@@ -12,23 +12,25 @@
     </b-field>
 
     <b-field>
-      <div>
-        <button
-          class="button is-small is-topic"
-          role="submit"
-          :disabled="text.length == 0"
-          :class="{ 'is-loading': fetching }"
-        >
-          Reply
-        </button>
-      </div>
+      <button
+        class="button is-small is-topic"
+        role="submit"
+        :disabled="text.length == 0"
+        :class="{ 'is-loading': fetching }"
+      >
+        Reply
+      </button>
     </b-field>
+    <span class="label is-small has-text-grey-light">
+      This forum takes {{ (this.beneficiaries.max/100).toFixed(2) }}% beneficiaries
+    </span>
   </form>
 </template>
 
 <script>
 
 import Field from 'buefy/src/components/field/Field';
+import { mapState } from 'vuex';
 
 import TextEditor from './TextEditor.vue';
 
@@ -53,6 +55,11 @@ export default {
         [ 'code-block' ],
       ],
     };
+  },
+  computed: {
+    ...mapState( 'forum', [
+      'beneficiaries',
+    ] ),
   },
   methods: {
     handleTextChange( value ) {
