@@ -12,7 +12,7 @@
             <template slot-scope="cgprops">
               <b-collapse
                 v-if="cgprops.row.groups.length > 0 || cgprops.row.categories.length > 0"
-                :open="false"
+                :open="openGroupsByDefault"
                 class="card box-style"
                 aria-id="contentIdForA11y3"
               >
@@ -125,6 +125,9 @@ export default {
     },
     categoryGroups() {
       return this.categoriesByBreadcrumb ? this.categoriesByBreadcrumb.groups : [];
+    },
+    openGroupsByDefault() {
+      return !this.categoriesByBreadcrumb || this.categoriesByBreadcrumb.groups.length <= 2;
     },
   },
 };
