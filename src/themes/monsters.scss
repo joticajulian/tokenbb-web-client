@@ -252,6 +252,30 @@
     max-width: none;
   }
 
+  // VP and RC indicator
+  .progress::-webkit-progress-bar {
+    background-color: rgb(96, 144, 151);
+  }
+
+  .progress::-webkit-progress-value {
+    background-color: #00414b;
+  }
+
+  .progress::-moz-progress-bar {
+    background-color: #00414b;
+  }
+
+  .progress::-ms-fill {
+    background-color: #00414b;
+    border: none;
+  }
+
+  .progress-label {
+    font-family: 'Nanami Bold Oblique', sans-serif;
+    color: #86CED9;
+    text-transform: uppercase;
+  }
+
   // Button
   .button.is-small {
     border-radius: 8px;

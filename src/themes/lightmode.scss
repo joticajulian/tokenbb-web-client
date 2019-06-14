@@ -106,6 +106,29 @@ h5.card-header-title a {
     background-color: $background;
     padding: 1rem 0; 
   }
+
+// VP and RC indicator
+.progress::-webkit-progress-bar {
+  background-color: #dee5ed;
+}
+
+.progress::-webkit-progress-value {
+  background-color: #1f2d3b;
+}
+
+.progress::-moz-progress-bar {
+  background-color: #1f2d3b;
+}
+
+.progress::-ms-fill {
+  background-color: #1f2d3b;
+  border: none;
+}
+
+.progress-label {
+  color: #1f2d3b;
+}
+
 //Button
 .button.is-small {
   background-color: $link;
