@@ -132,7 +132,6 @@ export default {
         window.BTSSO.rememberSteemAccountForApp( `${global.forumname}.tokenbb`, current );
       }
 
-      state.current = 'reggaemuffin';
       client.database.getAccounts( [ state.current ] ).then( ( _accounts ) => {
         const account = _accounts[0];
 
