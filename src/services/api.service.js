@@ -302,3 +302,14 @@ export function getValidTopic( author, permlink ) {
       throw err;
     } );
 }
+
+export function getVotingPower( username ) {
+  const opts = {
+    method: 'GET',
+    json: true,
+    headers: {},
+    url: `http://scot-api.steem-engine.com/@${username}`,
+  };
+
+  return requestAsync( opts );
+}

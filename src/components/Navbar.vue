@@ -32,6 +32,65 @@
       :class="{ 'is-active': menuActive }"
     >
       <div class="navbar-end">
+        <table>
+          <tr>
+            <td>
+              <progress
+                :title="`Votig Power: ${auth.vp}%`"
+                class="progress"
+                style="width: 10vw; height:1vh; margin-top: 0.7vh"
+                :value="auth.vp"
+                max="100"
+              />
+            </td>
+            <td>
+              <p
+                class="progress-label"
+                style="margin: 0 1vw; font-size:1.5vh"
+              >
+                vp
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <progress
+                :title="`Scot Votig Power: ${auth.scotVp}%`"
+                class="progress"
+                style="width: 10vw; height:1vh; margin-top: 0.7vh"
+                :value="auth.scotVp"
+                max="100"
+              />
+            </td>
+            <td>
+              <p
+                class="progress-label"
+                style="margin: 0 1vw; font-size:1.5vh"
+              >
+                scot vp
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <progress
+                :title="`Resource Credits: ${auth.rc}%`"
+                class="progress"
+                style="width: 10vw; height:1vh; margin-top: 0.7vh"
+                :value="auth.rc"
+                max="100"
+              />
+            </td>
+            <td>
+              <p
+                class="progress-label"
+                style="margin: 0 1vw; font-size:1.5vh"
+              >
+                rc
+              </p>
+            </td>
+          </tr>
+        </table>
         <div class="navbar-item is-expanded tr">
           <div class="nav-account">
             <p
@@ -55,7 +114,6 @@
             </p>
           </div>
         </div>
-
         <b-dropdown
           v-if="auth.username"
           class="navbar-item is-right"

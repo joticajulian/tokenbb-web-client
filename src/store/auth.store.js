@@ -3,8 +3,11 @@ import jwtdecode from 'jwt-decode';
 import { Toast } from 'buefy/dist/components/toast';
 
 import steem from '../services/steem.service';
-import { listRoles } from '../services/api.service.js';
+import { getVotingPower } from '../services/api.service.js';
 import { errorAlertOptions } from '../utils/notifications.js';
+import { Client } from 'dsteem';
+
+const client = new Client( 'https://api.steemit.com' );
 
 export default {
   namespaced: true,
@@ -22,6 +25,9 @@ export default {
     manageLink: '',
     addLink: '',
     autoMode: '',
+    vp: '',
+    scotVp: '',
+    rc: '',
   },
   mutations: {
     init( state, store ) {
@@ -125,6 +131,36 @@ export default {
         state.current = current;
         window.BTSSO.rememberSteemAccountForApp( `${global.forumname}.tokenbb`, current );
       }
+
+      state.current = 'reggaemuffin';
+      client.database.getAccounts( [ state.current ] ).then( ( _accounts ) => {
+        const account = _accounts[0];
+
+        client.database.getDynamicGlobalProperties().then( ( props ) => {
+          const CURRENT_UNIX_TIMESTAMP = parseInt( ( new Date( props.time ).getTime() / 1000 ) );
+          const totalShares = parseFloat( account.vesting_shares ) + parseFloat( account.received_vesting_shares ) - parseFloat( account.delegated_vesting_shares );
+          const elapsed = CURRENT_UNIX_TIMESTAMP - account.voting_manabar.last_update_time;
+          const maxMana = totalShares * 1000000;
+          let currentMana = parseFloat( account.voting_manabar.current_mana ) + elapsed * maxMana / 432000;
+          if ( currentMana > maxMana ) {
+            currentMana = maxMana;
+          }
+          const currentManaPerc = ( currentMana * 100 / maxMana ).toFixed( 2 );
+          state.rc = currentManaPerc;
+        } );
+
+        const lastVote = ( new Date() - new Date( account.last_vote_time + 'Z' ) ) / 1000;
+        let votingPower = account.voting_power + ( 10000 * lastVote / 432000 );
+        votingPower = Math.min( votingPower * 100, 100 ).toFixed( 2 );
+        state.vp = votingPower;
+      } );
+
+      getVotingPower( state.current ).then( ( body ) => {
+        const lastVoteScot = ( new Date() - new Date( body.SPT.last_vote_time + 'Z' ) ) / 1000;
+        let votingPowerScot = body.SPT.voting_power + ( 10000 * lastVoteScot / 432000 );
+        votingPowerScot = Math.min( votingPowerScot * 100, 100 ).toFixed( 2 );
+        state.scotVp = votingPowerScot;
+      } );
     },
   },
   computed: {
