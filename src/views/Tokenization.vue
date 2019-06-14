@@ -1,6 +1,6 @@
 <template>
   <div class="container dashboard">
-    <h1>Forum Settings</h1>
+    <h1>Forum Tokenization</h1>
     <section class="main-content columns is-fullheight">
       <aside class="column is-2 is-narrow-mobile is-fullheight section is-hidden-mobile">
         <p class="menu-label is-hidden-touch">
@@ -52,4 +52,3 @@
     </section>
   </div>
 </template>
-

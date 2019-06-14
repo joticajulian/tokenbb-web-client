@@ -595,7 +595,90 @@
       box-shadow: 2px 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
     }
   }
+  // Dashboard Style //
+  .dashboard {
+    background-color: $background;
+    width: 100%;
+    padding: 35px;
+    min-height: 100vh;
+    
+    input {
+      border-radius: 0px;
+      height: 40px;
+      padding-top: 10px;
+      width: 50%;
+    }
+    
+    .table {
+      background-color: $background;
+    }
+    .b-table .table-wrapper {
+      padding: 0px;
+      margin: 0px;
+      border-radius: 0px;
+      min-height: 100%;
+    }
+    .main-content {
+      background-color: $background;
+    }
+    .menu-label {
+      margin-top: 20px;
+      font-size: 0.8rem;
+      padding-left: 13px;
+    }
+    .menu-list li a {
+      color: $link;
+    }
+    .menu-list a:hover {
+      background-color: $background-content;
+    }
+    .header {
+      text-transform: uppercase;
+      font-size: 1.6rem;
+      color: white;
+    }
+    .sub-header {
+      text-transform: uppercase;
+      font-size: 1.2rem;
+      color: white;
+      padding-bottom: 1rem;
+    }
+    .administrators {
+      border: 1px solid $link;
+      border-radius: 2px;
+      padding: 25px;
+    }
+    .moderators {
+      border: 1px solid $link;
+      border-radius: 2px;
+      margin-top: 1.2rem;
+      padding: 25px;
+    }
+    &__section {
+      margin-left: 20px;
+    }
+    &__admins {
+      border-bottom: 1px solid $link;
+      border-radius: 2px;
+      margin-bottom: 1rem;
+    }
 
+    &__mods {
+      border-bottom: 1px solid $link;
+      margin-bottom: 1rem;
+    }
+    &__username {
+      color: white;
+      font-size: 1rem;
+    }
+    &__form {
+      padding-bottom: 1rem;
+    }
+    // Category Page
+    &__categories {
+      
+    }
+  }
   // Pagination
   .pagination {
     margin: 25px 0 25px 0;
