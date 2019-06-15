@@ -1,5 +1,7 @@
+import { transliterate as slugify } from 'transliteration';
+
 export function stringToSlug( inputStr ) {
-  let str = String( inputStr );
+  let str = slugify( String( inputStr ) );
   str = str.trim();
   str = str.toLowerCase();
 
@@ -17,5 +19,5 @@ export function stringToSlug( inputStr ) {
     .replace( /-+/g, '-' ) // collapse dashes
     .replace( /^-+/, '' ) // trim - from start of text
     .replace( /-+$/, '' ) // trim - from end of text
-    .substring( 0, 24 );
+    .substring( 0, 32 );
 }

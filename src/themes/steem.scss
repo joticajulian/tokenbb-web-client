@@ -1,14 +1,13 @@
-.theme-monsters {
+.theme-steem {
 
   @import url(https://fonts.googleapis.com/css?family=Open+Sans);
-  @import url('../public/themes/monsters/fonts/monsters-fonts.css');
 
   background-color: #001B1F;
-  $logo: url("../public/themes/monsters/splinterlands_logo_fx_1200.png");
+  $logo: url("../public/themes/steem/logo.png");
 
   // Set your brand colors
-  $primary: #df691a;
-  $tag: #04F3C6;
+  $primary: #0079FF;
+  $tag: #0079FF;
 
   // Import Bulma's core
   @import "~bulma/sass/utilities/_all";
@@ -25,17 +24,17 @@
   }
 
   //Set Colors
-  $background: #001B1F;
-  $background-content: #002A30;
-  $content: #dee5ed;
+  $background: #1B1464;
+  $background-content: #171FC9;
+  $content: #fff;
 
-  $link: #FFEDA0;
+  $link: #fff;
 
   // Media Queries
   $retina: "only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (   min--moz-device-pixel-ratio: 2), only screen and (     -o-min-device-pixel-ratio: 2/1), only screen and (        min-device-pixel-ratio: 2), only screen and (                min-resolution: 192dpi), only screen and (                min-resolution: 2dppx)";
 
   body {
-    background: url("../public/themes/monsters/bg_splinter-magic.png") no-repeat center center $background;
+    background: url("../public/themes/steem/background_nebula.jpg") no-repeat center center $background;
     background-size: cover;
     background-attachment: fixed;
   }
@@ -50,7 +49,7 @@
 
   @media #{$retina} {
     section {
-      background: url("../public/themes/monsters/bg_splinter-magic@2x.png") no-repeat center center $background;
+      background: url("../public/themes/steem/background_nebula.jpg") no-repeat center center $background;
     }
   }
 
@@ -89,7 +88,7 @@
   .post-page main,
   form.new-topic {
     padding: 30px;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(27, 20, 100, .6);
     border-radius: 25px;
     margin-bottom: 25px;
   }
@@ -109,11 +108,11 @@
   }
 
   .table-wrapper .table tr:nth-child(even) .box {
-    background-color: #001B1F;
+    background-color: #171FC9;
   }
 
   .table-wrapper .table tr .box:hover {
-    background-color: #1a4045;
+    background-color: #0079FF;
   }
 
   h6.card-header-title a {
@@ -129,7 +128,11 @@
   }
 
   .card {
-    background-color: $background-content;
+    background: #0045FF;
+    background: -moz-linear-gradient(left, #0045FF 0%, #5F00DE 100%);
+    background: -webkit-linear-gradient(left, #0045FF 0%, #5F00DE 100%);
+    background: linear-gradient(to right, #0045FF 0%, #5F00DE 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0045FF', endColorstr='#5F00DE', GradientType=1);
   }
 
   .card-header-title {
@@ -138,11 +141,11 @@
 
   // Navbar Style
   .navbar {
-    background: #002a30;
-    background: -moz-linear-gradient(left, #002a30 0%, #007888 100%);
-    background: -webkit-linear-gradient(left, #002a30 0%, #007888 100%);
-    background: linear-gradient(to right, #002a30 0%, #007888 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#002a30', endColorstr='#007888', GradientType=1);
+    background: #1B1464;
+    background: -moz-linear-gradient(left, #1B1464 0%, #0058FF 100%);
+    background: -webkit-linear-gradient(left, #1B1464 0%, #0058FF 100%);
+    background: linear-gradient(to right, #1B1464 0%, #0058FF 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1B1464', endColorstr='#0058FF', GradientType=1);
     z-index: 30;
     min-height: unset;
   }
@@ -157,7 +160,7 @@
 
   @media screen and (max-width: 1087px) {
     .navbar-menu {
-      background-color: #002A30;
+      background-color: #1B1464;
     }
   }
 
@@ -168,10 +171,10 @@
   .nav-logo a.navbar-item {
     background: $logo no-repeat center center;
     background-size: contain !important;
-    width: 318px;
-    height: 55px;
+    width: 54px;
+    height: 54px;
     padding: 0;
-    margin: 5px 0;
+    margin: 10px 0;
   }
 
   @media #{$retina} {
@@ -202,7 +205,7 @@
     font-size: 20px;
     background-color: transparent;
     border: 0;
-    color: #86CED9;
+    color: #fff;
     justify-content: center;
     padding-left: 0;
     padding-right: 0;
@@ -223,7 +226,7 @@
   }
 
   .navbar .button.is-small span {
-    color: #86CED9;
+    color: #fff;
   }
 
   .navbar .button.is-small:hover span,
@@ -258,7 +261,7 @@
     font-size: 20px;
     text-transform: uppercase;
     font-family: 'Nanami Bold Oblique', sans-serif;
-    background-color: #C3631D;
+    background-color: #5F00DE;
     border: 0;
     color: #fff;
     justify-content: center;
@@ -276,7 +279,7 @@
   .button.is-focused,
   .button.is-small:active,
   .button.is-active {
-    background-color: #c97334;
+    background-color: #4d02b0;
   }
 
   .button.is-small span {
@@ -285,7 +288,7 @@
 
   // Tag
   span.tag.is-small {
-    background: #000 !important;
+    background: #5F00DE !important;
     border: 0 !important;
     border-radius: 8px !important;
     padding: .1rem 1.5rem !important;
@@ -311,7 +314,7 @@
   }
 
   .dropdown-item {
-    color: #dee5ed;
+    color: #fff;
     display: block;
     font-size: 0.875rem;
     line-height: 1.5;
@@ -335,12 +338,12 @@
   button.dropdown-item:hover,
   a.dropdown-item.is-active,
   button.dropdown-item.is-active {
-    background-color: #FFEDA0;
-    color: #001B1F
+    background-color: #0079FF;
+    color: #1B1464
   }
 
   .dropdown-divider {
-    background-color: #4E5D6C;
+    background-color: #1B1464;
     border: none;
     display: block;
     height: 1px;
@@ -350,7 +353,7 @@
   // Breadcrumb
   .breadcrumb a,
   .breadcrumb li + li::before {
-    color: #FFEDA0;
+    color: #fff;
     font-size: 16px;
     text-transform: uppercase;
   }
@@ -373,14 +376,14 @@
 
   .topic-nav {
     margin: 0;
-    color: #FFEDA0;
+    color: #fff;
     font-size: 16px;
   }
 
   // Category Page {
 
   #contentIdForA11y3 {
-    background-color: black;
+    background-color: #1B1464;
   }
   .card-header {
     border-bottom: 1px solid $background;
@@ -437,7 +440,7 @@
 
   .card-content .box span {
     font-size: 16px;
-    color: #FFEDA0;
+    color: #fff;
   }
 
   .card-content .box span.cprops-title {
@@ -547,7 +550,7 @@
     }
 
     .box .level .level-right .level-item {
-      color: #FFEDA0;
+      color: #fff;
     }
 
     .quote-this,
@@ -584,7 +587,7 @@
     }
 
     .post .upvote-control {
-      background: #000000;
+      background: #5F00DE;
       border-radius: 8px;
       padding: .25rem 2.5rem;
       top: 0;
@@ -595,90 +598,7 @@
       box-shadow: 2px 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
     }
   }
-  // Dashboard Style //
-  .dashboard {
-    background-color: $background;
-    width: 100%;
-    padding: 35px;
-    min-height: 100vh;
-    
-    input {
-      border-radius: 0px;
-      height: 40px;
-      padding-top: 10px;
-      width: 50%;
-    }
-    
-    .table {
-      background-color: $background;
-    }
-    .b-table .table-wrapper {
-      padding: 0px;
-      margin: 0px;
-      border-radius: 0px;
-      min-height: 100%;
-    }
-    .main-content {
-      background-color: $background;
-    }
-    .menu-label {
-      margin-top: 20px;
-      font-size: 0.8rem;
-      padding-left: 13px;
-    }
-    .menu-list li a {
-      color: $link;
-    }
-    .menu-list a:hover {
-      background-color: $background-content;
-    }
-    .header {
-      text-transform: uppercase;
-      font-size: 1.6rem;
-      color: white;
-    }
-    .sub-header {
-      text-transform: uppercase;
-      font-size: 1.2rem;
-      color: white;
-      padding-bottom: 1rem;
-    }
-    .administrators {
-      border: 1px solid $link;
-      border-radius: 2px;
-      padding: 25px;
-    }
-    .moderators {
-      border: 1px solid $link;
-      border-radius: 2px;
-      margin-top: 1.2rem;
-      padding: 25px;
-    }
-    &__section {
-      margin-left: 20px;
-    }
-    &__admins {
-      border-bottom: 1px solid $link;
-      border-radius: 2px;
-      margin-bottom: 1rem;
-    }
 
-    &__mods {
-      border-bottom: 1px solid $link;
-      margin-bottom: 1rem;
-    }
-    &__username {
-      color: white;
-      font-size: 1rem;
-    }
-    &__form {
-      padding-bottom: 1rem;
-    }
-    // Category Page
-    &__categories {
-      
-    }
-  }
   // Pagination
   .pagination {
     margin: 25px 0 25px 0;
@@ -689,15 +609,15 @@
   .pagination-previous {
     font-family: 'Nanami Bold Oblique', sans-serif;
     color: #FFF;
-    background-color: #002A30;
-    border: 1px solid #002A30;
+    background-color: #5F00DE;
+    border: 1px solid #5F00DE;
     font-size: 20px;
   }
 
   .pagination-link:focus,
   .pagination-next:focus,
   .pagination-previous:focus {
-    border: 1px solid #002A30;
+    border: 1px solid #5F00DE;
   }
 
   .pagination-link:hover,
@@ -706,17 +626,18 @@
   .pagination-link:active,
   .pagination-next:active,
   .pagination-previous:active {
-    border: 1px solid #FFEDA0;
-    color: #FFEDA0;
+    border: 1px solid #4d02b0;
+    background-color: #4d02b0;
+    color: #fff;
   }
 
   .pagination .pagination-previous[disabled],
   .pagination .pagination-next[disabled],
   .pagination .pagination-link[disabled],
   .pagination a.pagination-link.is-current {
-    background-color: #067080;
-    border: 1px solid #067080;
-    color: #002A30;
+    background-color: #1B1464;
+    border: 1px solid #1B1464;
+    color: #fff;
     font-size: 20px;
     opacity: unset;
   }

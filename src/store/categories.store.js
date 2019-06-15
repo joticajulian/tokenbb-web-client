@@ -17,7 +17,12 @@ function computeCategoryOrderingData( state, categoryOrdering ) {
   function processCategoryOrdering( ordering, nav = '' ) {
     const slug = stringToSlug( ordering.slug );
     const currentNav = nav + ( nav !== '' ? '/' : '' ) + slug;
-    const categoryGroup = { name: ordering.name, nav: currentNav, slug: ordering.slug };
+    const categoryGroup = {
+      name: ordering.name,
+      slug: ordering.slug,
+      collapseByDefault: ordering.collapseByDefault,
+      nav: currentNav,
+    };
     categoryGroupsByNav[currentNav] = categoryGroup;
     categoryGroup.groups = map( ordering.groups, ( g ) => {
       return processCategoryOrdering( g, currentNav );

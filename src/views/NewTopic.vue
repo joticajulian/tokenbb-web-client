@@ -47,6 +47,9 @@
       >
         Cancel
       </button>
+      <span class="label is-small has-text-grey-light">
+        This forum takes {{ (this.beneficiaries.max/100).toFixed(2) }}% beneficiaries
+      </span>
     </form>
   </div>
 </template>
@@ -83,6 +86,9 @@ export default {
     ...mapState( 'categories', [
       'categoryList',
     ] ),
+    ...mapState( 'forum', [
+      'beneficiaries',
+    ] ),
   },
   watch: {
     categoryList( value ) {
@@ -92,7 +98,11 @@ export default {
   mounted() {
     this.setSelectedCategory( this.categoryList );
     const title = window.localStorage.getItem( this.$route.fullPath + '-TITLE' );
-    this.title = title === 'null' ? '' : title;
+    if ( !title || title === 'null' ) {
+      window.localStorage.setItem( this.$route.fullPath + '-TITLE', this.title );
+    } else {
+      this.title = title;
+    }
   },
   methods: {
     setSelectedCategory( categoryList ) {
