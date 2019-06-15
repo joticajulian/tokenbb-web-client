@@ -36,17 +36,22 @@
           <tr>
             <td>
               <progress
-                :title="`Votig Power: ${auth.vp}%`"
+                :title="`Votig Power: ${auth.vp}%\nIndicates how powerful your vote is.`"
                 class="progress"
-                style="width: 10vw; height:1vh; margin-top: 0.7vh"
                 :value="auth.vp"
                 max="100"
               />
             </td>
+            <td rowspan="2">
+              <img
+                style="height:2.3vh; margin: 1.2vh 0 0 0.4vw"
+                src="http://icons.iconarchive.com/icons/cjdowner/cryptocurrency/32/Steem-icon.png"
+              >
+            </td>
             <td>
               <p
                 class="progress-label"
-                style="margin: 0 1vw; font-size:1.5vh"
+                style="margin: 0.1vh 0.4vw; font-size:1.5vh"
               >
                 vp
               </p>
@@ -55,28 +60,8 @@
           <tr>
             <td>
               <progress
-                :title="`Scot Votig Power: ${auth.scotVp}%`"
+                :title="`Resource Credits: ${auth.rc}%\nIndicates how many transactions you can still make.`"
                 class="progress"
-                style="width: 10vw; height:1vh; margin-top: 0.7vh"
-                :value="auth.scotVp"
-                max="100"
-              />
-            </td>
-            <td>
-              <p
-                class="progress-label"
-                style="margin: 0 1vw; font-size:1.5vh"
-              >
-                scot vp
-              </p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <progress
-                :title="`Resource Credits: ${auth.rc}%`"
-                class="progress"
-                style="width: 10vw; height:1vh; margin-top: 0.7vh"
                 :value="auth.rc"
                 max="100"
               />
@@ -84,9 +69,33 @@
             <td>
               <p
                 class="progress-label"
-                style="margin: 0 1vw; font-size:1.5vh"
+                style="margin: 0.1vh 0.4vw; font-size:1.5vh"
               >
                 rc
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <progress
+                :title="`Scot Votig Power: ${auth.scotVp}%\nIndicates how powerful your vote is.`"
+                class="progress"
+                :value="auth.scotVp"
+                max="100"
+              />
+            </td>
+            <td>
+              <img
+                style="height:2vh; margin: 0.2vh 0 0 0.5vw"
+                :src="this.$store.state.forum.token.icon"
+              >
+            </td>
+            <td>
+              <p
+                class="progress-label"
+                style="margin: 0.1vh 0.4vw; font-size:1.5vh"
+              >
+                vp
               </p>
             </td>
           </tr>
@@ -190,7 +199,16 @@ export default {
   computed: {
     ...mapState( [ 'auth' ] ),
   },
+  created() {
+    this.timer = setInterval( this.updateVpRcBars, 300000 );
+  },
+  beforeDestroy() {
+    clearInterval( this.timer );
+  },
   methods: {
+    updateVpRcBars() {
+      this.$store.commit( 'auth/setVpRcBars' );
+    },
     toggleMenu() {
       this.menuActive = !this.menuActive;
     },

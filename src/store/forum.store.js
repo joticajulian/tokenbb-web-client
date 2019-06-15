@@ -1,6 +1,6 @@
 import { Toast } from 'buefy/dist/components/toast';
 
-import { listRoles, setCategoryOrdering } from '../services/api.service.js';
+import { listRoles, setCategoryOrdering, getTokenIcon } from '../services/api.service.js';
 import { errorAlertOptions } from '../utils/notifications.js';
 
 
@@ -15,6 +15,7 @@ export default {
       enabled: false,
       symbol: '',
       precision: 3,
+      icon: '',
     },
   },
   mutations: {
@@ -33,6 +34,9 @@ export default {
       state.token.enabled = Boolean( forum.token && forum.token.SCOT );
       state.token.symbol = ( forum.token && forum.token.symbol ) || '';
       state.token.precision = ( forum.token && forum.token.precision ) || 3;
+      getTokenIcon( state.token.symbol ).then( ( body ) => {
+        state.token.icon = JSON.parse( body.result[0].metadata ).icon;
+      } );
       this.commit( 'categories/updateCategoryOrderingData' );
     },
   },

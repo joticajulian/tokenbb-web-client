@@ -303,12 +303,36 @@ export function getValidTopic( author, permlink ) {
     } );
 }
 
-export function getVotingPower( username ) {
+export function getVotingPower( username, token ) {
   const opts = {
     method: 'GET',
     json: true,
     headers: {},
-    url: `http://scot-api.steem-engine.com/@${username}`,
+    url: `http://scot-api.steem-engine.com/@${username}?token=${token}`,
+  };
+
+  return requestAsync( opts );
+}
+
+export function getResourceCredits( username ) {
+  const opts = {
+    method: 'POST',
+    json: true,
+    headers: {},
+    url: 'https://steemd.minnowsupportproject.org/',
+    body: { 'jsonrpc': '2.0', 'method': 'rc_api.find_rc_accounts', 'params': { 'accounts': [ username ] }, 'id': 45 },
+  };
+
+  return requestAsync( opts );
+}
+
+export function getTokenIcon( token ) {
+  const opts = {
+    method: 'POST',
+    json: true,
+    headers: {},
+    url: 'https://api.steem-engine.com/rpc/contracts',
+    body: { 'jsonrpc': '2.0', 'id': 5, 'method': 'find', 'params': { 'contract': 'tokens', 'table': 'tokens', 'query': { 'symbol': token }, 'limit': 1000, 'offset': 0, 'indexes': [] } },
   };
 
   return requestAsync( opts );

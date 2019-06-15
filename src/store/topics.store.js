@@ -2,6 +2,7 @@ import { Toast } from 'buefy/dist/components/toast';
 
 import { createTopic, listTopics } from '../services/post.service.js';
 import { errorAlertOptions } from '../utils/notifications.js';
+import Timeout from 'await-timeout';
 
 export default {
   namespaced: true,
@@ -44,13 +45,15 @@ export default {
       const author = this.state.auth.current;
 
       return createTopic( author, category, title, content )
-        .then( ( topic ) => {
+        .then( async ( topic ) => {
           console.log( topic );
           if ( !topic.success ) {
             throw new Error( topic.message );
           }
           commit( 'addTopic', topic.data );
-
+          commit( 'auth/setVpRcBars' );
+          await Timeout.set( 3000 );
+          commit( 'auth/setVpRcBars' );
           return topic.data;
         } );
     },
