@@ -32,7 +32,7 @@
       :class="{ 'is-active': menuActive }"
     >
       <div class="navbar-end">
-        <table>
+        <table v-if="auth.username">
           <tr>
             <td>
               <progress
