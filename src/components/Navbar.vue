@@ -194,7 +194,7 @@ export default {
     ] ),
   },
   created() {
-    this.timer = setInterval( this.updateVpRcBars, 300000 );
+    this.timer = setInterval( this.updateVpRcBars, 60000 );
   },
   beforeDestroy() {
     clearInterval( this.timer );
