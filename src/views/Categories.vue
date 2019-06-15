@@ -89,15 +89,22 @@
                   v-if="props.data.isGroup"
                   class="is-tablet level"
                 >
-                  <b-field
-                    v-if="props.data.edit"
-                  >
-                    <b-input
-                      v-model="props.data.edit.name"
-                      placeholder="Name"
-                      :maxlength="64"
-                      :has-counter="false"
-                    />
+                  <div v-if="props.data.edit">
+                    <b-field>
+                      <b-input
+                        v-model="props.data.edit.name"
+                        placeholder="Name"
+                        :maxlength="64"
+                        :has-counter="false"
+                      />
+                    </b-field>
+                    <b-field>
+                      <b-checkbox
+                        v-model="props.data.edit.collapseByDefault"
+                      >
+                        Collapse by default
+                      </b-checkbox>
+                    </b-field>
                     <button
                       v-if="props.data.edit"
                       class="button is-small"
@@ -115,7 +122,7 @@
                     >
                       Cancel
                     </button>
-                  </b-field>
+                  </div>
                   <div
                     v-else
                     class="level-left"
@@ -309,6 +316,7 @@ function getCategoryOrdering( treeGroup ) {
   return {
     slug: treeGroup.slug,
     name: treeGroup.name,
+    collapseByDefault: treeGroup.collapseByDefault,
     categories,
     groups,
   };
@@ -375,6 +383,7 @@ export default {
         const group = {
           name: categoryGroup.name,
           slug: categoryGroup.slug,
+          collapseByDefault: categoryGroup.collapseByDefault,
           nav: categoryGroup.nav,
           edit: editingGroup[categoryGroup.nav],
           children: groups.concat( cats ),
@@ -388,6 +397,7 @@ export default {
           group.children.unshift( {
             slug: '',
             nav: categoryGroup.nav,
+            collapseByDefault: false,
             edit: editingCategory[categoryGroup.nav],
             draggable: false,
             droppable: false,
@@ -449,7 +459,11 @@ export default {
     },
     enableGroupEdit( nav ) {
       const thisGroup = this.categoryTree.groupsByNav[nav];
-      Vue.set( this.editingGroup, nav, { name: thisGroup.name, slug: thisGroup.slug } );
+      Vue.set( this.editingGroup, nav, {
+        name: thisGroup.name,
+        slug: thisGroup.slug,
+        collapseByDefault: thisGroup.collapseByDefault,
+      } );
     },
     async removeGroup( nav ) {
       const thisGroup = this.categoryTree.groupsByNav[nav];
@@ -462,10 +476,12 @@ export default {
     },
     async saveGroup( nav ) {
       const group = this.categoryTree.groupsByNav[nav];
-      group.name = this.editingGroup[nav].name;
-      if ( !this.editingGroup[nav].slug ) {
+      const editingGroupForNav = this.editingGroup[nav];
+      group.name = editingGroupForNav.name;
+      if ( !editingGroupForNav.slug ) {
         group.slug = stringToSlug( group.name );
       }
+      group.collapseByDefault = editingGroupForNav.collapseByDefault;
       await this.saveOrdering();
       Vue.set( this.editingGroup, nav, null );
     },
