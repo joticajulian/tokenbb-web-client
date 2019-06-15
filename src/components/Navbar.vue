@@ -49,10 +49,7 @@
               >
             </td>
             <td>
-              <p
-                class="progress-label"
-                style="margin: 0.1vh 0.4vw; font-size:1.5vh"
-              >
+              <p class="progress-label">
                 vp
               </p>
             </td>
@@ -67,10 +64,7 @@
               />
             </td>
             <td>
-              <p
-                class="progress-label"
-                style="margin: 0.1vh 0.4vw; font-size:1.5vh"
-              >
+              <p class="progress-label">
                 rc
               </p>
             </td>
@@ -91,10 +85,7 @@
               >
             </td>
             <td>
-              <p
-                class="progress-label"
-                style="margin: 0.1vh 0.4vw; font-size:1.5vh"
-              >
+              <p class="progress-label">
                 vp
               </p>
             </td>
