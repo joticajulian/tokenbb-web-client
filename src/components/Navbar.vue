@@ -78,7 +78,7 @@
           <tr>
             <td>
               <progress
-                :title="`${this.$store.state.forum.token.symbol} Votig Power: ${auth.scotVp}%\nIndicates how powerful your vote is.`"
+                :title="`${forum.token.symbol} Votig Power: ${auth.scotVp}%\nIndicates how powerful your vote is.`"
                 class="progress"
                 :value="auth.scotVp"
                 max="100"
@@ -87,7 +87,7 @@
             <td>
               <img
                 style="height:2vh; margin: 0.2vh 0 0 0.5vw"
-                :src="this.$store.state.forum.token.icon"
+                :src="forum.token.icon"
               >
             </td>
             <td>
@@ -197,7 +197,10 @@ export default {
     };
   },
   computed: {
-    ...mapState( [ 'auth' ] ),
+    ...mapState( [
+      'auth',
+      'forum',
+    ] ),
   },
   created() {
     this.timer = setInterval( this.updateVpRcBars, 300000 );
