@@ -128,9 +128,14 @@
           </button>
           <b-dropdown-item
             v-if="auth.roles.admin"
-            href="/settings"
           >
-            Forum Settings
+            <router-link
+              :to="{ path: '/admin/permissions' }"
+              exact-active-class="noop"
+              tag="span"
+            >
+              Forum Settings
+            </router-link>
           </b-dropdown-item>
           <b-dropdown-item
             class="is-right"

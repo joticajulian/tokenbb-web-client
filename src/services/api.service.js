@@ -12,7 +12,13 @@ function requestAsync( opts, raw ) {
     opts.headers['content-type'] = 'application/json';
   }
   return fetch( opts.url, opts )
-    .then( ( response ) => response.json() );
+    .then( ( response ) => {
+      if ( !response.ok ) {
+        throw new Error( response.statusText );
+      } else {
+        return response.json();
+      }
+    } );
 }
 
 export function getScotTokenPayout( author, permlink ) {
@@ -335,5 +341,30 @@ export function getTokenIcon( token ) {
     body: { 'jsonrpc': '2.0', 'id': 5, 'method': 'find', 'params': { 'contract': 'tokens', 'table': 'tokens', 'query': { 'symbol': token }, 'limit': 1000, 'offset': 0, 'indexes': [] } },
   };
 
+  return requestAsync( opts );
+}
+
+export function getUsers( ids ) {
+  const opts = {
+    method: 'POST',
+    json: true,
+    url: `${process.env.VUE_APP_API_HOST}/v1/users`,
+    body: {
+      ids,
+    },
+  };
+  return requestAsync( opts );
+}
+
+export function modifyForumPermission( action, type, username ) {
+  const opts = {
+    method: 'POST',
+    json: true,
+    headers: steem.token ? { 'Authorization': 'Bearer ' + steem.token } : {},
+    url: `${apiURL()}/${action}/${type}`,
+    body: {
+      username,
+    },
+  };
   return requestAsync( opts );
 }

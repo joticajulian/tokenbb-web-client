@@ -228,7 +228,12 @@ button.dropdown-item {
 .topic-nav {
   margin: 10px 0 10px 0;
 }
-//Category Page {
+// Setting Page {
+.menu-list li a {
+  color: $link;
+}
+
+
   .card-header {
     border-bottom: 1px solid $background;
     box-shadow: none;
@@ -266,7 +271,7 @@ button.dropdown-item {
 
 
   .setting-view {
-    h1,h2,h3,h4,h5,h6 {
+    h1,h2,h3,h4,h5,h6, {
       color: $content;
     }
   }
@@ -376,6 +381,76 @@ a.pagination-link.is-current {
   background-color: $background;
   border-color: $primary;
 }
+  // Dashboard Style //
+  .dashboard {
+    section {
+      min-height: 0px;
+    }
+    input {
+      border-radius: 0px;
+      height: 40px;
+      padding-top: 10px;
+    }
+    .field {
+      width: 50%;
+    }
+    .b-table .table {
+      padding: 0px;
+    }
+    .level {
+      padding-bottom: 1rem;
+    }
+    .header {
+      text-transform: uppercase;
+      font-size: 1.6rem;
+      color: white;
+    }
+    .sub-header {
+      text-transform: uppercase;
+      font-size: 1.2rem;
+      color: white;
+      padding-bottom: 1rem;
+    }
+    .administrators {
+      border: 1px solid $link;
+      border-radius: 2px;
+      padding: 25px;
+    }
+    .moderators {
+      border: 1px solid $link;
+      border-radius: 2px;
+      margin-top: 1.2rem;
+      padding: 25px;
+    }
+    &__admins {
+      border-bottom: 1px solid $link;
+      border-radius: 2px;
+      margin-bottom: 1rem;
+    }
+
+    &__mods {
+      border-bottom: 1px solid $link;
+      margin-bottom: 1rem;
+    }
+    &__username {
+      color: white;
+      font-size: 1rem;
+    }
+    &__form {
+      padding-bottom: 1rem;
+    }
+    // Categories Ordering Page
+    &__categories {
+
+      .save-ordering {
+        margin-right: 10px;
+      }
+      .section {
+        padding: 0px;
+      }
+    }
+
+  }
 // make sure to have all sensible defaults set
   @import "./global/sensible-defaults.scss";
 }
