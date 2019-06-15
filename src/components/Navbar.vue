@@ -78,7 +78,7 @@
           <tr>
             <td>
               <progress
-                :title="`Scot Votig Power: ${auth.scotVp}%\nIndicates how powerful your vote is.`"
+                :title="`${this.$store.state.forum.token.symbol} Votig Power: ${auth.scotVp}%\nIndicates how powerful your vote is.`"
                 class="progress"
                 :value="auth.scotVp"
                 max="100"
