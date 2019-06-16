@@ -206,7 +206,7 @@ export default {
   },
   methods: {
     updateVpRcBars() {
-      this.$store.commit( 'auth/setVpRcBars' );
+      this.$store.dispatch( 'auth/getVpRcBars' );
     },
     toggleMenu() {
       this.menuActive = !this.menuActive;

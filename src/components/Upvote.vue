@@ -183,7 +183,7 @@ export default {
       this.paid = parseFloat( data.total_payout_value.split( ' ' )[0] );
       this.value = '$ ' + ( this.paid + pending ).toFixed( 3 );
       this.votes = data.active_votes;
-      this.$store.commit( 'auth/setVpRcBars' );
+      this.$store.dispatch( 'auth/getVpRcBars' );
     },
     async handleClick() {
       if ( this.voted ) {

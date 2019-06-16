@@ -47,7 +47,7 @@ export default {
       } );
       window.BTSSO.on( 'accounts', ( accounts ) => {
         store.commit( 'auth/setAccounts', accounts );
-        store.commit( 'auth/setVpRcBars' );
+        store.dispatch( 'auth/getVpRcBars' );
       } );
       window.BTSSO.on( 'error', ( e ) => {
         console.error( e );
@@ -66,37 +66,10 @@ export default {
     toggleAccountModal() {
       window.BTSSO.modal();
     },
-    setVpRcBars( state ) {
-
-      client.database.getAccounts( [ state.current ] ).then( ( _accounts ) => {
-        const account = _accounts[0];
-        const lastVote = ( new Date() - new Date( account.last_vote_time + 'Z' ) ) / 1000;
-        let votingPower = account.voting_power + ( 10000 * lastVote / 432000 );
-        votingPower = Math.min( votingPower / 100, 100 );
-        state.vp = votingPower.toFixed( 2 );
-      } );
-
-      getResourceCredits( state.current ).then( ( body ) => {
-        const accountRc = body.result.rc_accounts[0];
-        const maxRc = accountRc.max_rc;
-        let lastUpdateTime = accountRc.rc_manabar.last_update_time;
-        let currMana = accountRc.rc_manabar.current_mana;
-        lastUpdateTime = moment.unix( lastUpdateTime );
-        if ( maxRc > 0 ) {
-          const elapsed = moment().diff( lastUpdateTime, 'seconds' );
-          currMana = Math.min( 100 / maxRc * currMana + elapsed / 4320, 100 );
-        } else {
-          currMana = 0;
-        }
-        state.rc = currMana.toFixed( 2 );
-      } );
-
-      getVotingPower( state.current, this.state.forum.token.symbol ).then( ( body ) => {
-        const lastVoteScot = ( new Date() - new Date( body.last_vote_time + 'Z' ) ) / 1000;
-        let votingPowerScot = body.voting_power + ( 10000 * lastVoteScot / 432000 );
-        votingPowerScot = Math.min( votingPowerScot / 100, 100 );
-        state.scotVp = votingPowerScot.toFixed( 2 );
-      } );
+    setVpRcBars( state, data ) {
+      state.vp = data.vp;
+      state.rc = data.rc;
+      state.scotVp = data.scotVp;
     },
     setUser( state, user ) {
       if ( !user ) {
@@ -195,6 +168,43 @@ export default {
           Toast.open( errorAlertOptions( `Error fetching roles: ${err.message}`, err ) );
           console.error( err );
         } );
+    },
+    getVpRcBars( context ) {
+      let vp;
+      let rc;
+      let scotVp;
+      client.database.getAccounts( [ context.state.current ] ).then( ( _accounts ) => {
+        const account = _accounts[0];
+        const lastVote = ( new Date() - new Date( account.last_vote_time + 'Z' ) ) / 1000;
+        let votingPower = account.voting_power + ( 10000 * lastVote / 432000 );
+        votingPower = Math.min( votingPower / 100, 100 );
+        vp = votingPower.toFixed( 2 );
+
+        getResourceCredits( context.state.current ).then( ( body ) => {
+          const accountRc = body.result.rc_accounts[0];
+          const maxRc = accountRc.max_rc;
+          let lastUpdateTime = accountRc.rc_manabar.last_update_time;
+          let currMana = accountRc.rc_manabar.current_mana;
+          lastUpdateTime = moment.unix( lastUpdateTime );
+          if ( maxRc > 0 ) {
+            const elapsed = moment().diff( lastUpdateTime, 'seconds' );
+            currMana = Math.min( 100 / maxRc * currMana + elapsed / 4320, 100 );
+          } else {
+            currMana = 0;
+          }
+          rc = currMana.toFixed( 2 );
+
+          getVotingPower( context.state.current, this.state.forum.token.symbol ).then( ( body ) => {
+            const lastVoteScot = ( new Date() - new Date( body.last_vote_time + 'Z' ) ) / 1000;
+            let votingPowerScot = body.voting_power + ( 10000 * lastVoteScot / 432000 );
+            votingPowerScot = Math.min( votingPowerScot / 100, 100 );
+            scotVp = votingPowerScot.toFixed( 2 );
+            context.commit( 'setVpRcBars', { vp, rc, scotVp } );
+          } );
+        } );
+      } );
+
+
     },
   },
 };
