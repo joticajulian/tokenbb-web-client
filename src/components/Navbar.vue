@@ -44,7 +44,7 @@
             </td>
             <td rowspan="2">
               <img
-                style="height:2.3vh; margin: 1.2vh 0 0 0.4vw"
+                class="steem-icon"
                 src="../assets/steemIcon.png"
               >
             </td>
@@ -80,7 +80,7 @@
             </td>
             <td>
               <img
-                style="height:2vh; margin: 0.2vh 0 0 0.5vw"
+                class="token-icon"
                 :src="forum.token.icon"
               >
             </td>
