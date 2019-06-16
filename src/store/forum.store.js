@@ -42,6 +42,9 @@ export default {
     },
   },
   mutations: {
+    setTokenIcon( state, icon ) {
+      state.token.icon = icon;
+    },
     setFetching( state, fetching ) {
       state.fetching = fetching;
     },
@@ -63,9 +66,6 @@ export default {
       state.token.enabled = Boolean( forum.token && forum.token.SCOT );
       state.token.symbol = ( forum.token && forum.token.symbol ) || '';
       state.token.precision = ( forum.token && forum.token.precision ) || 3;
-      getTokenIcon( state.token.symbol ).then( ( body ) => {
-        state.token.icon = JSON.parse( body.result[0].metadata ).icon;
-      } );
       state.beneficiaries.max = ( forum.beneficiaries && forum.beneficiaries.max ) || 1000;
       state.beneficiaries.split = ( forum.beneficiaries && forum.beneficiaries.split ) || [];
       let overallRewards = 0;
@@ -98,7 +98,7 @@ export default {
     },
   },
   actions: {
-    async fetch( { commit }, withModData ) {
+    async fetch( { commit, state }, withModData ) {
       commit( 'setFetching', true );
 
       try {
@@ -110,6 +110,10 @@ export default {
         }
 
         commit( 'updateForum', forum.data );
+
+        getTokenIcon( state.token.symbol ).then( ( body ) => {
+          commit( 'setTokenIcon', JSON.parse( body.result[0].metadata ).icon );
+        } );
 
         commit( 'setFetching', false );
       } catch ( err ) {
