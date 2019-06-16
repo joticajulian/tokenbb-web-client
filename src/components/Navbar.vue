@@ -69,7 +69,7 @@
               </p>
             </td>
           </tr>
-          <tr v-if="forum.token.symbol">
+          <tr v-if="forum.token.enabled">
             <td>
               <progress
                 :title="`${forum.token.symbol} Votig Power: ${auth.scotVp}%\nIndicates how powerful your vote is.`"

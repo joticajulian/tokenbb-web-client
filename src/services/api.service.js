@@ -322,7 +322,7 @@ export function getScotVotingPower( username, token ) {
     method: 'GET',
     json: true,
     headers: {},
-    url: `http://scot-api.steem-engine.com/@${username}?token=${token}`,
+    url: `https://scot-api.steem-engine.com/@${username}?token=${token}`,
   };
 
   return requestAsync( opts );

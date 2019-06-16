@@ -111,9 +111,10 @@ export default {
 
         commit( 'updateForum', forum.data );
 
-        getTokenIcon( state.token.symbol ).then( ( body ) => {
-          commit( 'setTokenIcon', JSON.parse( body.result[0].metadata ).icon );
-        } );
+        if ( state.token.enabled ) {
+          const tokenIconAnswer = await getTokenIcon( state.token.symbol );
+          commit( 'setTokenIcon', JSON.parse( tokenIconAnswer.result[0].metadata ).icon );
+        }
 
         commit( 'setFetching', false );
       } catch ( err ) {

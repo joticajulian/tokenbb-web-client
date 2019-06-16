@@ -22,7 +22,7 @@
       </button>
     </b-field>
     <span class="label is-small has-text-grey-light">
-      This forum takes {{ (this.beneficiaries.max/100).toFixed(2) }}% beneficiaries
+      This forum takes {{ (beneficiaries.max/100).toFixed(2) }}% beneficiaries
     </span>
   </form>
 </template>
@@ -41,9 +41,9 @@ export default {
   },
   props: {
     fetching: Boolean,
-    text: String,
-    quote: String,
-    quoteAuthor: String,
+    text: { type: String, default: '' },
+    quote: { type: String, default: '' },
+    quoteAuthor: { type: String, default: '' },
   },
   data() {
     return {
