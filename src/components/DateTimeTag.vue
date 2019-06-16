@@ -4,13 +4,13 @@
       icon="clock"
       size="is-small"
     />
-    {{ this.timeRelative }}
-    <template v-if="!this.time && this.numberOfReplies > 0">
+    {{ timeRelative }}
+    <template v-if="!time && numberOfReplies > 0">
       <span>by</span>
       <Avatar
         class="align-middle"
-        :author="this.lastReply.author"
-        :owner="this.lastReply.owner"
+        :author="lastReply.author"
+        :owner="lastReply.owner"
         size="small"
       />
     </template>
@@ -33,13 +33,15 @@ export default {
     Avatar,
   },
   props: {
-    time: String,
+    time: { type: String, default: '' },
     lastReply: {
-      time: String,
-      author: String,
-      owner: String,
+      type: Object,
+      default: () => {},
+      time: { type: String, default: '' },
+      author: { type: String, default: '' },
+      owner: { type: String, default: '' },
     },
-    numberOfReplies: Number,
+    numberOfReplies: { type: Number, default: 1 },
   },
   data() {
     return {
@@ -50,39 +52,36 @@ export default {
   },
   computed: {
     timeRelative() {
-      const dummyTicker = this.$data.ticker;
       return formatDateTimeRelative( this.time || this.lastReply.time );
     },
     timeAbsolute() {
-      const dummyTicker = this.$data.ticker;
       return formatDateTimeAbsolute( this.time || this.lastReply.time );
     },
   },
   mounted() {
-    const self = this;
-    clearTimeout( self.$data.timeoutHandle );
-    self.$data.timeoutHandle = setTimeout( updateTime, self.$data.timeout );
+    clearTimeout( this.$data.timeoutHandle );
+    this.$data.timeoutHandle = setTimeout( updateTime, this.$data.timeout );
     function updateTime() {
-      const timeString = self.$props.time || self.$props.lastReply.time;
+      const timeString = this.$props.time || this.$props.lastReply.time;
       const time = DateTime.fromISO( timeString );
       const minutesDiff = DateTime.local().diff( time, 'minutes' ).as( 'minutes' );
       if ( minutesDiff < 1 ) {
-        self.$data.timeout = 1000;
+        this.$data.timeout = 1000;
       } else if ( minutesDiff < 10 ) {
-        self.$data.timeout = 10 * 1000;
+        this.$data.timeout = 10 * 1000;
       } else if ( minutesDiff < 60 ) {
-        self.$data.timeout = 60 * 1000;
+        this.$data.timeout = 60 * 1000;
       } else if ( minutesDiff < 24 * 60 ) {
-        self.$data.timeout = 10 * 60 * 1000;
+        this.$data.timeout = 10 * 60 * 1000;
       } else {
-        self.$data.timeout = 60 * 60 * 1000;
+        this.$data.timeout = 60 * 60 * 1000;
       }
-      if ( self.$data.timeout > 1000 ) {
-        self.$data.timeout -= parseInt( Math.random() * 0.1 * self.$data.timeout );
+      if ( this.$data.timeout > 1000 ) {
+        this.$data.timeout -= parseInt( Math.random() * 0.1 * this.$data.timeout );
       }
-      self.$data.ticker += 1;
-      clearTimeout( self.$data.timeoutHandle );
-      self.$data.timeoutHandle = setTimeout( updateTime, self.$data.timeout );
+      this.$data.ticker += 1;
+      clearTimeout( this.$data.timeoutHandle );
+      this.$data.timeoutHandle = setTimeout( updateTime, this.$data.timeout );
     }
   },
   beforeDestroy() {

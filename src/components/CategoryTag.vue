@@ -7,11 +7,9 @@
 <script>
 import { mapState } from 'vuex';
 
-import Icon from 'buefy/src/components/icon/Icon';
-
 export default {
   props: {
-    categoryId: String,
+    categoryId: { type: String, default: '' },
   },
   computed: {
     ...mapState( {

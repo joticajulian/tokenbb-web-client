@@ -5,12 +5,12 @@
       class="button is-small"
       type="button"
     >
-      <span v-html="selected ? selected.name : allCategories.name" />
+      <span>{{ selected ? selected.name : allCategories.name }}</span>
       <b-icon icon="menu-down" />
     </button>
 
     <b-dropdown-item :value="allCategories">
-      <span v-html="allCategories.name" />
+      <span>{{ allCategories.name }}</span>
     </b-dropdown-item>
 
     <b-dropdown-item
@@ -18,7 +18,7 @@
       :key="category._id"
       :value="category"
     >
-      <span v-html="category.name" />
+      <span>{{ category.name }}</span>
     </b-dropdown-item>
   </b-dropdown>
 </template>
@@ -38,20 +38,15 @@ export default {
     BDropdownItem: DropdownItem,
     BIcon: Icon,
   },
-  props: [
-    'selectedId',
-    'labelForAll',
-  ],
+  props: {
+    selectedId: { type: Function, default: () => 1 },
+    labelForAll: { type: Object, default: () => {} },
+  },
   data() {
     return {
       selected: ALL,
       all: ALL,
     };
-  },
-  watch: {
-    selectedId( value ) {
-      this.selected = this.categoriesById[value];
-    },
   },
   computed: {
     allCategories() {
@@ -64,6 +59,11 @@ export default {
       'categoryList',
       'categoriesById',
     ] ),
+  },
+  watch: {
+    selectedId( value ) {
+      this.selected = this.categoriesById[value];
+    },
   },
   methods: {
     onChange( value ) {
