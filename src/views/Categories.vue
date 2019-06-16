@@ -87,7 +87,7 @@
               <template slot-scope="props">
                 <div
                   v-if="props.data.isGroup"
-                  class="is-tablet level"
+                  class="is-tablet"
                 >
                   <div
                     v-if="!activeEdits || Boolean(props.data.edit)"
@@ -147,6 +147,7 @@
                     </div>
                     <div
                       v-else
+                      ref="editingGroup"
                       class="columns is-tablet"
                     >
                       <!-- For Editing -->
@@ -180,23 +181,37 @@
                   </div>
                   <div
                     v-else
+                    class="columns is-tablet"
                   >
                     <!-- For Dragging or editing others -->
-                    <span class="cprops-title">
-                      {{ props.data.name }}
-                    </span>
+                    <div class="column">
+                      <span class="cprops-title">
+                        {{ props.data.name }}
+                      </span>
+                    </div>
+                    <div
+                      v-if="props.data.draggable"
+                      class="column"
+                    >
+                      <b-icon :icon="'drag'" />
+                    </div>
+                    <div
+                      class="column"
+                    >
+                      <a
+                        class="level-right"
+                        @click="props.store.toggleOpen( props.data )"
+                      >
+                        <b-icon
+                          :icon="props.data.open ? 'menu-up' : 'menu-down'"
+                        />
+                      </a>
+                    </div>
                   </div>
-                  <a
-                    class="level-right"
-                    @click="props.store.toggleOpen( props.data )"
-                  >
-                    <b-icon
-                      :icon="props.data.open ? 'menu-up' : 'menu-down'"
-                    />
-                  </a>
                 </div>
                 <div
                   v-else
+                  class="is-tablet"
                 >
                   <!-- Category -->
                   <div
@@ -219,6 +234,7 @@
                     </div>
                     <div
                       v-else
+                      ref="editingCat"
                       class="columns is-tablet"
                     >
                       <!-- For Editing -->
@@ -285,10 +301,21 @@
                       </div>
                     </div>
                   </div>
-                  <div v-else>
+                  <div
+                    v-else
+                    class="columns is-tablet"
+                  >
                     <!-- For Dragging or editing others -->
                     <div class="column">
-                      {{ props.data.name }}
+                      <span class="cprops-title">
+                        {{ props.data.name }}
+                      </span>
+                    </div>
+                    <div
+                      v-if="props.data.draggable"
+                      class="column"
+                    >
+                      <b-icon :icon="'drag'" />
                     </div>
                   </div>
                 </div>
@@ -405,7 +432,7 @@ export default {
 
         // Check if user added category for this group.
         if ( editingCategory[categoryGroup.nav] ) {
-          group.children.unshift( {
+          group.children.push( {
             slug: '',
             nav: categoryGroup.nav,
             edit: editingCategory[categoryGroup.nav],
@@ -423,7 +450,7 @@ export default {
             draggable: false,
             isGroup: true,
           };
-          group.children.unshift( newGroup );
+          group.children.push( newGroup );
           groupsByNav[newGroupNav] = newGroup;
         }
         return group;
@@ -495,7 +522,11 @@ export default {
       const newGroup = {
         name: '',
       };
-      Vue.set( this.editingGroup, nav + '/__NEW__', newGroup );
+      const newGroupNav = nav + '/__NEW__';
+      Vue.set( this.editingGroup, newGroupNav, newGroup );
+      this.$nextTick( () => {
+        this.$refs.editingGroup.scrollIntoView();
+      } );
     },
     addCategoryToGroup( nav ) {
 
@@ -507,6 +538,9 @@ export default {
         hidden: false,
       };
       Vue.set( this.editingCategory, nav, newCat );
+      this.$nextTick( () => {
+        this.$refs.editingCat.scrollIntoView();
+      } );
     },
     cancelAdd( nav ) {
       Vue.set( this.editingCategory, nav, null );
