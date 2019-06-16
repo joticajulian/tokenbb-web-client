@@ -5,6 +5,7 @@ import {
   setCategoryOrdering,
   getUsers,
   modifyForumPermission,
+  getTokenIcon,
 } from '../services/api.service.js';
 import { errorAlertOptions } from '../utils/notifications.js';
 
@@ -33,6 +34,7 @@ export default {
       enabled: false,
       symbol: '',
       precision: 3,
+      icon: '',
     },
     beneficiaries: {
       max: 1000,
@@ -40,6 +42,9 @@ export default {
     },
   },
   mutations: {
+    setTokenIcon( state, icon ) {
+      state.token.icon = icon;
+    },
     setFetching( state, fetching ) {
       state.fetching = fetching;
     },
@@ -93,7 +98,7 @@ export default {
     },
   },
   actions: {
-    async fetch( { commit }, withModData ) {
+    async fetch( { commit, state }, withModData ) {
       commit( 'setFetching', true );
 
       try {
@@ -105,6 +110,11 @@ export default {
         }
 
         commit( 'updateForum', forum.data );
+
+        if ( state.token.enabled ) {
+          const tokenIconAnswer = await getTokenIcon( state.token.symbol );
+          commit( 'setTokenIcon', JSON.parse( tokenIconAnswer.result[0].metadata ).icon );
+        }
 
         commit( 'setFetching', false );
       } catch ( err ) {

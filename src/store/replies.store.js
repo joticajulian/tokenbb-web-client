@@ -1,4 +1,6 @@
 import { createReply } from '../services/post.service.js';
+import Timeout from 'await-timeout';
+
 
 export default {
   namespaced: true,
@@ -17,9 +19,11 @@ export default {
       const author = this.state.auth.current;
 
       return createReply( parentComment, author, content )
-        .then( ( reply ) => {
+        .then( async ( reply ) => {
           commit( 'setFetching', false );
-
+          this.dispatch( 'auth/getVpRcBars' );
+          await Timeout.set( 3000 );
+          this.dispatch( 'auth/getVpRcBars' );
           return reply;
         } )
         .catch( ( err ) => {

@@ -1,4 +1,8 @@
 import steem from './steem.service';
+import { Client, RCAPI } from 'dsteem';
+
+const client = new Client( 'https://api.steemit.com' );
+const rcapi = new RCAPI( client );
 
 function requestAsync( opts, raw ) {
   if ( opts.body && !raw ) {
@@ -307,6 +311,37 @@ export function getValidTopic( author, permlink ) {
 
       throw err;
     } );
+}
+
+export function getVotingPower( username ) {
+  return client.database.getAccounts( [ username ] );
+}
+
+export function getScotVotingPower( username, token ) {
+  const opts = {
+    method: 'GET',
+    json: true,
+    headers: {},
+    url: `https://scot-api.steem-engine.com/@${username}?token=${token}`,
+  };
+
+  return requestAsync( opts );
+}
+
+export function getResourceCredits( username ) {
+  return rcapi.findRCAccounts( [ username ] );
+}
+
+export function getTokenIcon( token ) {
+  const opts = {
+    method: 'POST',
+    json: true,
+    headers: {},
+    url: 'https://api.steem-engine.com/rpc/contracts',
+    body: { 'jsonrpc': '2.0', 'id': 5, 'method': 'find', 'params': { 'contract': 'tokens', 'table': 'tokens', 'query': { 'symbol': token }, 'limit': 1, 'offset': 0, 'indexes': [] } },
+  };
+
+  return requestAsync( opts );
 }
 
 export function getUsers( ids ) {

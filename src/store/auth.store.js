@@ -3,8 +3,9 @@ import jwtdecode from 'jwt-decode';
 import { Toast } from 'buefy/dist/components/toast';
 
 import steem from '../services/steem.service';
-import { listRoles } from '../services/api.service.js';
+import { getVotingPower, getScotVotingPower, getResourceCredits } from '../services/api.service.js';
 import { errorAlertOptions } from '../utils/notifications.js';
+import moment from 'moment';
 
 export default {
   namespaced: true,
@@ -22,6 +23,9 @@ export default {
     manageLink: '',
     addLink: '',
     autoMode: '',
+    vp: '',
+    scotVp: '',
+    rc: '',
   },
   mutations: {
     init( state, store ) {
@@ -40,6 +44,7 @@ export default {
       } );
       window.BTSSO.on( 'accounts', ( accounts ) => {
         store.commit( 'auth/setAccounts', accounts );
+        store.dispatch( 'auth/getVpRcBars' );
       } );
       window.BTSSO.on( 'error', ( e ) => {
         console.error( e );
@@ -57,6 +62,11 @@ export default {
     },
     toggleAccountModal() {
       window.BTSSO.modal();
+    },
+    setVpRcBars( state, data ) {
+      state.vp = data.vp;
+      state.rc = data.rc;
+      state.scotVp = data.scotVp;
     },
     setUser( state, user ) {
       if ( !user ) {
@@ -155,6 +165,37 @@ export default {
           Toast.open( errorAlertOptions( `Error fetching roles: ${err.message}`, err ) );
           console.error( err );
         } );
+    },
+    async getVpRcBars( context ) {
+      let scotVp = 0;
+
+      const [ account ] = await getVotingPower( context.state.current );
+      const lastVote = ( new Date() - new Date( account.last_vote_time + 'Z' ) ) / 1000;
+      let votingPower = account.voting_power + ( 10000 * lastVote / 432000 );
+      votingPower = Math.min( votingPower / 100, 100 );
+      const vp = votingPower.toFixed( 2 );
+
+      const [ accountRc ] = await getResourceCredits( context.state.current );
+      const maxRc = accountRc.max_rc;
+      let currMana = accountRc.rc_manabar.current_mana;
+      if ( maxRc > 0 ) {
+        const lastUpdateTime = moment.unix( accountRc.rc_manabar.last_update_time );
+        const elapsed = moment().diff( lastUpdateTime, 'seconds' );
+        currMana = Math.min( 100 / maxRc * currMana + elapsed / 4320, 100 );
+      } else {
+        currMana = 0;
+      }
+      const rc = currMana.toFixed( 2 );
+
+      if ( this.state.forum.token.enabled ) {
+        const scotVpAnswer = await getScotVotingPower( context.state.current, this.state.forum.token.symbol );
+        const lastVoteScot = ( new Date() - new Date( scotVpAnswer.last_vote_time + 'Z' ) ) / 1000;
+        let votingPowerScot = scotVpAnswer.voting_power + ( 10000 * lastVoteScot / 432000 );
+        votingPowerScot = Math.min( votingPowerScot / 100, 100 );
+        scotVp = votingPowerScot.toFixed( 2 );
+      }
+
+      context.commit( 'setVpRcBars', { vp, rc, scotVp } );
     },
   },
 };
