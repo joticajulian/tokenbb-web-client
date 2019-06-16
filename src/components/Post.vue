@@ -31,12 +31,13 @@
         </div>
       </div>
       <div class="media-content">
+        <!-- eslint-disable vue/no-v-html -->
         <article
           v-if="!editing"
           class="content"
-        >
-          {{ $renderMD(data.body) }}
-        </article>
+          v-html="$renderMD(data.body)"
+        />
+        <!-- eslint-enable -->
       </div>
       <form v-if="editing">
         <b-field>

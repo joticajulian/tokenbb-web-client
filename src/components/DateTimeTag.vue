@@ -52,36 +52,43 @@ export default {
   },
   computed: {
     timeRelative() {
+      // eslint-disable-next-line no-unused-vars
+      const dummyTicker = this.$data.ticker;
+
       return formatDateTimeRelative( this.time || this.lastReply.time );
     },
     timeAbsolute() {
+      // eslint-disable-next-line no-unused-vars
+      const dummyTicker = this.$data.ticker;
       return formatDateTimeAbsolute( this.time || this.lastReply.time );
     },
   },
   mounted() {
-    clearTimeout( this.$data.timeoutHandle );
-    this.$data.timeoutHandle = setTimeout( updateTime, this.$data.timeout );
+    // eslint-disable-next-line no-shadow
+    const self = this;
+    clearTimeout( self.$data.timeoutHandle );
+    self.$data.timeoutHandle = setTimeout( updateTime, self.$data.timeout );
     function updateTime() {
-      const timeString = this.$props.time || this.$props.lastReply.time;
+      const timeString = self.$props.time || self.$props.lastReply.time;
       const time = DateTime.fromISO( timeString );
       const minutesDiff = DateTime.local().diff( time, 'minutes' ).as( 'minutes' );
       if ( minutesDiff < 1 ) {
-        this.$data.timeout = 1000;
+        self.$data.timeout = 1000;
       } else if ( minutesDiff < 10 ) {
-        this.$data.timeout = 10 * 1000;
+        self.$data.timeout = 10 * 1000;
       } else if ( minutesDiff < 60 ) {
-        this.$data.timeout = 60 * 1000;
+        self.$data.timeout = 60 * 1000;
       } else if ( minutesDiff < 24 * 60 ) {
-        this.$data.timeout = 10 * 60 * 1000;
+        self.$data.timeout = 10 * 60 * 1000;
       } else {
-        this.$data.timeout = 60 * 60 * 1000;
+        self.$data.timeout = 60 * 60 * 1000;
       }
-      if ( this.$data.timeout > 1000 ) {
-        this.$data.timeout -= parseInt( Math.random() * 0.1 * this.$data.timeout );
+      if ( self.$data.timeout > 1000 ) {
+        self.$data.timeout -= parseInt( Math.random() * 0.1 * self.$data.timeout );
       }
-      this.$data.ticker += 1;
-      clearTimeout( this.$data.timeoutHandle );
-      this.$data.timeoutHandle = setTimeout( updateTime, this.$data.timeout );
+      self.$data.ticker += 1;
+      clearTimeout( self.$data.timeoutHandle );
+      self.$data.timeoutHandle = setTimeout( updateTime, self.$data.timeout );
     }
   },
   beforeDestroy() {

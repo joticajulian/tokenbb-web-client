@@ -5,12 +5,14 @@
       class="button is-small"
       type="button"
     >
-      <span>{{ selected ? selected.name : allCategories.name }}</span>
+      <!-- eslint-disable-next-line vue/no-v-html -->
+      <span v-html="selected ? selected.name : allCategories.name" />
       <b-icon icon="menu-down" />
     </button>
 
     <b-dropdown-item :value="allCategories">
-      <span>{{ allCategories.name }}</span>
+      <!-- eslint-disable-next-line vue/no-v-html -->
+      <span v-html="allCategories.name" />
     </b-dropdown-item>
 
     <b-dropdown-item
@@ -18,7 +20,8 @@
       :key="category._id"
       :value="category"
     >
-      <span>{{ category.name }}</span>
+      <!-- eslint-disable-next-line vue/no-v-html -->
+      <span v-html="category.name" />
     </b-dropdown-item>
   </b-dropdown>
 </template>

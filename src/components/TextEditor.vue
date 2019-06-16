@@ -12,9 +12,12 @@
     <div class="container post">
       <div class="box is-mobile">
         <div class="media-content">
-          <article class="content">
-            {{ $renderMD(content) }}
-          </article>
+          <!-- eslint-disable vue/no-v-html -->
+          <article
+            class="content"
+            v-html="$renderMD(content)"
+          />
+          <!-- eslint-enable -->
         </div>
       </div>
     </div>
