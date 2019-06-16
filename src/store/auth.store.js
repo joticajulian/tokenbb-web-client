@@ -166,42 +166,36 @@ export default {
           console.error( err );
         } );
     },
-    getVpRcBars( context ) {
-      let vp;
-      let rc;
-      let scotVp;
-      getVotingPower( context.state.current ).then( ( _accounts ) => {
-        const account = _accounts[0];
-        const lastVote = ( new Date() - new Date( account.last_vote_time + 'Z' ) ) / 1000;
-        let votingPower = account.voting_power + ( 10000 * lastVote / 432000 );
-        votingPower = Math.min( votingPower / 100, 100 );
-        vp = votingPower.toFixed( 2 );
+    async getVpRcBars( context ) {
+      let scotVp = 0;
 
-        getResourceCredits( context.state.current ).then( ( _accountsRc ) => {
-          const accountRc = _accountsRc[0];
-          const maxRc = accountRc.max_rc;
-          let lastUpdateTime = accountRc.rc_manabar.last_update_time;
-          let currMana = accountRc.rc_manabar.current_mana;
-          lastUpdateTime = moment.unix( lastUpdateTime );
-          if ( maxRc > 0 ) {
-            const elapsed = moment().diff( lastUpdateTime, 'seconds' );
-            currMana = Math.min( 100 / maxRc * currMana + elapsed / 4320, 100 );
-          } else {
-            currMana = 0;
-          }
-          rc = currMana.toFixed( 2 );
+      const [ account ] = await getVotingPower( context.state.current );
+      const lastVote = ( new Date() - new Date( account.last_vote_time + 'Z' ) ) / 1000;
+      let votingPower = account.voting_power + ( 10000 * lastVote / 432000 );
+      votingPower = Math.min( votingPower / 100, 100 );
+      const vp = votingPower.toFixed( 2 );
 
-          getScotVotingPower( context.state.current, this.state.forum.token.symbol ).then( ( body ) => {
-            const lastVoteScot = ( new Date() - new Date( body.last_vote_time + 'Z' ) ) / 1000;
-            let votingPowerScot = body.voting_power + ( 10000 * lastVoteScot / 432000 );
-            votingPowerScot = Math.min( votingPowerScot / 100, 100 );
-            scotVp = votingPowerScot.toFixed( 2 );
-            context.commit( 'setVpRcBars', { vp, rc, scotVp } );
-          } );
-        } );
-      } );
+      const [ accountRc ] = await getResourceCredits( context.state.current );
+      const maxRc = accountRc.max_rc;
+      let currMana = accountRc.rc_manabar.current_mana;
+      if ( maxRc > 0 ) {
+        const lastUpdateTime = moment.unix( accountRc.rc_manabar.last_update_time );
+        const elapsed = moment().diff( lastUpdateTime, 'seconds' );
+        currMana = Math.min( 100 / maxRc * currMana + elapsed / 4320, 100 );
+      } else {
+        currMana = 0;
+      }
+      const rc = currMana.toFixed( 2 );
 
+      if ( this.state.forum.token.enabled ) {
+        const scotVpAnswer = await getScotVotingPower( context.state.current, this.state.forum.token.symbol );
+        const lastVoteScot = ( new Date() - new Date( scotVpAnswer.last_vote_time + 'Z' ) ) / 1000;
+        let votingPowerScot = scotVpAnswer.voting_power + ( 10000 * lastVoteScot / 432000 );
+        votingPowerScot = Math.min( votingPowerScot / 100, 100 );
+        scotVp = votingPowerScot.toFixed( 2 );
+      }
 
+      context.commit( 'setVpRcBars', { vp, rc, scotVp } );
     },
   },
 };
