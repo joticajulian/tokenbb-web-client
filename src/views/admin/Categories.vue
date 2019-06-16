@@ -30,7 +30,7 @@
           <button
             class="button is-small modify-ordering"
             :class="{ 'is-loading': fetching }"
-            :disabled="fetching || activeEdits"
+            :disabled="fetching || activeEdits || !auth.roles.admin"
             @click="enableOrderingEdit()"
           >
             Modify Order

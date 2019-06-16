@@ -21,7 +21,7 @@
                     v-if="auth.roles.admin"
                     class="button is-small"
                     :class="{ 'is-loading': fetching }"
-                    :disabled="fetching"
+                    :disabled="fetching || !auth.roles.admin"
                     @click="removeAdmin(oprops.row.username)"
                   >
                     Remove
@@ -40,12 +40,14 @@
                 v-model="newAdmin"
                 placeholder="BT username"
                 class="level-left"
+                :disabled="!auth.roles.admin"
               />
             </b-field>
             <button
               role="submit"
               :class="{ 'is-loading': fetching }"
               class="button is-small level-right"
+              :disabled="!auth.roles.admin"
             >
               Add
             </button>
@@ -70,7 +72,7 @@
                     v-if="auth.roles.admin"
                     class="button is-small"
                     :class="{ 'is-loading': fetching }"
-                    :disabled="fetching"
+                    :disabled="fetching || !auth.roles.admin"
                     @click="removeMod(mprops.row.username)"
                   >
                     Remove
@@ -89,12 +91,14 @@
                 v-model="newMod"
                 placeholder="BT username"
                 class="level-left"
+                :disabled="!auth.roles.admin"
               />
             </b-field>
             <button
               role="submit"
               :class="{ 'is-loading': fetching }"
               class="button is-small level-right"
+              :disabled="!auth.roles.admin"
             >
               Add
             </button>
