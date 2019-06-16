@@ -21,9 +21,9 @@ export default {
       return createReply( parentComment, author, content )
         .then( async ( reply ) => {
           commit( 'setFetching', false );
-          commit( 'auth/setVpRcBars' );
+          this.dispatch( 'auth/getVpRcBars' );
           await Timeout.set( 3000 );
-          commit( 'auth/setVpRcBars' );
+          this.dispatch( 'auth/getVpRcBars' );
           return reply;
         } )
         .catch( ( err ) => {

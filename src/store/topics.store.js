@@ -51,9 +51,9 @@ export default {
             throw new Error( topic.message );
           }
           commit( 'addTopic', topic.data );
-          commit( 'auth/setVpRcBars' );
+          this.dispatch( 'auth/getVpRcBars' );
           await Timeout.set( 3000 );
-          commit( 'auth/setVpRcBars' );
+          this.dispatch( 'auth/getVpRcBars' );
           return topic.data;
         } );
     },

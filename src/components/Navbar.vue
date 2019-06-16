@@ -44,8 +44,8 @@
             </td>
             <td rowspan="2">
               <img
-                style="height:2.3vh; margin: 1.2vh 0 0 0.4vw"
-                src="http://icons.iconarchive.com/icons/cjdowner/cryptocurrency/32/Steem-icon.png"
+                class="steem-icon"
+                src="../assets/steemIcon.png"
               >
             </td>
             <td>
@@ -69,7 +69,7 @@
               </p>
             </td>
           </tr>
-          <tr>
+          <tr v-if="forum.token.symbol">
             <td>
               <progress
                 :title="`${forum.token.symbol} Votig Power: ${auth.scotVp}%\nIndicates how powerful your vote is.`"
@@ -80,7 +80,7 @@
             </td>
             <td>
               <img
-                style="height:2vh; margin: 0.2vh 0 0 0.5vw"
+                class="token-icon"
                 :src="forum.token.icon"
               >
             </td>
@@ -206,7 +206,7 @@ export default {
   },
   methods: {
     updateVpRcBars() {
-      this.$store.commit( 'auth/setVpRcBars' );
+      this.$store.dispatch( 'auth/getVpRcBars' );
     },
     toggleMenu() {
       this.menuActive = !this.menuActive;
