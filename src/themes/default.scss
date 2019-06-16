@@ -104,6 +104,44 @@ h5.card-header-title a {
     box-shadow: 0 8px 16px rgba(10, 10, 10, 0.1);
     padding: 0.5rem 0; 
   }
+
+// VP and RC indicator
+.progress {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  border-radius: 0.5vh;
+  display: block;
+  height:1vh;
+  overflow: hidden;
+  padding: 0;
+  width: 10vw;
+  margin-top: 0.7vh;
+}
+
+.progress::-webkit-progress-bar {
+  background-color: #4E5D6C;
+}
+
+.progress::-webkit-progress-value {
+  background-color: #1f2d3b;
+}
+
+.progress::-moz-progress-bar {
+  background-color: #1f2d3b;
+}
+
+.progress::-ms-fill {
+  background-color: #1f2d3b;
+  border: none;
+}
+
+.progress-label {
+color: #dee5ed;
+margin: 0.1vh 0.4vw;
+font-size: 1.5vh;
+}
+
 //Button
 .button.is-small {
   background-color: #4E5D6C;

@@ -32,6 +32,65 @@
       :class="{ 'is-active': menuActive }"
     >
       <div class="navbar-end">
+        <table v-if="auth.username">
+          <tr>
+            <td>
+              <progress
+                :title="`Votig Power: ${auth.vp}%\nIndicates how powerful your vote is.`"
+                class="progress"
+                :value="auth.vp"
+                max="100"
+              />
+            </td>
+            <td rowspan="2">
+              <img
+                style="height:2.3vh; margin: 1.2vh 0 0 0.4vw"
+                src="http://icons.iconarchive.com/icons/cjdowner/cryptocurrency/32/Steem-icon.png"
+              >
+            </td>
+            <td>
+              <p class="progress-label">
+                vp
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <progress
+                :title="`Resource Credits: ${auth.rc}%\nIndicates how many transactions you can still make.`"
+                class="progress"
+                :value="auth.rc"
+                max="100"
+              />
+            </td>
+            <td>
+              <p class="progress-label">
+                rc
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <progress
+                :title="`${forum.token.symbol} Votig Power: ${auth.scotVp}%\nIndicates how powerful your vote is.`"
+                class="progress"
+                :value="auth.scotVp"
+                max="100"
+              />
+            </td>
+            <td>
+              <img
+                style="height:2vh; margin: 0.2vh 0 0 0.5vw"
+                :src="forum.token.icon"
+              >
+            </td>
+            <td>
+              <p class="progress-label">
+                vp
+              </p>
+            </td>
+          </tr>
+        </table>
         <div class="navbar-item is-expanded tr">
           <div class="nav-account">
             <p
@@ -55,7 +114,6 @@
             </p>
           </div>
         </div>
-
         <b-dropdown
           v-if="auth.username"
           class="navbar-item is-right"
@@ -135,9 +193,21 @@ export default {
     };
   },
   computed: {
-    ...mapState( [ 'auth' ] ),
+    ...mapState( [
+      'auth',
+      'forum',
+    ] ),
+  },
+  created() {
+    this.timer = setInterval( this.updateVpRcBars, 60000 );
+  },
+  beforeDestroy() {
+    clearInterval( this.timer );
   },
   methods: {
+    updateVpRcBars() {
+      this.$store.commit( 'auth/setVpRcBars' );
+    },
     toggleMenu() {
       this.menuActive = !this.menuActive;
     },

@@ -5,6 +5,7 @@ import {
   setCategoryOrdering,
   getUsers,
   modifyForumPermission,
+  getTokenIcon,
 } from '../services/api.service.js';
 import { errorAlertOptions } from '../utils/notifications.js';
 
@@ -33,6 +34,7 @@ export default {
       enabled: false,
       symbol: '',
       precision: 3,
+      icon: '',
     },
     beneficiaries: {
       max: 1000,
@@ -61,6 +63,9 @@ export default {
       state.token.enabled = Boolean( forum.token && forum.token.SCOT );
       state.token.symbol = ( forum.token && forum.token.symbol ) || '';
       state.token.precision = ( forum.token && forum.token.precision ) || 3;
+      getTokenIcon( state.token.symbol ).then( ( body ) => {
+        state.token.icon = JSON.parse( body.result[0].metadata ).icon;
+      } );
       state.beneficiaries.max = ( forum.beneficiaries && forum.beneficiaries.max ) || 1000;
       state.beneficiaries.split = ( forum.beneficiaries && forum.beneficiaries.split ) || [];
       let overallRewards = 0;
