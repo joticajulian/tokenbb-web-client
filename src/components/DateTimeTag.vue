@@ -54,7 +54,6 @@ export default {
     timeRelative() {
       // eslint-disable-next-line no-unused-vars
       const dummyTicker = this.$data.ticker;
-
       return formatDateTimeRelative( this.time || this.lastReply.time );
     },
     timeAbsolute() {
