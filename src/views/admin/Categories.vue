@@ -30,7 +30,7 @@
           <button
             class="button is-small modify-ordering"
             :class="{ 'is-loading': fetching }"
-            :disabled="fetching || activeEdits"
+            :disabled="fetching || activeEdits || !auth.roles.admin"
             @click="enableOrderingEdit()"
           >
             Modify Order
@@ -90,7 +90,7 @@
                   <button
                     class="button is-small level-right"
                     :class="{ 'is-loading': fetching }"
-                    :disabled="fetching || activeEdits"
+                    :disabled="fetching || activeEdits || !auth.roles.admin"
                     @click="enableGroupEdit(props.data.nav)"
                   >
                     Edit
@@ -109,7 +109,7 @@
                   <button
                     class="button is-small"
                     :class="{ 'is-loading': fetching }"
-                    :disabled="fetching || activeEdits"
+                    :disabled="fetching || activeEdits || !auth.roles.admin"
                     @click="addGroupToGroup(props.data.nav)"
                   >
                     Add Category Group
@@ -117,7 +117,7 @@
                   <button
                     class="button is-small"
                     :class="{ 'is-loading': fetching }"
-                    :disabled="fetching || activeEdits"
+                    :disabled="fetching || activeEdits || !auth.roles.admin"
                     @click="addCategoryToGroup(props.data.nav)"
                   >
                     Add Category
@@ -229,7 +229,7 @@
                     class="button is-small"
                     style="min-width: 40px; max-width: 40px ; width: 40px"
                     :class="{ 'is-loading': fetching }"
-                    :disabled="fetching || ( !props.data.edit && activeEdits )"
+                    :disabled="fetching || ( !props.data.edit && activeEdits ) || !auth.roles.admin"
                     @click="props.data.slug ? toggleCategoryEdit( props.data.slug ) : cancelAdd( props.data.nav )"
                   >
                     <div v-if="props.data.edit">
@@ -307,6 +307,7 @@ export default {
       'fetching',
       'categoriesByBreadcrumb',
     ] ),
+    ...mapState( [ 'auth' ] ),
     categoryTree() {
       if ( !this.categoriesByBreadcrumb ) {
         return {};
