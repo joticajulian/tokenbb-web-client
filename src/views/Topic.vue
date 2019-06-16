@@ -118,10 +118,6 @@ export default {
       perPage: 10,
     };
   },
-  created() {
-    this.fetchTopic();
-    this.$root.$on( 'topicRefresh', this.fetchTopic );
-  },
   computed: {
     ...mapState( 'categories', [
       'categoriesById',
@@ -166,6 +162,10 @@ export default {
       return breadcrumb;
     },
   },
+  created() {
+    this.fetchTopic();
+    this.$root.$on( 'topicRefresh', this.fetchTopic );
+  },
   methods: {
     onReplyInput( text ) {
       this.replyText = text;
@@ -205,7 +205,7 @@ export default {
         this.fetching = false;
 
         // Hack to prevent scrolling down on load
-        this.$nextTick( function () {
+        this.$nextTick( () => {
           if ( scrollDown ) {
             this.scrollTo( 'endOfTopic' );
           } else {
