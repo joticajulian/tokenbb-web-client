@@ -12,10 +12,12 @@
     <div class="container post">
       <div class="box is-mobile">
         <div class="media-content">
+          <!-- eslint-disable vue/no-v-html -->
           <article
             class="content"
             v-html="$renderMD(content)"
           />
+          <!-- eslint-enable -->
         </div>
       </div>
     </div>
@@ -30,7 +32,7 @@ import { quoteText } from '../utils/content';
 export default {
   props: {
     fetching: Boolean,
-    initialContent: String,
+    initialContent: { type: String, default: '' },
   },
   data() {
     return {
@@ -100,9 +102,9 @@ export default {
       this.$refs.md.$img2Url( pos, newPos );
       uploadImage( file ).then( ( url ) => {
         const newUrl = url.success ? url.data.url : url.message;
-        const reg_str = '/(!\\[\[^\\[\]*?\\]\(?=\\(\)\)\\(\\s*\(' + newPos + '\)\\s*\\)/g';
+        const regStr = '/(!\\[\[^\\[\]*?\\]\(?=\\(\)\)\\(\\s*\(' + newPos + '\)\\s*\\)/g';
         // eslint-disable-next-line no-eval
-        const reg = eval( reg_str );
+        const reg = eval( regStr );
         this.$refs.md.d_value = this.$refs.md.d_value.replace( reg, '$1(' + newUrl + ')' );
         this.$refs.md.$refs.toolbar_left.$changeUrl( pos, newUrl );
         this.$refs.md.iRender();

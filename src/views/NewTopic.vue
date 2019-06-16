@@ -48,7 +48,7 @@
         Cancel
       </button>
       <span class="label is-small has-text-grey-light">
-        This forum takes {{ (this.beneficiaries.max/100).toFixed(2) }}% beneficiaries
+        This forum takes {{ (beneficiaries.max/100).toFixed(2) }}% beneficiaries
       </span>
     </form>
   </div>

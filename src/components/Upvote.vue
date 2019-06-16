@@ -7,7 +7,7 @@
         type="is-black is-center"
       >
         <span
-          v-if="this.token.enabled"
+          v-if="token.enabled"
           class="upvote-value"
         >{{ token_value }}</span>
         <span
@@ -34,7 +34,7 @@
       >
         <a
           class="is-small"
-          :class="{ 'is-loading': this.fetching }"
+          :class="{ 'is-loading': fetching }"
           :disabled="voted"
           @click="handleClick"
         >
@@ -69,7 +69,7 @@
             <div class="level-item">
               <a
                 class="is-small upvote-dropdownbutton"
-                :class="{ 'is-loading': this.fetching }"
+                :class="{ 'is-loading': fetching }"
                 :disabled="voted"
                 @click="handleClick"
               >
@@ -116,8 +116,8 @@ export default {
     ShowIfLoggedIn,
   },
   props: {
-    author: String,
-    permlink: String,
+    author: { type: String, default: '' },
+    permlink: { type: String, default: '' },
     disabled: Boolean,
   },
   data() {
@@ -163,18 +163,18 @@ export default {
     },
     async updateValue() {
       if ( this.token.enabled ) {
-        const token_data = await getScotTokenPayout( this.author, this.permlink );
-        const tokenPayout = token_data[this.token.symbol] || {
+        const tokenData = await getScotTokenPayout( this.author, this.permlink );
+        const tokenPayout = tokenData[this.token.symbol] || {
           pending_token: 0,
           total_payout_value: 0,
           precision: this.token.precision || 3,
           active_votes: [],
         };
         const precision = tokenPayout.precision || this.token.precision || 3;
-        const precision_div = Math.pow( 10, precision );
-        const token_pending = tokenPayout.pending_token / precision_div;
-        this.token_paid = tokenPayout.total_payout_value / precision_div;
-        this.token_value = ( this.paid + token_pending ).toFixed( precision ) + ' ' + this.token.symbol;
+        const precisionDiv = Math.pow( 10, precision );
+        const tokenPending = tokenPayout.pending_token / precisionDiv;
+        this.token_paid = tokenPayout.total_payout_value / precisionDiv;
+        this.token_value = ( this.paid + tokenPending ).toFixed( precision ) + ' ' + this.token.symbol;
         this.token_votes = tokenPayout.active_votes;
       }
 
