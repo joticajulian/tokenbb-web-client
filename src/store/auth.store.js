@@ -3,12 +3,9 @@ import jwtdecode from 'jwt-decode';
 import { Toast } from 'buefy/dist/components/toast';
 
 import steem from '../services/steem.service';
-import { getVotingPower, getResourceCredits } from '../services/api.service.js';
+import { getVotingPower, getScotVotingPower, getResourceCredits } from '../services/api.service.js';
 import { errorAlertOptions } from '../utils/notifications.js';
-import { Client } from 'dsteem';
 import moment from 'moment';
-
-const client = new Client( 'https://api.steemit.com' );
 
 export default {
   namespaced: true,
@@ -173,7 +170,7 @@ export default {
       let vp;
       let rc;
       let scotVp;
-      client.database.getAccounts( [ context.state.current ] ).then( ( _accounts ) => {
+      getVotingPower( context.state.current ).then( ( _accounts ) => {
         const account = _accounts[0];
         const lastVote = ( new Date() - new Date( account.last_vote_time + 'Z' ) ) / 1000;
         let votingPower = account.voting_power + ( 10000 * lastVote / 432000 );
@@ -181,7 +178,7 @@ export default {
         vp = votingPower.toFixed( 2 );
 
         getResourceCredits( context.state.current ).then( ( body ) => {
-          const accountRc = body.result.rc_accounts[0];
+          const accountRc = body[0];
           const maxRc = accountRc.max_rc;
           let lastUpdateTime = accountRc.rc_manabar.last_update_time;
           let currMana = accountRc.rc_manabar.current_mana;
@@ -194,7 +191,7 @@ export default {
           }
           rc = currMana.toFixed( 2 );
 
-          getVotingPower( context.state.current, this.state.forum.token.symbol ).then( ( body ) => {
+          getScotVotingPower( context.state.current, this.state.forum.token.symbol ).then( ( body ) => {
             const lastVoteScot = ( new Date() - new Date( body.last_vote_time + 'Z' ) ) / 1000;
             let votingPowerScot = body.voting_power + ( 10000 * lastVoteScot / 432000 );
             votingPowerScot = Math.min( votingPowerScot / 100, 100 );
