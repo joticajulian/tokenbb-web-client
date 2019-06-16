@@ -75,7 +75,7 @@ const router = new Router( {
     {
       path: '/@:author',
       name: 'author',
-      beforeEnter( to, from, next ) {
+      beforeEnter( to ) {
         window.open( `https://steempeak.com/@${ to.params.author }`, '_blank' );
         if ( window.location.href !== document.referrer ) {
           window.location.href = document.referrer;

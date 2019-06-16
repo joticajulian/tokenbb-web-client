@@ -4,13 +4,13 @@
       icon="clock"
       size="is-small"
     />
-    {{ this.timeRelative }}
-    <template v-if="!this.time && this.numberOfReplies > 0">
+    {{ timeRelative }}
+    <template v-if="!time && numberOfReplies > 0">
       <span>by</span>
       <Avatar
         class="align-middle"
-        :author="this.lastReply.author"
-        :owner="this.lastReply.owner"
+        :author="lastReply.author"
+        :owner="lastReply.owner"
         size="small"
       />
     </template>
@@ -33,13 +33,15 @@ export default {
     Avatar,
   },
   props: {
-    time: String,
+    time: { type: String, default: '' },
     lastReply: {
-      time: String,
-      author: String,
-      owner: String,
+      type: Object,
+      default: () => {},
+      time: { type: String, default: '' },
+      author: { type: String, default: '' },
+      owner: { type: String, default: '' },
     },
-    numberOfReplies: Number,
+    numberOfReplies: { type: Number, default: 1 },
   },
   data() {
     return {
@@ -50,15 +52,18 @@ export default {
   },
   computed: {
     timeRelative() {
+      // eslint-disable-next-line no-unused-vars
       const dummyTicker = this.$data.ticker;
       return formatDateTimeRelative( this.time || this.lastReply.time );
     },
     timeAbsolute() {
+      // eslint-disable-next-line no-unused-vars
       const dummyTicker = this.$data.ticker;
       return formatDateTimeAbsolute( this.time || this.lastReply.time );
     },
   },
   mounted() {
+    // eslint-disable-next-line no-shadow
     const self = this;
     clearTimeout( self.$data.timeoutHandle );
     self.$data.timeoutHandle = setTimeout( updateTime, self.$data.timeout );

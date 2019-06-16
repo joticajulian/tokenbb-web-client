@@ -31,11 +31,13 @@
         </div>
       </div>
       <div class="media-content">
+        <!-- eslint-disable vue/no-v-html -->
         <article
           v-if="!editing"
           class="content"
           v-html="$renderMD(data.body)"
         />
+        <!-- eslint-enable -->
       </div>
       <form v-if="editing">
         <b-field>
@@ -52,7 +54,7 @@
         <b-field>
           <a
             class="button is-small is-topic save"
-            :class="{ 'is-loading': this.fetching }"
+            :class="{ 'is-loading': fetching }"
             @click="onSave"
           >
             Save
@@ -61,7 +63,7 @@
           <p>
             <a
               class="button is-small"
-              :disabled="this.fetching"
+              :disabled="fetching"
               @click="onCancel"
             >
               Cancel
@@ -143,7 +145,7 @@ export default {
     DateTimeTag,
   },
   props: {
-    data: Object,
+    data: { type: Object, default: () => {} },
     isReply: Boolean,
   },
   data() {

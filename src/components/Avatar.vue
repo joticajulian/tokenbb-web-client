@@ -40,9 +40,9 @@ export default {
     BTooltip: Tooltip,
   },
   props: {
-    author: String,
-    owner: String,
-    size: String,
+    author: { type: String, default: '' },
+    owner: { type: String, default: '' },
+    size: { type: String, default: '' },
   },
   computed: {
     classes() {

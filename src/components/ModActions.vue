@@ -34,7 +34,7 @@ export default {
     BSelect: Select,
   },
   props: {
-    post: Object,
+    post: { type: Object, default: () => {} },
     isReply: Boolean,
   },
   data() {

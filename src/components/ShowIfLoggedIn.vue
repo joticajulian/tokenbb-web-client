@@ -16,7 +16,7 @@
 
 export default {
   props: {
-    text: String,
+    text: { type: String, default: '' },
     hidden: Boolean,
   },
   computed: {
