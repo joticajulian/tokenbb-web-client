@@ -45,7 +45,7 @@
             <td rowspan="2">
               <img
                 style="height:2.3vh; margin: 1.2vh 0 0 0.4vw"
-                src="http://icons.iconarchive.com/icons/cjdowner/cryptocurrency/32/Steem-icon.png"
+                src="../assets/steemIcon.png"
               >
             </td>
             <td>
