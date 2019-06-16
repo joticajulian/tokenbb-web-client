@@ -177,8 +177,8 @@ export default {
         votingPower = Math.min( votingPower / 100, 100 );
         vp = votingPower.toFixed( 2 );
 
-        getResourceCredits( context.state.current ).then( ( body ) => {
-          const accountRc = body[0];
+        getResourceCredits( context.state.current ).then( ( _accountsRc ) => {
+          const accountRc = _accountsRc[0];
           const maxRc = accountRc.max_rc;
           let lastUpdateTime = accountRc.rc_manabar.last_update_time;
           let currMana = accountRc.rc_manabar.current_mana;
