@@ -46,199 +46,238 @@
             <template slot-scope="props">
               <div
                 v-if="props.data.isGroup"
-                class="is-tablet level"
+                class="is-tablet"
               >
-                <div v-if="props.data.edit">
-                  <b-field>
-                    <b-input
-                      v-model="props.data.edit.name"
-                      placeholder="Name"
-                      :maxlength="64"
-                      :has-counter="false"
-                    />
-                  </b-field>
-                  <b-field>
-                    <b-checkbox
-                      v-model="props.data.edit.collapseByDefault"
+                <div
+                  v-if="!activeEdits || Boolean(props.data.edit)"
+                >
+                  <div
+                    v-if="!Boolean(props.data.edit)"
+                    class="columns is-tablet"
+                  >
+                    <div class="column">
+                      <span class="cprops-title">
+                        {{ props.data.name }}
+                      </span>
+                      <a
+                        v-if="!Boolean(props.data.edit)"
+                        @click="enableGroupEdit( props.data.nav )"
+                      >
+                        <b-icon icon="pencil" />
+                      </a>
+                    </div>
+                    <b-dropdown
+                      v-if="!Boolean(props.data.edit)"
+                      class="column"
+                      hoverable
                     >
-                      Collapse by default
-                    </b-checkbox>
-                  </b-field>
-                  <button
-                    v-if="props.data.edit"
-                    class="button is-small"
-                    :class="{ 'is-loading': fetching }"
-                    :disabled="fetching"
-                    @click="saveGroup( props.data.nav )"
+                      <a
+                        slot="trigger"
+                      >
+                        <b-icon icon="menu" />
+                      </a>
+                      <b-dropdown-item
+                        v-if="props.data.children.length == 0"
+                        @click="removeGroup(props.data.nav)"
+                      >
+                        Remove
+                      </b-dropdown-item>
+                      <b-dropdown-item
+                        @click="addGroupToGroup(props.data.nav)"
+                      >
+                        Add Category Group
+                      </b-dropdown-item>
+                      <b-dropdown-item
+                        @click="addCategoryToGroup(props.data.nav)"
+                      >
+                        Add Category
+                      </b-dropdown-item>
+                    </b-dropdown>
+                  </div>
+                  <div
+                    v-else
+                    ref="editingGroup"
+                    class=""
                   >
-                    Save
-                  </button>
-                  <button
-                    class="button is-small"
-                    :class="{ 'is-loading': fetching }"
-                    :disabled="fetching"
-                    @click="cancelGroupEdit( props.data.nav )"
-                  >
-                    Cancel
-                  </button>
+                    <!-- For Editing -->
+                    <h2>Category Group Settings</h2>
+                    <b-field
+                      horizontal
+                      class="input-title"
+                      label="Name"
+                    >
+                      <b-input
+                        v-model="props.data.edit.name"
+                        placeholder="Name"
+                        :maxlength="64"
+                        :has-counter="false"
+                      />
+                    </b-field>
+                    <b-field
+                      horizontal
+                      class="input-title"
+                      label="Collapse By Default"
+                    >
+                      <b-checkbox
+                        v-model="props.data.edit.collapseByDefault"
+                      />
+                    </b-field>
+                    <button
+                      v-if="props.data.edit"
+                      class="button is-small"
+                      @click="saveGroup( props.data.nav )"
+                    >
+                      Save
+                    </button>
+                    <button
+                      class="button is-small"
+                      @click="cancelGroupEdit( props.data.nav )"
+                    >
+                      Cancel
+                    </button>
+                  </div>
                 </div>
                 <div
                   v-else
-                  class="level-left"
+                  class="columns is-tablet"
                 >
-                  {{ props.data.name }}
-                  <button
-                    class="button is-small level-right"
-                    :class="{ 'is-loading': fetching }"
-                    :disabled="fetching || activeEdits"
-                    @click="enableGroupEdit(props.data.nav)"
+                  <!-- For Dragging or editing others -->
+                  <div class="column">
+                    <span class="cprops-title">
+                      {{ props.data.name }}
+                    </span>
+                  </div>
+                  <div
+                    v-if="props.data.draggable"
+                    class="column"
                   >
-                    Edit
-                  </button>
-                  <button
-                    v-if="props.data.children.length == 0"
-                    class="button is-small"
-                    :class="{ 'is-loading': fetching }"
-                    :disabled="fetching || activeEdits"
-                    @click="removeGroup(props.data.nav)"
+                    <b-icon :icon="'drag'" />
+                  </div>
+                  <div
+                    class="column"
                   >
-                    Remove
-                  </button>
+                    <a
+                      class="level-right"
+                      @click="props.store.toggleOpen( props.data )"
+                    >
+                      <b-icon
+                        :icon="props.data.open ? 'menu-up' : 'menu-down'"
+                      />
+                    </a>
+                  </div>
                 </div>
-                <div v-if="props.data.open">
-                  <button
-                    class="button is-small"
-                    :class="{ 'is-loading': fetching }"
-                    :disabled="fetching || activeEdits"
-                    @click="addGroupToGroup(props.data.nav)"
-                  >
-                    Add Category Group
-                  </button>
-                  <button
-                    class="button is-small"
-                    :class="{ 'is-loading': fetching }"
-                    :disabled="fetching || activeEdits"
-                    @click="addCategoryToGroup(props.data.nav)"
-                  >
-                    Add Category
-                  </button>
-                </div>
-                <a
-                  class="level-right"
-                  @click="props.store.toggleOpen( props.data )"
-                >
-                  <b-icon
-                    :icon="props.data.open ? 'menu-up' : 'menu-down'"
-                  />
-                </a>
               </div>
               <div
                 v-else
-                class="columns is-tablet"
+                class="is-tablet"
               >
-                <div class="column">
-                  <span class="cprops-title">{{ props.data.slug }}</span>
-                </div>
-                <div class="column">
-                  <b-field
-                    v-if="props.data.edit"
+                <!-- Category -->
+                <div
+                  v-if="!activeEdits || Boolean(props.data.edit)"
+                >
+                  <div
+                    v-if="!Boolean(props.data.edit)"
+                    class="columns is-tablet"
                   >
-                    Name
-                    <b-input
-                      v-model="props.data.edit.name"
-                      placeholder="Name"
-                      :maxlength="64"
-                      :has-counter="false"
-                    />
-                  </b-field>
+                    <div class="column">
+                      {{ props.data.name }}
+                      <a
+                        v-if="!Boolean(props.data.edit)"
+                        @click="toggleCategoryEdit( props.data.slug )"
+                      >
+                        <b-icon icon="pencil" />
+                      </a>
+                    </div>
+                  </div>
                   <div
                     v-else
+                    ref="editingCat"
+                    class="is-tablet"
                   >
-                    {{ props.data.name }}
-                  </div>
-                </div>
-                <div class="column">
-                  <b-field
-                    v-if="props.data.edit"
-                  >
-                    Title
-                    <b-input
-                      v-model="props.data.edit.title"
-                      placeholder="Title"
-                      :maxlength="64"
-                      :has-counter="false"
-                    />
-                  </b-field>
-                  <div
-                    v-else
-                  >
-                    {{ props.data.title }}
-                  </div>
-                </div>
-                <div class="column">
-                  <b-field
-                    v-if="props.data.edit"
-                  >
-                    Description
-                    <b-input
-                      v-model="props.data.edit.description"
-                      placeholder="Description"
-                      :maxlength="320"
-                      :has-counter="false"
-                    />
-                  </b-field>
-                  <div
-                    v-else
-                  >
-                    {{ props.data.description }}
-                  </div>
-                </div>
-                <div class="column">
-                  <b-field
-                    v-if="props.data.edit"
-                  >
-                    <b-checkbox
-                      v-model="props.data.edit.hidden"
+                    <!-- For Editing -->
+                    <h2>Category Settings</h2>
+                    <b-field
+                      horizontal
+                      class="input-title"
+                      label="Slug"
                     >
-                      Hidden
-                    </b-checkbox>
-                  </b-field>
-                  <div
-                    v-else
-                  >
-                    <b-checkbox
-                      v-model="props.data.hidden"
-                      disabled
+                      <span class="cprops-title">{{ props.data.slug }}</span>
+                    </b-field>
+                    <b-field
+                      horizontal
+                      class="input-title"
+                      label="Name"
                     >
-                      Hidden
-                    </b-checkbox>
-                  </div>
-                </div>
-                <div class="column">
-                  <button
-                    v-if="props.data.edit"
-                    class="button is-small"
-                    style="min-width: 40px; max-width: 40px ; width: 40px"
-                    :class="{ 'is-loading': fetching }"
-                    :disabled="fetching"
-                    @click="props.data.slug ? saveCategory( props.data.slug ) : addCategory( props.data.nav )"
-                  >
-                    Save
-                  </button>
-                  <button
-                    class="button is-small"
-                    style="min-width: 40px; max-width: 40px ; width: 40px"
-                    :class="{ 'is-loading': fetching }"
-                    :disabled="fetching || ( !props.data.edit && activeEdits )"
-                    @click="props.data.slug ? toggleCategoryEdit( props.data.slug ) : cancelAdd( props.data.nav )"
-                  >
-                    <div v-if="props.data.edit">
+                      <b-input
+                        v-model="props.data.edit.name"
+                        placeholder="Name"
+                        :maxlength="64"
+                        :has-counter="false"
+                      />
+                    </b-field>
+                    <b-field
+                      horizontal
+                      class="input-title"
+                      label="Title"
+                    >
+                      <b-input
+                        v-model="props.data.edit.title"
+                        placeholder="Title"
+                        :maxlength="64"
+                        :has-counter="false"
+                      />
+                    </b-field>
+                    <b-field
+                      horizontal
+                      class="input-title"
+                      label="Description"
+                    >
+                      <b-input
+                        v-model="props.data.edit.description"
+                        placeholder="Description"
+                        :maxlength="320"
+                        :has-counter="false"
+                      />
+                    </b-field>
+                    <b-field
+                      horizontal
+                      class="input-title"
+                      label="Hidden"
+                    >
+                      <b-checkbox
+                        v-model="props.data.edit.hidden"
+                      />
+                    </b-field>
+                    <button
+                      class="button is-small"
+                      @click="props.data.slug ? saveCategory( props.data.slug ) : addCategory( props.data.nav )"
+                    >
+                      Save
+                    </button>
+                    <button
+                      class="button is-small"
+                      @click="props.data.slug ? toggleCategoryEdit( props.data.slug ) : cancelAdd( props.data.nav )"
+                    >
                       Cancel
-                    </div>
-                    <div v-else>
-                      Edit
-                    </div>
-                  </button>
+                    </button>
+                  </div>
+                </div>
+                <div
+                  v-else
+                  class="columns is-tablet"
+                >
+                  <!-- For Dragging or editing others -->
+                  <div class="column">
+                    <span class="cprops-title">
+                      {{ props.data.name }}
+                    </span>
+                  </div>
+                  <div
+                    v-if="props.data.draggable"
+                    class="column"
+                  >
+                    <b-icon :icon="'drag'" />
+                  </div>
                 </div>
               </div>
             </template>
@@ -251,6 +290,8 @@
 
 <script>
 import Checkbox from 'buefy/src/components/checkbox/Checkbox';
+import Dropdown from 'buefy/src/components/dropdown/Dropdown';
+import DropdownItem from 'buefy/src/components/dropdown/DropdownItem';
 import Field from 'buefy/src/components/field/Field';
 import Icon from 'buefy/src/components/icon/Icon';
 import Input from 'buefy/src/components/input/Input';
@@ -285,6 +326,8 @@ export default {
   components: {
     AdminNav,
     BCheckbox: Checkbox,
+    BDropdown: Dropdown,
+    BDropdownItem: DropdownItem,
     BIcon: Icon,
     BField: Field,
     BInput: Input,
@@ -353,7 +396,7 @@ export default {
 
         // Check if user added category for this group.
         if ( editingCategory[categoryGroup.nav] ) {
-          group.children.unshift( {
+          group.children.push( {
             slug: '',
             nav: categoryGroup.nav,
             collapseByDefault: false,
@@ -372,7 +415,7 @@ export default {
             draggable: false,
             isGroup: true,
           };
-          group.children.unshift( newGroup );
+          group.children.push( newGroup );
           groupsByNav[newGroupNav] = newGroup;
         }
         return group;
@@ -450,7 +493,11 @@ export default {
       const newGroup = {
         name: '',
       };
-      Vue.set( this.editingGroup, nav + '/__NEW__', newGroup );
+      const newGroupNav = nav + '/__NEW__';
+      Vue.set( this.editingGroup, newGroupNav, newGroup );
+      this.$nextTick( () => {
+        this.$refs.editingGroup.scrollIntoView();
+      } );
     },
     addCategoryToGroup( nav ) {
 
@@ -462,6 +509,9 @@ export default {
         hidden: false,
       };
       Vue.set( this.editingCategory, nav, newCat );
+      this.$nextTick( () => {
+        this.$refs.editingCat.scrollIntoView();
+      } );
     },
     cancelAdd( nav ) {
       Vue.set( this.editingCategory, nav, null );
