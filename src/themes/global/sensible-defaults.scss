@@ -84,12 +84,9 @@ width: auto;
 margin: 0.1vh 0.4vw;
 }
 
-.steem-icon {
-  height:2.3vh;
-}
-
-.token-icon {
+.token-icon, .steem-icon {
   height:2vh;
+  margin-left: 1rem;
 }
 
 // Upvote Button Size
@@ -213,4 +210,26 @@ a.pagination-link.is-current {
 .topic-activity .b-tooltip .avatar.is-16x16 {
   top: 2px;
   left: 2px;
+}
+
+.progress::-webkit-progress-bar {
+  background-color: #333;
+}
+
+.progress::-webkit-progress-value {
+  background-color: #68c01e;
+  border-top: 2px solid #7ffc0a;
+  border-left: 2px solid #7ffc0a;
+}
+
+.progress::-moz-progress-bar {
+  background-color: #68c01e;
+  border-top: 2px solid #7ffc0a;
+  border-left: 2px solid #7ffc0a;
+}
+
+.progress::-ms-fill {
+  background-color: #68c01e;
+  border-top: 2px solid #7ffc0a;
+  border-left: 2px solid #7ffc0a;
 }

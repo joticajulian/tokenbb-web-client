@@ -25,7 +25,7 @@ const contextMap = {
   drugwars: { theme: 'theme-drugwars', forum: 'drugwars', icon: 'themes/drugwars/small.png' },
   nextcolony: { theme: 'theme-nextcolony', forum: 'nextcolony', icon: 'themes/nextcolony/favicon.png' },
   steem: { theme: 'theme-steem', forum: 'steem', icon: 'themes/steem/logo.png' },
-  localhost: { theme: 'theme-default', forum: 'monsters', icon: 'favicon.ico' },
+  localhost: { theme: 'theme-steem', forum: 'monsters', icon: 'favicon.ico' },
 };
 
 function setUpForum( forumContext, forum ) {

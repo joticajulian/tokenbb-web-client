@@ -106,40 +106,6 @@ h5.card-header-title a {
   }
 
 // VP and RC indicator
-.progress {
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  border: none;
-  border-radius: 0.5vh;
-  display: block;
-  height:1vh;
-  overflow: hidden;
-  padding: 0;
-  width: 10vw;
-  margin-top: 0.7vh;
-}
-
-.progress::-webkit-progress-bar {
-  background-color: #1f2d3b;
-}
-
-.progress::-webkit-progress-value {
-  background-color: #68c01e;
-  border-top: 2px solid #7ffc0a;
-  border-left: 2px solid #7ffc0a;
-}
-
-.progress::-moz-progress-bar {
-  background-color: #68c01e;
-  border-top: 2px solid #7ffc0a;
-  border-left: 2px solid #7ffc0a;
-}
-
-.progress::-ms-fill {
-  background-color: #68c01e;
-  border-top: 2px solid #7ffc0a;
-  border-left: 2px solid #7ffc0a;
-}
 
 .progress-label {
 color: #dee5ed;
