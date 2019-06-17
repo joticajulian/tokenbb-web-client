@@ -30,7 +30,7 @@
           <button
             class="button is-small modify-ordering"
             :class="{ 'is-loading': fetching }"
-            :disabled="fetching || activeEdits"
+            :disabled="fetching || activeEdits || !auth.roles.admin"
             @click="enableOrderingEdit()"
           >
             Modify Order
@@ -67,7 +67,7 @@
                       </a>
                     </div>
                     <b-dropdown
-                      v-if="!Boolean(props.data.edit)"
+                      v-if="!Boolean(props.data.edit) && !(fetching || activeEdits || !auth.roles.admin)"
                       class="column"
                       hoverable
                     >
@@ -182,7 +182,7 @@
                     <div class="column">
                       {{ props.data.name }}
                       <a
-                        v-if="!Boolean(props.data.edit)"
+                        v-if="!Boolean(props.data.edit) && !(fetching || activeEdits || !auth.roles.admin)"
                         @click="toggleCategoryEdit( props.data.slug )"
                       >
                         <b-icon icon="pencil" />
@@ -350,6 +350,7 @@ export default {
       'fetching',
       'categoriesByBreadcrumb',
     ] ),
+    ...mapState( [ 'auth' ] ),
     categoryTree() {
       if ( !this.categoriesByBreadcrumb ) {
         return {};

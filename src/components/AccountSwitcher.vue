@@ -81,7 +81,6 @@ export default {
   },
   methods: {
     onChange( value ) {
-      console.log( value );
       if ( value.authority.posting ) {
         this.selected = value;
         this.$store.commit( 'auth/setCurrent', value.account );
