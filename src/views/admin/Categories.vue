@@ -60,7 +60,7 @@
                         {{ props.data.name }}
                       </span>
                       <a
-                        v-if="!Boolean(props.data.edit)"
+                        v-if="!Boolean(props.data.edit) && !(fetching || activeEdits || !auth.roles.admin)"
                         @click="enableGroupEdit( props.data.nav )"
                       >
                         <b-icon icon="pencil" />
