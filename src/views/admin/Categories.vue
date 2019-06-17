@@ -26,11 +26,11 @@
             Cancel
           </button>
         </div>
-        <div v-else>
+        <div v-else-if="auth.roles.admin">
           <button
             class="button is-small modify-ordering"
             :class="{ 'is-loading': fetching }"
-            :disabled="fetching || activeEdits || !auth.roles.admin"
+            :disabled="fetching || activeEdits"
             @click="enableOrderingEdit()"
           >
             Modify Order
@@ -60,14 +60,14 @@
                         {{ props.data.name }}
                       </span>
                       <a
-                        v-if="!Boolean(props.data.edit)"
+                        v-if="!Boolean(props.data.edit) && auth.roles.admin"
                         @click="enableGroupEdit( props.data.nav )"
                       >
                         <b-icon icon="pencil" />
                       </a>
                     </div>
                     <b-dropdown
-                      v-if="!Boolean(props.data.edit)"
+                      v-if="!Boolean(props.data.edit) && auth.roles.admin"
                       class="column"
                       hoverable
                     >
@@ -182,7 +182,7 @@
                     <div class="column">
                       {{ props.data.name }}
                       <a
-                        v-if="!Boolean(props.data.edit)"
+                        v-if="!Boolean(props.data.edit) && auth.roles.admin"
                         @click="toggleCategoryEdit( props.data.slug )"
                       >
                         <b-icon icon="pencil" />
