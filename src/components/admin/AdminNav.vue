@@ -1,6 +1,12 @@
 <template>
   <div class="container dashboard">
     <h1>Forum Administration Area</h1>
+    <h1
+      v-if="!auth.roles.admin"
+      class="admin-warning"
+    >
+      WARNING: you can only edit these settings, if you're an admin!
+    </h1>
     <section class="main-content columns is-fullheight">
       <aside class="column is-2 is-narrow-mobile is-fullheight section is-hidden-mobile">
         <p class="menu-label is-hidden-touch">
@@ -70,8 +76,13 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   name: 'AdminNav',
+  computed: {
+    ...mapState( [ 'auth' ] ),
+  },
 };
 </script>
 

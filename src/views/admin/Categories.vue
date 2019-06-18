@@ -26,11 +26,11 @@
             Cancel
           </button>
         </div>
-        <div v-else>
+        <div v-else-if="auth.roles.admin">
           <button
             class="button is-small modify-ordering"
             :class="{ 'is-loading': fetching }"
-            :disabled="fetching || activeEdits || !auth.roles.admin"
+            :disabled="fetching || activeEdits"
             @click="enableOrderingEdit()"
           >
             Modify Order
