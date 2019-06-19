@@ -18,6 +18,14 @@ a.dropdown-item {
 .content.topic-title {
   margin-bottom: 0px;
 }
+
+//Admin page
+.admin-warning {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+}
+
 // Dropdown Category
 a.dropdown-item {
 width: auto;
@@ -67,29 +75,35 @@ width: auto;
 }
 
 // VP and RC indicator
+.progress-table td {
+  vertical-align: middle;
+}
 .progress {
   -moz-appearance: none;
   -webkit-appearance: none;
   border: none;
-  border-radius: 0.5vh;
+  border-radius: 3.5em;
   display: block;
-  height:1vh;
+  height:0.7em;
   overflow: hidden;
   padding: 0;
-  width: 10vw;
-  margin-top: 0.7vh;
+  width: 10em;
 }
 
 .progress-label {
-margin: 0.1vh 0.4vw;
+margin: 0 0.5em;
 }
 
 .steem-icon {
-  height:2.3vh;
+  vertical-align: top;
+  margin-left: 0.5em;
+  height:1.3em;
 }
 
-.token-icon {
-  height:2vh;
+.token-icon {  
+  vertical-align: middle;
+  margin-left: 0.5em;
+  height:1.2em;
 }
 
 // Upvote Button Size
