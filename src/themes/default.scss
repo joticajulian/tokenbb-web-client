@@ -451,12 +451,43 @@ a.pagination-link.is-current {
     }
     // Categories Ordering Page
     &__categories {
-
+      h2 {
+        font-size: 1.2rem;
+      }
+      h4 {
+        font-size: 1rem;
+      }
+      .field {
+        width: 60%;
+      }
       .save-ordering {
         margin-right: 10px;
       }
       .section {
         padding: 0px;
+      }
+      .categories {
+        font-size: 1.2rem;
+        box-shadow: 2px 2px 3px rgba(10, 10, 10, 0.1), 2px 2px 3px 1px rgba(10, 10, 10, 0.1);
+        background-color: $background-content;
+        padding: 1rem 1rem 1rem 1rem;
+        border: 1px solid $background;
+      }
+      .groups {
+        font-size: 1.2rem;
+        padding: 1rem;
+        box-shadow: 2px 2px 3px rgba(10, 10, 10, 0.1), 2px 2px 3px 1px rgba(10, 10, 10, 0.1);
+        margin-bottom: 1rem;
+        border: 1px solid $background-content;
+      }
+      .editing-box {
+        background-color: $background-content;
+        margin-top: 0.5rem;
+        padding: 1rem 1rem 1rem 1rem;
+        box-shadow: 2px 2px 3px rgba(10, 10, 10, 0.1), 2px 2px 3px 1px rgba(10, 10, 10, 0.1);
+      }
+      .save {
+        margin-right: 1rem;
       }
     }
 
