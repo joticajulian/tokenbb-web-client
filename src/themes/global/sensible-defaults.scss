@@ -78,6 +78,11 @@ width: auto;
 .progress-table td {
   vertical-align: middle;
 }
+
+.progress-table td.steem-icon-td {
+  vertical-align: top;
+}
+
 .progress {
   -moz-appearance: none;
   -webkit-appearance: none;
