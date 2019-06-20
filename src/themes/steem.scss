@@ -175,6 +175,8 @@
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0058FF', endColorstr='#1B1464', GradientType=1);
     z-index: 30;
     min-height: unset;
+    -webkit-box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
   }
 
   .navbar-tabs {
@@ -182,7 +184,7 @@
   }
 
   .navbar-menu {
-    padding: 0;
+    padding: 0.5rem 0;
   }
 
   @media screen and (max-width: 1087px) {
@@ -221,11 +223,6 @@
 
   .navbar-burger span {
     background-color: currentColor;
-  }
-
-  .navbar-menu {
-    box-shadow: 0 8px 16px rgba(10, 10, 10, 0.1);
-    padding: 0.5rem 0;
   }
 
   .navbar .button.is-small {
