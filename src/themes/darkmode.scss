@@ -116,21 +116,14 @@
 
 // VP and RC indicator
 
-.progress::-webkit-progress-bar {
+.progress {
   background-color: #dee5ed;
+
 }
 
-.progress::-webkit-progress-value {
+.progress-percentage {
   background-color: #4a4a4a;
-}
-
-.progress::-moz-progress-bar {
-  background-color: #4a4a4a;
-}
-
-.progress::-ms-fill {
-  background-color: #4a4a4a;
-  border: none;
+  color: white
 }
 
 .progress-label {
