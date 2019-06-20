@@ -38,12 +38,15 @@
         >
           <tr>
             <td>
-              <progress
-                :title="`Votig Power: ${auth.vp}%\nIndicates how powerful your vote is.`"
-                class="progress"
-                :value="auth.vp"
-                max="100"
-              />
+              <div class="progressNew">
+                <div
+                  :title="`Votig Power: ${auth.vp}%\nIndicates how powerful your vote is.`"
+                  class="progressNewLabel"
+                  :style="{width: auth.vp + '%'}"
+                >
+                  {{ auth.vp + '%' }}
+                </div>
+              </div>
             </td>
             <td rowspan="2">
               <img
@@ -59,12 +62,15 @@
           </tr>
           <tr>
             <td>
-              <progress
-                :title="`Resource Credits: ${auth.rc}%\nIndicates how many transactions you can still make.`"
-                class="progress"
-                :value="auth.rc"
-                max="100"
-              />
+              <div class="progressNew">
+                <div
+                  :title="`Resource Credits: ${auth.rc}%\nIndicates how many transactions you can still make.`"
+                  class="progressNewLabel"
+                  :style="{width: auth.rc + '%'}"
+                >
+                  {{ auth.rc + '%' }}
+                </div>
+              </div>
             </td>
             <td>
               <p class="progress-label">
@@ -74,12 +80,15 @@
           </tr>
           <tr v-if="forum.token.enabled">
             <td>
-              <progress
-                :title="`${forum.token.symbol} Votig Power: ${auth.scotVp}%\nIndicates how powerful your vote is.`"
-                class="progress"
-                :value="auth.scotVp"
-                max="100"
-              />
+              <div class="progressNew">
+                <div
+                  :title="`${forum.token.symbol} Votig Power: ${auth.scotVp}%\nIndicates how powerful your vote is.`"
+                  class="progressNewLabel"
+                  :style="{width: auth.scotVp + '%'}"
+                >
+                  {{ auth.scotVp + '%' }}
+                </div>
+              </div>
             </td>
             <td>
               <img
