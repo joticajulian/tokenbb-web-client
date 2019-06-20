@@ -38,12 +38,15 @@
         >
           <tr>
             <td>
-              <progress
-                :title="`Votig Power: ${auth.vp}%\nIndicates how powerful your vote is.`"
-                class="progress"
-                :value="auth.vp"
-                max="100"
-              />
+              <div class="progress">
+                <div
+                  :title="`Votig Power: ${auth.vp}%\nIndicates how powerful your vote is.`"
+                  class="progress-percentage"
+                  :style="{width: auth.vp + '%'}"
+                >
+                  {{ auth.vp + '%' }}
+                </div>
+              </div>
             </td>
             <td
               class="steem-icon-td"
@@ -62,12 +65,15 @@
           </tr>
           <tr>
             <td>
-              <progress
-                :title="`Resource Credits: ${auth.rc}%\nIndicates how many transactions you can still make.`"
-                class="progress"
-                :value="auth.rc"
-                max="100"
-              />
+              <div class="progress">
+                <div
+                  :title="`Resource Credits: ${auth.rc}%\nIndicates how many transactions you can still make.`"
+                  class="progress-percentage"
+                  :style="{width: auth.rc + '%'}"
+                >
+                  {{ auth.rc + '%' }}
+                </div>
+              </div>
             </td>
             <td>
               <p class="progress-label">
@@ -77,12 +83,15 @@
           </tr>
           <tr v-if="forum.token.enabled">
             <td>
-              <progress
-                :title="`${forum.token.symbol} Votig Power: ${auth.scotVp}%\nIndicates how powerful your vote is.`"
-                class="progress"
-                :value="auth.scotVp"
-                max="100"
-              />
+              <div class="progress">
+                <div
+                  :title="`${forum.token.symbol} Votig Power: ${auth.scotVp}%\nIndicates how powerful your vote is.`"
+                  class="progress-percentage"
+                  :style="{width: auth.scotVp + '%'}"
+                >
+                  {{ auth.scotVp + '%' }}
+                </div>
+              </div>
             </td>
             <td>
               <img

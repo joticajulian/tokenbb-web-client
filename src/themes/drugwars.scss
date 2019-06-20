@@ -112,21 +112,14 @@ h6.card-header-title a {
 
 // VP and RC indicator
 
-.progress::-webkit-progress-bar {
+.progress {
   background-color: #f3f3f3;
+
 }
 
-.progress::-webkit-progress-value {
+.progress-percentage {
   background-color: #00A32A;
-}
-
-.progress::-moz-progress-bar {
-  background-color: #00A32A;
-}
-
-.progress::-ms-fill {
-  background-color: #00A32A;
-  border: none;
+  color: white
 }
 
 .progress-label {

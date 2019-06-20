@@ -75,24 +75,22 @@ width: auto;
 }
 
 // VP and RC indicator
+.progress {
+  width: 15em;
+  height: 1em;
+  font-size: 0.7em;
+  border-radius: 0.5em;
+  overflow:hidden;
+}
+
+.progress-percentage {
+  height: 1em;
+  text-align: center;
+  line-height:1em
+}
+
 .progress-table td {
   vertical-align: middle;
-}
-
-.progress-table td.steem-icon-td {
-  vertical-align: top;
-}
-
-.progress {
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  border: none;
-  border-radius: 3.5em;
-  display: block;
-  height:0.7em;
-  overflow: hidden;
-  padding: 0;
-  width: 10em;
 }
 
 .progress-label {

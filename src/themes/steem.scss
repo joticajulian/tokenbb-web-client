@@ -282,9 +282,22 @@
     max-width: none;
   }
 
-  .progress::-moz-progress-bar {
-    background-color: #0079FF;
-  }
+  // VP and RC indicator
+
+.progress {
+  background-color: #1B1464;
+
+}
+
+.progress-percentage {
+  background-color: #5F00DE;
+  color: white
+}
+
+.progress-label {
+color: #dee5ed;
+font-size: 1em;
+}
 
   // Button
   .button.is-small {
