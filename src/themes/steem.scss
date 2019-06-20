@@ -89,6 +89,9 @@
   form.new-topic {
     padding: 30px;
     background: rgba(27, 20, 100, .6);
+    -webkit-box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.16);
+    -moz-box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.16);
+    box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.16);    
     border-radius: 25px;
     margin-bottom: 25px;
   }
@@ -96,8 +99,15 @@
     padding: 20px 0 0 20px;
   }
   .box {
-    background-color: $background-content;
-    border-radius: 15px;
+    background: rgba(0, 88, 255, 1);
+    background: -moz-linear-gradient(left, rgba(0, 88, 255, 1) 0%, rgba(95, 0, 222, 1) 100%);
+    background: -webkit-linear-gradient(left, rgba(0, 88, 255, 1) 0%, rgba(95, 0, 222, 1) 100%);
+    background: linear-gradient(to right, rgba(0, 88, 255, 1) 0%, rgba(95, 0, 222, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0058FF', endColorstr='#5F00DE', GradientType=1);
+    -webkit-box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.16);
+    -moz-box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.16);
+    box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.16);    
+    border-radius: 25px;
     color: $content;
     display: block;
     padding: 2rem;
@@ -108,11 +118,25 @@
   }
 
   .table-wrapper .table tr:nth-child(even) .box {
-    background-color: #171FC9;
+    background: rgba(95, 0, 222, 1);
+    background: -moz-linear-gradient(left, rgba(95, 0, 222, 1) 0%, rgba(0, 88, 255, 1) 100%);
+    background: -webkit-linear-gradient(left, rgba(95, 0, 222, 1) 0%, rgba(0, 88, 255, 1) 100%);
+    background: linear-gradient(to right, rgba(95, 0, 222, 1) 0%, rgba(0, 88, 255, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5F00DE', endColorstr='#0058FF', GradientType=1);    
   }
 
   .table-wrapper .table tr .box:hover {
-    background-color: #0079FF;
+    background: rgba(0, 88, 255, .9);
+    background: -moz-linear-gradient(left, rgba(0, 88, 255, .9) 0%, rgba(95, 0, 222, .9) 100%);
+    background: -webkit-linear-gradient(left, rgba(0, 88, 255, .9) 0%, rgba(95, 0, 222, .9) 100%);
+    background: linear-gradient(to right, rgba(0, 88, 255, .9) 0%, rgba(95, 0, 222, .9) 100%);
+  }
+
+  .table-wrapper .table tr:nth-child(even) .box:hover {
+    background: rgba(95, 0, 222, .9);
+    background: -moz-linear-gradient(left, rgba(95, 0, 222, .9) 0%, rgba(0, 88, 255, .9) 100%);
+    background: -webkit-linear-gradient(left, rgba(95, 0, 222, .9) 0%, rgba(0, 88, 255, .9) 100%);
+    background: linear-gradient(to right, rgba(95, 0, 222, .9) 0%, rgba(0, 88, 255, .9) 100%);
   }
 
   h6.card-header-title a {
@@ -128,11 +152,14 @@
   }
 
   .card {
-    background: #0045FF;
-    background: -moz-linear-gradient(left, #0045FF 0%, #5F00DE 100%);
-    background: -webkit-linear-gradient(left, #0045FF 0%, #5F00DE 100%);
-    background: linear-gradient(to right, #0045FF 0%, #5F00DE 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0045FF', endColorstr='#5F00DE', GradientType=1);
+    background: rgba(0, 88, 255, .6);
+    background: -moz-linear-gradient(left, rgba(0, 88, 255, .6) 0%, rgba(95, 0, 222, .6) 60%);
+    background: -webkit-linear-gradient(left, rgba(0, 88, 255, .6) 0%, rgba(95, 0, 222, .6) 60%);
+    background: linear-gradient(to right, rgba(0, 88, 255, .6) 0%, rgba(95, 0, 222, .6) 60%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0058FF', endColorstr='#5F00DE', GradientType=1);
+    -webkit-box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.16);
+    -moz-box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.16);
+    box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.16);    
   }
 
   .card-header-title {
@@ -142,9 +169,9 @@
   // Navbar Style
   .navbar {
     background: #1B1464;
-    background: -moz-linear-gradient(left, #1B1464 0%, #0058FF 100%);
-    background: -webkit-linear-gradient(left, #1B1464 0%, #0058FF 100%);
-    background: linear-gradient(to right, #1B1464 0%, #0058FF 100%);
+    background: -moz-linear-gradient(left, #1B1464 0%, #0C3ABA 50%, #0058FF 100%);
+    background: -webkit-linear-gradient(left, #1B1464 0%, #0C3ABA 50%, #0058FF 100%);
+    background: linear-gradient(to right, #1B1464 0%, #0C3ABA 50%, #0058FF 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1B1464', endColorstr='#0058FF', GradientType=1);
     z-index: 30;
     min-height: unset;
@@ -255,6 +282,10 @@
     max-width: none;
   }
 
+  .progress::-moz-progress-bar {
+    background-color: #0079FF;
+  }
+
   // Button
   .button.is-small {
     border-radius: 8px;
@@ -359,7 +390,7 @@
   }
 
   .breadcrumb a:hover {
-    color: $primary;
+    color: rgba(255, 255, 255, .9);
   }
 
   .container > .level {
@@ -470,13 +501,12 @@
     }
 
     h1, h2, h3, h4, h5, h6 {
-      color: #bdcbdb;
+      color: #fff;
       font-weight: 600;
       line-height: 1.125;
     }
 
     strong {
-      color: #bdcbdb;
       font-weight: 700;
     }
 
@@ -509,6 +539,11 @@
     .content table thead th {
       color: #bdcbdb;
     }
+
+    .content a {
+      text-decoration: underline;
+    }
+    
   }
 
   // Post List Page
@@ -543,6 +578,14 @@
   }
 
   .post-page {
+    .box {
+      background: rgba(190, 99, 198, .2);
+    }
+
+    .container.post:nth-child(even) .box {
+      background: rgba(107, 99, 198, .2);
+    }    
+
     .title.is-3 {
       font-family: 'Nanami Bold Oblique', sans-serif;
       color: #fff;
@@ -587,7 +630,7 @@
     }
 
     .post .upvote-control {
-      background: #5F00DE;
+      background: rgba(95, 0, 222, .7);
       border-radius: 8px;
       padding: .25rem 2.5rem;
       top: 0;
@@ -609,15 +652,15 @@
   .pagination-previous {
     font-family: 'Nanami Bold Oblique', sans-serif;
     color: #FFF;
-    background-color: #5F00DE;
-    border: 1px solid #5F00DE;
+    background-color: rgba(95, 0, 222, .7);
+    border: 1px solid rgba(95, 0, 222, .7);
     font-size: 20px;
   }
 
   .pagination-link:focus,
   .pagination-next:focus,
   .pagination-previous:focus {
-    border: 1px solid #5F00DE;
+    border: 1px solid rgba(95, 0, 222, .7);
   }
 
   .pagination-link:hover,
@@ -626,8 +669,8 @@
   .pagination-link:active,
   .pagination-next:active,
   .pagination-previous:active {
-    border: 1px solid #4d02b0;
-    background-color: #4d02b0;
+    border: 1px solid rgba(95, 0, 222, .8);
+    background-color: rgba(95, 0, 222, .8);
     color: #fff;
   }
 

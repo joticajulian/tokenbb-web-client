@@ -45,7 +45,10 @@
                 max="100"
               />
             </td>
-            <td rowspan="2">
+            <td
+              class="steem-icon-td"
+              rowspan="2"
+            >
               <img
                 class="steem-icon"
                 src="../assets/steemIcon.png"
