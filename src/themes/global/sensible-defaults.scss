@@ -75,7 +75,7 @@ width: auto;
 }
 
 // VP and RC indicator
-.progressNew {
+.progress {
   width: 15em;
   height: 1em;
   font-size: 0.7em;
@@ -83,7 +83,7 @@ width: auto;
   overflow:hidden;
 }
 
-.progressNewLabel {
+.progress-percentage {
   height: 1em;
   text-align: center;
   line-height:1em

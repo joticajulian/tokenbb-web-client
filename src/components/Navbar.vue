@@ -38,10 +38,10 @@
         >
           <tr>
             <td>
-              <div class="progressNew">
+              <div class="progress">
                 <div
                   :title="`Votig Power: ${auth.vp}%\nIndicates how powerful your vote is.`"
-                  class="progressNewLabel"
+                  class="progress-percentage"
                   :style="{width: auth.vp + '%'}"
                 >
                   {{ auth.vp + '%' }}
@@ -62,10 +62,10 @@
           </tr>
           <tr>
             <td>
-              <div class="progressNew">
+              <div class="progress">
                 <div
                   :title="`Resource Credits: ${auth.rc}%\nIndicates how many transactions you can still make.`"
-                  class="progressNewLabel"
+                  class="progress-percentage"
                   :style="{width: auth.rc + '%'}"
                 >
                   {{ auth.rc + '%' }}
@@ -80,10 +80,10 @@
           </tr>
           <tr v-if="forum.token.enabled">
             <td>
-              <div class="progressNew">
+              <div class="progress">
                 <div
                   :title="`${forum.token.symbol} Votig Power: ${auth.scotVp}%\nIndicates how powerful your vote is.`"
-                  class="progressNewLabel"
+                  class="progress-percentage"
                   :style="{width: auth.scotVp + '%'}"
                 >
                   {{ auth.scotVp + '%' }}
