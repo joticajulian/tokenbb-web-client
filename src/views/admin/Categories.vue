@@ -53,54 +53,62 @@
                 >
                   <div
                     v-if="!Boolean(props.data.edit)"
-                    class="columns is-tablet"
+                    class="level is-tablet groups"
                   >
-                    <div class="column">
+                    <div class="level-left">
                       <span class="cprops-title">
                         {{ props.data.name }}
                       </span>
-                      <a
-                        v-if="!Boolean(props.data.edit) && !(fetching || activeEdits || !auth.roles.admin)"
-                        @click="enableGroupEdit( props.data.nav )"
-                      >
-                        <b-icon icon="pencil" />
-                      </a>
                     </div>
-                    <b-dropdown
-                      v-if="!Boolean(props.data.edit) && !(fetching || activeEdits || !auth.roles.admin)"
-                      class="column"
-                      hoverable
-                    >
-                      <a
-                        slot="trigger"
-                      >
-                        <b-icon icon="menu" />
-                      </a>
-                      <b-dropdown-item
-                        v-if="props.data.children.length == 0"
-                        @click="removeGroup(props.data.nav)"
-                      >
-                        Remove
-                      </b-dropdown-item>
-                      <b-dropdown-item
-                        @click="addGroupToGroup(props.data.nav)"
-                      >
-                        Add Category Group
-                      </b-dropdown-item>
-                      <b-dropdown-item
-                        @click="addCategoryToGroup(props.data.nav)"
-                      >
-                        Add Category
-                      </b-dropdown-item>
-                    </b-dropdown>
+                    <div class="level-right">
+                      <div class="level-item">
+                        <a
+                          v-if="!Boolean(props.data.edit) && !(fetching || activeEdits || !auth.roles.admin)"
+                          @click="enableGroupEdit( props.data.nav )"
+                        >
+                          <b-icon icon="pencil" />
+                        </a>
+                      </div>
+                      <div class="level-item">
+                        <b-dropdown
+                          v-if="!Boolean(props.data.edit) && !(fetching || activeEdits || !auth.roles.admin)"
+                          class="is-right"
+                          hoverable
+                        >
+                          <a
+                            slot="trigger"
+                          >
+                            <b-icon icon="menu" />
+                          </a>
+                          <b-dropdown-item
+                            v-if="props.data.children.length == 0"
+                            @click="removeGroup(props.data.nav)"
+                          >
+                            Remove
+                          </b-dropdown-item>
+                          <b-dropdown-item
+                            @click="addGroupToGroup(props.data.nav)"
+                          >
+                            Add Category Group
+                          </b-dropdown-item>
+                          <b-dropdown-item
+                            @click="addCategoryToGroup(props.data.nav)"
+                          >
+                            Add Category
+                          </b-dropdown-item>
+                        </b-dropdown>
+                      </div>
+                    </div>
                   </div>
                   <div
                     v-else
                     ref="editingGroup"
-                    class=""
+                    class="editing-box"
                   >
                     <!-- For Editing -->
-                    <h2>Category Group Settings</h2>
+                    <h2>{{ props.data.name }}</h2>
+                    <h4>Category Group Settings</h4>
+                    <br>
                     <b-field
                       horizontal
                       class="input-title"
@@ -124,7 +132,7 @@
                     </b-field>
                     <button
                       v-if="props.data.edit"
-                      class="button is-small"
+                      class="button is-small save"
                       @click="saveGroup( props.data.nav )"
                     >
                       Save
@@ -139,31 +147,23 @@
                 </div>
                 <div
                   v-else
-                  class="columns is-tablet"
+                  class="level is-tablet groups"
                 >
                   <!-- For Dragging or editing others -->
-                  <div class="column">
-                    <span class="cprops-title">
-                      {{ props.data.name }}
-                    </span>
+                  <div class="level-left">
+                    <div class="level-item">
+                      <span class="cprops-title">
+                        {{ props.data.name }}
+                      </span>
+                    </div>
                   </div>
                   <div
                     v-if="props.data.draggable"
-                    class="column"
+                    class="level-right"
                   >
-                    <b-icon :icon="'drag'" />
-                  </div>
-                  <div
-                    class="column"
-                  >
-                    <a
-                      class="level-right"
-                      @click="props.store.toggleOpen( props.data )"
-                    >
-                      <b-icon
-                        :icon="props.data.open ? 'menu-up' : 'menu-down'"
-                      />
-                    </a>
+                    <div class="level-item">
+                      <b-icon :icon="'drag'" />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -177,25 +177,33 @@
                 >
                   <div
                     v-if="!Boolean(props.data.edit)"
-                    class="columns is-tablet"
+                    class="level is-tablet categories"
                   >
-                    <div class="column">
-                      {{ props.data.name }}
-                      <a
-                        v-if="!Boolean(props.data.edit) && !(fetching || activeEdits || !auth.roles.admin)"
-                        @click="toggleCategoryEdit( props.data.slug )"
-                      >
-                        <b-icon icon="pencil" />
-                      </a>
+                    <div class="level-left">
+                      <div class="level-item">
+                        {{ props.data.name }}
+                      </div>
+                    </div>
+                    <div class="level-right">
+                      <div class="level-item">
+                        <a
+                          v-if="!Boolean(props.data.edit) && !(fetching || activeEdits || !auth.roles.admin)"
+                          @click="toggleCategoryEdit( props.data.slug )"
+                        >
+                          <b-icon icon="pencil" />
+                        </a>
+                      </div>
                     </div>
                   </div>
                   <div
                     v-else
                     ref="editingCat"
-                    class="is-tablet"
+                    class="is-tablet editing-box"
                   >
                     <!-- For Editing -->
-                    <h2>Category Settings</h2>
+                    <h2>{{ props.data.name }}</h2>
+                    <h4>Category Settings</h4>
+                    <br>
                     <b-field
                       horizontal
                       class="input-title"
@@ -249,7 +257,7 @@
                       />
                     </b-field>
                     <button
-                      class="button is-small"
+                      class="button is-small save"
                       @click="props.data.slug ? saveCategory( props.data.slug ) : addCategory( props.data.nav )"
                     >
                       Save
@@ -264,19 +272,23 @@
                 </div>
                 <div
                   v-else
-                  class="columns is-tablet"
+                  class="level is-tablet categories"
                 >
                   <!-- For Dragging or editing others -->
-                  <div class="column">
-                    <span class="cprops-title">
-                      {{ props.data.name }}
-                    </span>
+                  <div class="level-left">
+                    <div class="level-item">
+                      <span class="cprops-title">
+                        {{ props.data.name }}
+                      </span>
+                    </div>
                   </div>
                   <div
                     v-if="props.data.draggable"
-                    class="column"
+                    class="level-right"
                   >
-                    <b-icon :icon="'drag'" />
+                    <div class="level-item">
+                      <b-icon :icon="'drag'" />
+                    </div>
                   </div>
                 </div>
               </div>
