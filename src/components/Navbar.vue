@@ -49,7 +49,6 @@
               </div>
             </td>
             <td
-              class="steem-icon-td"
               rowspan="2"
             >
               <img

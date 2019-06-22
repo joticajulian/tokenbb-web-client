@@ -168,13 +168,15 @@
 
   // Navbar Style
   .navbar {
-    background: #1B1464;
-    background: -moz-linear-gradient(left, #1B1464 0%, #0C3ABA 50%, #0058FF 100%);
-    background: -webkit-linear-gradient(left, #1B1464 0%, #0C3ABA 50%, #0058FF 100%);
-    background: linear-gradient(to right, #1B1464 0%, #0C3ABA 50%, #0058FF 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1B1464', endColorstr='#0058FF', GradientType=1);
+    background: #0058FF;
+    background: -moz-linear-gradient(left, #0058FF 0%, #0C3ABA 50%, #1B1464 100%);
+    background: -webkit-linear-gradient(left, #0058FF 0%, #0C3ABA 50%, #1B1464 100%);
+    background: linear-gradient(to right, #0058FF 0%, #0C3ABA 50%, #1B1464 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0058FF', endColorstr='#1B1464', GradientType=1);
     z-index: 30;
     min-height: unset;
+    -webkit-box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
   }
 
   .navbar-tabs {
@@ -182,7 +184,7 @@
   }
 
   .navbar-menu {
-    padding: 0;
+    padding: 0.5rem 0;
   }
 
   @media screen and (max-width: 1087px) {
@@ -221,11 +223,6 @@
 
   .navbar-burger span {
     background-color: currentColor;
-  }
-
-  .navbar-menu {
-    box-shadow: 0 8px 16px rgba(10, 10, 10, 0.1);
-    padding: 0.5rem 0;
   }
 
   .navbar .button.is-small {
@@ -436,6 +433,7 @@ font-size: 1em;
 
   .table {
     width: 100%;
+    color: #fff;
   }
 
   .table td, .table th {
@@ -525,7 +523,7 @@ font-size: 1em;
 
     pre {
       -webkit-overflow-scrolling: touch;
-      background-color: #2B3E50;
+      background: rgba(255,255,255,.2);
       color: #dee5ed;
       font-size: 0.875em;
       overflow-x: auto;
@@ -542,8 +540,8 @@ font-size: 1em;
     }
 
     code {
-      background-color: #2B3E50;
-      color: #d9534f;
+      background-color: rgba(0,0,0,.2);
+      color: #fff;
       font-size: 0.875em;
       font-weight: normal;
       padding: 0.25em 0.5em 0.25em;
@@ -696,6 +694,89 @@ font-size: 1em;
     color: #fff;
     font-size: 20px;
     opacity: unset;
+  }
+
+  // Dashboard
+  .dashboard {
+    .columns {
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 1.5em;
+      margin-bottom: 1em;
+    }
+
+    aside {
+      margin-right: 1em;
+    }
+
+    .menu-label {
+      color:#fff;
+      margin-bottom: .5em;
+    }
+
+    .menu-list {
+      background: rgba(190,99,198,.4);
+      -webkit-box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
+      box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);      
+      border-radius: 25px;
+      overflow: hidden;      
+    }
+
+    .menu-list a {
+      color: #fff;
+    }
+
+    .menu-list a.router-link-active,
+    .menu-list a:hover {
+      background-color: #fff;
+      color: #1B1464;
+    }
+
+    .main-content .container {
+      padding: 30px !important;
+      background: rgba(27, 20, 100, 0.4);
+      -webkit-box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
+      box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
+      border-radius: 25px;
+      margin-bottom: 25px;
+      width: 83.33333%;
+    }
+
+    .main-content .container section,
+    .main-content .container .section {
+      padding: 0 0 2em 0;
+    }
+
+    .main-content .container section:last-child,
+    .main-content .container .section:last-child  {
+      padding-bottom: 0;
+    }    
+
+    .main-content .container h1,
+    .main-content .container h2 {
+      font-size: 1.25em;
+      font-weight: bold;
+      margin-bottom: .5em;
+    }
+
+    .main,
+    .b-table .table-wrapper,
+    .post-page main,
+    form.new-topic {
+      padding: 0;
+      background: none;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+    }    
+  }
+
+  // Modal
+  .modal {
+    .media-content {
+      color: #1B1464;
+    }
   }
 
   // make sure to have all sensible defaults set
