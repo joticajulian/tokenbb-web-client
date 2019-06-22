@@ -23,6 +23,9 @@
     </b-field>
     <span class="label is-small has-text-grey-light">
       This forum takes {{ (beneficiaries.max/100).toFixed(2) }}% beneficiaries
+      <template v-if="beneficiaries.topic_starter > 0">
+        (includes {{ (beneficiaries.topic_starter/100).toFixed(2) }}% to the topic starter)
+      </template>
     </span>
   </form>
 </template>

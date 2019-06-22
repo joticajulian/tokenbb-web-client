@@ -38,6 +38,7 @@ export default {
     },
     beneficiaries: {
       max: 1000,
+      topic_starter: 0,
       split: [],
     },
   },
@@ -67,6 +68,7 @@ export default {
       state.token.symbol = ( forum.token && forum.token.symbol ) || '';
       state.token.precision = ( forum.token && forum.token.precision ) || 3;
       state.beneficiaries.max = ( forum.beneficiaries && forum.beneficiaries.max ) || 1000;
+      state.beneficiaries.topic_starter = ( forum.beneficiaries && forum.beneficiaries.topic_starter ) || 0;
       state.beneficiaries.split = ( forum.beneficiaries && forum.beneficiaries.split ) || [];
       let overallRewards = 0;
       const beneficiaries = state.beneficiaries.split
