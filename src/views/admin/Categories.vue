@@ -162,7 +162,21 @@
                     class="level-right"
                   >
                     <div class="level-item">
-                      <b-icon :icon="'drag'" />
+                      <a
+                        @click="moveUpCategoryGroup( props.data.nav )"
+                      >
+                        <b-icon icon="arrow-up-bold" />
+                      </a>
+                    </div>
+                    <div class="level-item">
+                      <a
+                        @click="moveDownCategoryGroup( props.data.nav )"
+                      >
+                        <b-icon icon="arrow-down-bold" />
+                      </a>
+                    </div>
+                    <div class="level-item">
+                      <b-icon icon="drag" />
                     </div>
                   </div>
                 </div>
@@ -570,6 +584,34 @@ export default {
           console.error( err );
           this.fetching = false;
         } );
+    },
+    moveUpCategoryGroup( nav ) {
+      const lastSeparatorIndex = nav.lastIndexOf( '/' );
+      if ( lastSeparatorIndex < 0 ) {
+        return;
+      }
+      const parentNav = nav.slice( 0, lastSeparatorIndex );
+      const parentGroup = this.categoryTree.groupsByNav[parentNav];
+      if ( parentGroup ) {
+        const navIndex = parentGroup.children.findIndex( ( g ) => g.nav === nav );
+        if ( navIndex > 0 ) {
+          parentGroup.children.splice( navIndex - 1, 2, parentGroup.children[navIndex], parentGroup.children[navIndex - 1] );
+        }
+      }
+    },
+    moveDownCategoryGroup( nav ) {
+      const lastSeparatorIndex = nav.lastIndexOf( '/' );
+      if ( lastSeparatorIndex < 0 ) {
+        return;
+      }
+      const parentNav = nav.slice( 0, lastSeparatorIndex );
+      const parentGroup = this.categoryTree.groupsByNav[parentNav];
+      if ( parentGroup ) {
+        const navIndex = parentGroup.children.findIndex( ( g ) => g.nav === nav );
+        if ( navIndex > -1 && navIndex < parentGroup.children.length - 1 && parentGroup.children[navIndex + 1].isGroup ) {
+          parentGroup.children.splice( navIndex, 2, parentGroup.children[navIndex + 1], parentGroup.children[navIndex] );
+        }
+      }
     },
     async addAdmin() {
       await this.$store.dispatch( 'forum/addForumAdmin', this.newAdmin );
