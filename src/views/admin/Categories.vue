@@ -163,6 +163,7 @@
                   >
                     <div class="level-item">
                       <a
+                        v-if="canMoveUpCategoryGroup( props.data )"
                         @click="moveUpCategoryGroup( props.data.nav )"
                       >
                         <b-icon icon="arrow-up-bold" />
@@ -170,6 +171,7 @@
                     </div>
                     <div class="level-item">
                       <a
+                        v-if="canMoveDownCategoryGroup( props.data )"
                         @click="moveDownCategoryGroup( props.data.nav )"
                       >
                         <b-icon icon="arrow-down-bold" />
@@ -585,32 +587,35 @@ export default {
           this.fetching = false;
         } );
     },
-    moveUpCategoryGroup( nav ) {
-      const lastSeparatorIndex = nav.lastIndexOf( '/' );
-      if ( lastSeparatorIndex < 0 ) {
-        return;
+    canMoveUpCategoryGroup( group ) {
+      const parentGroup = group.parent;
+      if ( parentGroup.isRoot ) {
+        return false;
       }
-      const parentNav = nav.slice( 0, lastSeparatorIndex );
-      const parentGroup = this.categoryTree.groupsByNav[parentNav];
-      if ( parentGroup ) {
+      return parentGroup.children.findIndex( ( g ) => g.nav === group.nav ) > 0;
+    },
+    moveUpCategoryGroup( nav ) {
+      const group = this.categoryTree.groupsByNav[nav];
+      if ( this.canMoveUpCategoryGroup( group ) ) {
+        const parentGroup = group.parent;
         const navIndex = parentGroup.children.findIndex( ( g ) => g.nav === nav );
-        if ( navIndex > 0 ) {
-          parentGroup.children.splice( navIndex - 1, 2, parentGroup.children[navIndex], parentGroup.children[navIndex - 1] );
-        }
+        parentGroup.children.splice( navIndex - 1, 2, parentGroup.children[navIndex], parentGroup.children[navIndex - 1] );
       }
     },
-    moveDownCategoryGroup( nav ) {
-      const lastSeparatorIndex = nav.lastIndexOf( '/' );
-      if ( lastSeparatorIndex < 0 ) {
-        return;
+    canMoveDownCategoryGroup( group ) {
+      const parentGroup = group.parent;
+      if ( parentGroup.isRoot ) {
+        return false;
       }
-      const parentNav = nav.slice( 0, lastSeparatorIndex );
-      const parentGroup = this.categoryTree.groupsByNav[parentNav];
-      if ( parentGroup ) {
+      const navIndex = parentGroup.children.findIndex( ( g ) => g.nav === group.nav );
+      return navIndex > -1 && navIndex < parentGroup.children.length - 1 && parentGroup.children[navIndex + 1].isGroup;
+    },
+    moveDownCategoryGroup( nav ) {
+      const group = this.categoryTree.groupsByNav[nav];
+      if ( this.canMoveDownCategoryGroup( group ) ) {
+        const parentGroup = group.parent;
         const navIndex = parentGroup.children.findIndex( ( g ) => g.nav === nav );
-        if ( navIndex > -1 && navIndex < parentGroup.children.length - 1 && parentGroup.children[navIndex + 1].isGroup ) {
-          parentGroup.children.splice( navIndex, 2, parentGroup.children[navIndex + 1], parentGroup.children[navIndex] );
-        }
+        parentGroup.children.splice( navIndex, 2, parentGroup.children[navIndex + 1], parentGroup.children[navIndex] );
       }
     },
     async addAdmin() {
