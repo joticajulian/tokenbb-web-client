@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isAdmin()">
+  <div v-if="isMod()">
     <b-select
       v-model="selected"
       placeholder="Moderator actions"
@@ -22,7 +22,7 @@
 
 import Select from 'buefy/src/components/select/Select';
 
-import { hide, pin, unpin } from '../services/api.service.js';
+import { hide, move, pin, unpin } from '../services/api.service.js';
 
 import { Toast } from 'buefy/dist/components/toast';
 import { Dialog } from 'buefy/dist/components/dialog';
@@ -73,11 +73,18 @@ export default {
         : this.actions.pin;
 
       this.options.push( action );
+      this.options.push( {
+        name: 'Move to different category',
+        callback: this.moveTopic,
+      } );
     }
   },
   methods: {
     isAdmin() {
       return this.$store.state.auth.roles.admin;
+    },
+    isMod() {
+      return this.$store.state.auth.roles.mod;
     },
     onSelect( item ) {
       item.callback();
@@ -169,6 +176,37 @@ export default {
               message: `Failed to hide the post: ${result}`,
               type: 'is-danger',
             } );
+          }
+
+          this.loading = false;
+        },
+      } );
+    },
+    moveTopic() {
+      Dialog.prompt( {
+        message: 'Input a category slug to move this topic to.',
+        inputAttrs: {
+          placeholder: '',
+          maxlength: 64,
+        },
+        onConfirm: async ( value ) => {
+          this.loading = true;
+
+          try {
+            await move( this.post, value );
+
+            Toast.open( {
+              message: 'The post has been moved.',
+              type: 'is-primary',
+            } );
+            this.$router.go();
+          } catch ( err ) {
+            const result = err.message || err.error.message;
+            Toast.open( {
+              message: `Failed to move the post: ${ result }`,
+              type: 'is-danger',
+            } );
+            console.error( result );
           }
 
           this.loading = false;

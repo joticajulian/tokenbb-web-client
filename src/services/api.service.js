@@ -86,6 +86,20 @@ export function hide( topic ) {
   return requestAsync( opts );
 }
 
+export function move( topic, category_slug ) {
+  const opts = {
+    method: 'POST',
+    json: true,
+    headers: steem.token ? { 'Authorization': 'Bearer ' + steem.token } : {},
+    url: apiURL() + `/topics/${topic.steem.author}/${topic.steem.permlink}/move`,
+    body: {
+      category_slug,
+    },
+  };
+
+  return requestAsync( opts );
+}
+
 export function vote( author, permlink, voter, weight ) {
   const opts = {
     method: 'POST',
