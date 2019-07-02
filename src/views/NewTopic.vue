@@ -68,6 +68,7 @@ import TextEditor from '../components/TextEditor.vue';
 import CategoryDropdown from '../components/CategoryDropdown.vue';
 
 import { Toast } from 'buefy/dist/components/toast';
+import { localStorageGetItem, localStorageSetItem, localStorageRemoveItem } from '../utils/localStorage';
 
 export default {
   name: 'NewTopic',
@@ -98,11 +99,11 @@ export default {
       this.setSelectedCategory( value );
     },
   },
-  mounted() {
+  async mounted() {
     this.setSelectedCategory( this.categoryList );
-    const title = window.localStorage.getItem( this.$route.fullPath + '-TITLE' );
+    const title = await localStorageGetItem( this.$route.fullPath + '-TITLE' );
     if ( !title || title === 'null' ) {
-      window.localStorage.setItem( this.$route.fullPath + '-TITLE', this.title );
+      await localStorageSetItem( this.$route.fullPath + '-TITLE', this.title );
     } else {
       this.title = title;
     }
@@ -121,7 +122,7 @@ export default {
         this.selectedCategory = selectedCategory;
       }
     },
-    onSubmit() {
+    async onSubmit() {
       if ( !this.selectedCategory ) {
         return Toast.open( {
           type: 'is-danger',
@@ -137,39 +138,38 @@ export default {
 
       this.fetching = true;
 
-      this.$store.dispatch( 'topics/createTopic', payload )
-        .then( () => {
-          window.localStorage.removeItem( this.$route.fullPath );
-          window.localStorage.removeItem( this.$route.fullPath + '-TITLE' );
-          this.$store.dispatch( 'topics/fetchAll' ).then( () => {
-            this.$router.push( { path: '/topic-list', query: { category: this.selectedCategory.slug } } );
-            Toast.open( {
-              message: 'Your topic has been posted.',
-              type: 'is-primary',
-            } );
-          } );
-        }, ( err ) => {
-          console.error( err );
-          Toast.open( {
-            message: 'Oops! Could not create your topic at this moment. ' + err.message,
-            type: 'is-danger',
-          } );
-          this.fetching = false;
+      try {
+        await this.$store.dispatch( 'topics/createTopic', payload );
+        await localStorageRemoveItem( this.$route.fullPath );
+        await localStorageRemoveItem( this.$route.fullPath + '-TITLE' );
+        await this.$store.dispatch( 'topics/fetchAll' );
+        this.$router.push( { path: '/topic-list', query: { category: this.selectedCategory.slug } } );
+        Toast.open( {
+          message: 'Your topic has been posted.',
+          type: 'is-primary',
         } );
+      } catch ( err ) {
+        console.error( err );
+        Toast.open( {
+          message: 'Oops! Could not create your topic at this moment. ' + err.message,
+          type: 'is-danger',
+        } );
+        this.fetching = false;
+      }
     },
     onSelectCategory( selected ) {
       this.selectedCategory = selected;
     },
-    handleTextChange( text ) {
+    async handleTextChange( text ) {
       this.content = text;
-      window.localStorage.setItem( this.$route.fullPath, text );
+      await localStorageSetItem( this.$route.fullPath, text );
     },
-    handleTitleChange( text ) {
-      window.localStorage.setItem( this.$route.fullPath + '-TITLE', text );
+    async handleTitleChange( text ) {
+      await localStorageSetItem( this.$route.fullPath + '-TITLE', text );
     },
-    onCancel( evt ) {
-      window.localStorage.removeItem( this.$route.fullPath );
-      window.localStorage.removeItem( this.$route.fullPath + '-TITLE' );
+    async onCancel( evt ) {
+      await localStorageRemoveItem( this.$route.fullPath );
+      await localStorageRemoveItem( this.$route.fullPath + '-TITLE' );
       evt.preventDefault();
       this.$router.go( -1 );
     },

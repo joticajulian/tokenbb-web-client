@@ -97,8 +97,10 @@ if ( urlForum !== 'app' && !process.env.VUE_APP_WRAPPER_IFRAME_ORIGIN ) {
   console.log( 'Setting up proxy keychain communication for iframe.' );
   let steemKeychainCallId = 1;
   const steemKeychainCallbacks = {};
+  let localStorageCallId = 1;
+  const localStorageCallbacks = {};
 
-  // Set up keychain communication to parent iframe
+  // Set up keychain and localStorage communication to parent iframe
   window.steem_keychain = new Proxy( {}, {
     get: ( obj, method ) => {
       return ( ...args ) => {
@@ -112,11 +114,30 @@ if ( urlForum !== 'app' && !process.env.VUE_APP_WRAPPER_IFRAME_ORIGIN ) {
       };
     },
   } );
+  window.localStorageProxy = new Proxy( {}, {
+    get: ( obj, method ) => {
+      return ( ...args ) => {
+        localStorageCallId++;
+        localStorageCallbacks[localStorageCallId] = args[args.length - 1];
+        window.parent.postMessage( { type: 'tokenbb_wrapper_localstorage',
+          method,
+          args: args.slice( 0, args.length - 1 ),
+          call_id: localStorageCallId,
+        }, process.env.VUE_APP_WRAPPER_IFRAME_ORIGIN );
+      };
+    },
+  } );
+
   window.addEventListener( 'message', ( e ) => {
     if ( e.data.type === 'tokenbb_wrapper_keychain_response' ) {
       if ( steemKeychainCallbacks[e.data.call_id] ) {
         steemKeychainCallbacks[e.data.call_id]( e.data.response );
         steemKeychainCallbacks[e.data.call_id] = null;
+      }
+    } else if ( e.data.type === 'tokenbb_wrapper_localstorage_response' ) {
+      if ( localStorageCallbacks[e.data.call_id] ) {
+        localStorageCallbacks[e.data.call_id]( e.data.response );
+        localStorageCallbacks[e.data.call_id] = null;
       }
     } else if ( e.data.type === 'tokenbb_wrapper_forum' ) {
       console.log( `querying forum name ${e.origin} for ${( new URL( e.origin ) ).hostname}` );
