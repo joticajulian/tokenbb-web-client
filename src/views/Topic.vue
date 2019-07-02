@@ -95,6 +95,7 @@ import ReplyForm from '../components/ReplyForm.vue';
 import ShowIfLoggedIn from '../components/ShowIfLoggedIn.vue';
 import { getTopic } from '../services/post.service.js';
 import { errorAlertOptions } from '../utils/notifications.js';
+import { localStorageSetItem, localStorageRemoveItem } from '../utils/localStorage';
 
 import { Toast } from 'buefy/dist/components/toast';
 
@@ -167,29 +168,28 @@ export default {
     this.$root.$on( 'topicRefresh', this.fetchTopic );
   },
   methods: {
-    onReplyInput( text ) {
+    async onReplyInput( text ) {
       this.replyText = text;
-      window.localStorage.setItem( this.$route.fullPath, text );
+      await localStorageSetItem( this.$route.fullPath, text );
     },
-    onReplySubmit() {
+    async onReplySubmit() {
       const payload = {
         parentComment: this.topic,
         content: this.replyText,
       };
 
-      this.$store.dispatch( 'replies/submitReply', payload )
-        .then( ( reply ) => {
-          window.localStorage.removeItem( this.$route.fullPath );
-          if ( reply ) {
-            this.fetchTopic( true );
-            this.replyText = '';
-          }
-        } )
-        .catch( ( err ) => {
-          console.log( err );
-          Toast.open( errorAlertOptions( 'Oops! Could not submit reply at this moment', err ) );
-          this.$ga.exception( err );
-        } );
+      try {
+        const reply = await this.$store.dispatch( 'replies/submitReply', payload );
+        await localStorageRemoveItem( this.$route.fullPath );
+        if ( reply ) {
+          this.fetchTopic( true );
+          this.replyText = '';
+        }
+      } catch ( err ) {
+        console.log( err );
+        Toast.open( errorAlertOptions( 'Oops! Could not submit reply at this moment', err ) );
+        this.$ga.exception( err );
+      }
     },
     fetchTopic( scrollDown ) {
       const { author, permlink } = this.$route.params;

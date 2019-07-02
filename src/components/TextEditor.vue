@@ -28,6 +28,7 @@
 
 import { uploadImage } from '../services/api.service.js';
 import { quoteText } from '../utils/content';
+import { localStorageGetItem, localStorageSetItem } from '../utils/localStorage';
 
 export default {
   props: {
@@ -84,11 +85,11 @@ export default {
       this.$emit( 'input', this.content );
     },
   },
-  created() {
+  async created() {
     this.$root.$on( 'quote-click', this.addQuote );
-    const text = window.localStorage.getItem( this.$route.fullPath );
+    const text = await localStorageGetItem( this.$route.fullPath );
     if ( !text || text === 'null' ) {
-      window.localStorage.setItem( this.$route.fullPath, this.content );
+      await localStorageSetItem( this.$route.fullPath, this.content );
     } else {
       this.content = text;
     }
