@@ -1,5 +1,8 @@
 <template>
-  <div class="container post">
+  <div
+    :id="postId"
+    class="container post"
+  >
     <div class="box is-mobile">
       <div class="level is-tablet">
         <div class="level-left">
@@ -161,6 +164,9 @@ export default {
     },
     steemitLink() {
       return `https://steemit.com/@${this.data.steem.author}/${this.data.steem.permlink}`;
+    },
+    postId() {
+      return `${this.data.steem.author}/${this.data.steem.permlink}`;
     },
   },
   mounted() {

@@ -22,7 +22,7 @@
           <div class="nav-control">
             <a
               class="topic-nav topic-nav-to-end"
-              @click="scrollTo('endOfTopic')"
+              @click="scrollToEndOfTopic()"
             >Jump to end
             </a>
           </div>
@@ -115,7 +115,7 @@ export default {
       topic: {},
       replyText: '',
       total: 0,
-      current: 1,
+      current: this.$route.query && this.$route.query.page ? this.$route.query.page : 1,
       perPage: 10,
     };
   },
@@ -129,6 +129,9 @@ export default {
       const start = ( this.current - 1 ) * this.perPage;
       const end = this.current * this.perPage;
       return replies.slice( start, end );
+    },
+    lastPage() {
+      return Math.floor( this.topic.replies.length / this.perPage ) + 1;
     },
     quote() {
       const arr = this.currentPage;
@@ -164,7 +167,9 @@ export default {
     },
   },
   created() {
-    this.fetchTopic();
+    this.fetchTopic( Boolean( this.$route.query && (
+      this.$route.query.postId
+      || this.$route.query.scrollToEnd ) ) );
     this.$root.$on( 'topicRefresh', this.fetchTopic );
   },
   methods: {
@@ -207,7 +212,11 @@ export default {
         // Hack to prevent scrolling down on load
         this.$nextTick( () => {
           if ( scrollDown ) {
-            this.scrollTo( 'endOfTopic' );
+            if ( this.$route.query && this.$route.query.postId ) {
+              this.scrollTo( this.$route.query.postId );
+            } else {
+              this.scrollToEndOfTopic();
+            }
           } else {
             this.scrollTo( 'topOfPage' );
           }
@@ -216,6 +225,10 @@ export default {
     },
     scrollTo( id ) {
       window.scrollTo( 0, document.getElementById( id ).offsetTop );
+    },
+    scrollToEndOfTopic() {
+      this.current = this.lastPage;
+      this.scrollTo( 'endOfTopic' );
     },
   },
 };
