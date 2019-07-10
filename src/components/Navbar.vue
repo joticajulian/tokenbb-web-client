@@ -174,6 +174,20 @@
           </b-dropdown-item>
           <b-dropdown-item
             class="is-right"
+            target="_blank"
+            href="https://docs.google.com/forms/d/e/1FAIpQLScC0Sop2dd46ukA3W3uVRswK0zihXlPHKb_ng5QdjQ9yoxOXQ/viewform"
+          >
+            Order a forum
+          </b-dropdown-item>
+          <b-dropdown-item
+            class="is-right"
+            target="_blank"
+            href="https://shop.buildteam.io/product-category/tokenbb/"
+          >
+            Upgrade your forum
+          </b-dropdown-item>
+          <b-dropdown-item
+            class="is-right"
             @click="logout"
           >
             Logout
