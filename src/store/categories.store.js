@@ -5,6 +5,7 @@ import { errorAlertOptions } from '../utils/notifications.js';
 import { stringToSlug } from '../utils/slug.js';
 
 import map from 'lodash/map';
+import Vue from 'vue';
 
 function computeCategoryOrderingData( state, categoryOrdering ) {
   const categoriesBySlug = {};
