@@ -24,6 +24,7 @@
 @import "./themes/lightmode.scss";
 @import "./themes/darkmode.scss";
 @import "./themes/nextcolony.scss";
+@import "./themes/droneshot.scss";
 </style>
 
 <script>
