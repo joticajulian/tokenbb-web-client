@@ -99,6 +99,7 @@ export default {
     },
     updateCategoryOrderingData( state ) {
       computeCategoryOrderingData( state, this.getters['forum/getCategoryOrdering'] );
+      Vue.set( state, 'categoryList', state.categoryList );
     },
   },
   actions: {
