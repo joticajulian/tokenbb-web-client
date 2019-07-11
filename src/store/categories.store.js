@@ -3,8 +3,6 @@ import { Toast } from 'buefy/dist/components/toast';
 import { addCategory, editCategory, listCategories, removeCategory } from '../services/api.service';
 import { errorAlertOptions } from '../utils/notifications.js';
 import { stringToSlug } from '../utils/slug.js';
-
-import map from 'lodash/map';
 import Vue from 'vue';
 
 function computeCategoryOrderingData( state, categoryOrdering ) {
@@ -25,13 +23,13 @@ function computeCategoryOrderingData( state, categoryOrdering ) {
       nav: currentNav,
     };
     categoryGroupsByNav[currentNav] = categoryGroup;
-    categoryGroup.groups = map( ordering.groups, ( g ) => {
+    categoryGroup.groups = ordering.groups.map( ( g ) => {
       return processCategoryOrdering( g, currentNav );
     } );
-    categoryGroup.categories = map( ordering.categories, ( c ) => {
+    categoryGroup.categories = ordering.categories.map( ( c ) => {
       const found = categoriesBySlug[c];
       if ( found ) {
-        found.nav = currentNav;
+        Vue.set( found, 'nav', currentNav );
         categoriesBySlug[c] = null;
       }
       return found;
@@ -100,7 +98,6 @@ export default {
     },
     updateCategoryOrderingData( state ) {
       computeCategoryOrderingData( state, this.getters['forum/getCategoryOrdering'] );
-      Vue.set( state, 'categoryList', state.categoryList );
     },
   },
   actions: {
