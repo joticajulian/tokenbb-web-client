@@ -27,7 +27,8 @@ const contextMap = {
   nextcolony: { theme: 'theme-nextcolony', forum: 'nextcolony', icon: 'themes/nextcolony/favicon.png' },
   steem: { theme: 'theme-steem', forum: 'steem', icon: 'themes/steem/logo.png' },
   droneshot: { theme: 'theme-droneshot', forum: 'droneshot', icon: 'droneshot-favicon.png' },
-  localhost: { theme: 'theme-droneshot', forum: 'nextcolony', icon: 'favicon.ico' },
+  sct: { theme: 'theme-sct', forum: 'sct', icon: 'themes/sct/sct_logo.png' },
+  localhost: { theme: 'theme-steem', forum: 'steem', icon: 'themes/steem/logo.png' },
 };
 
 function setUpForum( forumContext, forum ) {
