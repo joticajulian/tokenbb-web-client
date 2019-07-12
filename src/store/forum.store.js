@@ -85,7 +85,7 @@ export default {
           weight: btWeight,
         } );
       }
-      this.commit( 'categories/updateCategoryOrderingData' );
+      this.commit( 'categories/updateCategoryList' );
     },
   },
   getters: {
