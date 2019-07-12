@@ -27,6 +27,7 @@ if ( isProd ) {
           test: /\.(js|css|html|svg)$/,
           threshold: 0,
           minRatio: 0.8,
+          quality: 9,
         } ),
         new CompressionPlugin( {
           compressionOptions: {
