@@ -26,6 +26,7 @@ const contextMap = {
   drugwars: { theme: 'theme-drugwars', forum: 'drugwars', icon: 'themes/drugwars/small.png' },
   nextcolony: { theme: 'theme-nextcolony', forum: 'nextcolony', icon: 'themes/nextcolony/favicon.png' },
   steem: { theme: 'theme-steem', forum: 'steem', icon: 'themes/steem/logo.png' },
+  sct: { theme: 'theme-sct', forum: 'sct', icon: 'themes/sct/sct_logo.png' },
   localhost: { theme: 'theme-steem', forum: 'steem', icon: 'themes/steem/logo.png' },
 };
 
