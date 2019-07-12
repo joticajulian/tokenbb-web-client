@@ -17,6 +17,7 @@ if ( isProd ) {
       test: /\.(js|css|html)$/,
       threshold: 0,
       minRatio: 0.8,
+      quality: 7,
       deleteOriginalAssets: true,
     } ) );
   } else {
@@ -27,7 +28,7 @@ if ( isProd ) {
           test: /\.(js|css|html|svg)$/,
           threshold: 0,
           minRatio: 0.8,
-          quality: 9,
+          quality: 7,
         } ),
         new CompressionPlugin( {
           compressionOptions: {
