@@ -3,12 +3,14 @@ import { Toast } from 'buefy/dist/components/toast';
 import { addCategory, editCategory, listCategories, removeCategory } from '../services/api.service';
 import { errorAlertOptions } from '../utils/notifications.js';
 import { stringToSlug } from '../utils/slug.js';
-import Vue from 'vue';
 
-function computeCategoryOrderingData( state, categoryOrdering ) {
+function computeCategoryOrderingData( categories, categoryOrdering ) {
   const categoriesBySlug = {};
-  state.categoryList.forEach( ( category ) => {
-    state.categoriesById[category._id] = category;
+  const categoriesById = {};
+  const processed = new Set();
+
+  categories.forEach( ( category ) => {
+    categoriesById[category._id] = category;
     categoriesBySlug[category.slug] = category;
   } );
 
@@ -29,8 +31,8 @@ function computeCategoryOrderingData( state, categoryOrdering ) {
     categoryGroup.categories = ordering.categories.map( ( c ) => {
       const found = categoriesBySlug[c];
       if ( found ) {
-        Vue.set( found, 'nav', currentNav );
-        categoriesBySlug[c] = null;
+        found.nav = currentNav;
+        processed.add( c );
       }
       return found;
     } ).filter( ( c ) => c );
@@ -57,18 +59,20 @@ function computeCategoryOrderingData( state, categoryOrdering ) {
 
   // Place other categories on root level.
   homeCategory.categories = homeCategory.categories.concat(
-    Object.values( categoriesBySlug )
-      .filter( ( c ) => c )
+    categories
+      .filter( ( c ) => !processed.has( c.slug ) )
       .map( ( c ) => {
         c.nav = homeCategory.nav;
         return c;
       } ) );
   homeCategory.categoryGroupsByNav = categoryGroupsByNav;
 
-  state.categoriesByBreadcrumb = homeCategory;
-
-  // For Vue Reactivity.
-  state.categoriesById = { ...state.categoriesById };
+  return {
+    categories,
+    categoriesById,
+    categoriesBySlug,
+    categoriesByBreadcrumb: homeCategory,
+  };
 }
 
 export default {
@@ -77,6 +81,7 @@ export default {
     fetching: true,
     categoryList: [],
     categoriesById: {},
+    categoriesBySlug: {},
     categoriesByBreadcrumb: null,
   },
   mutations: {
@@ -92,12 +97,12 @@ export default {
       state.categoryList.splice( index, 1 );
     },
     updateCategoryList( state, categories ) {
-      state.categoryList = categories;
+      const data = computeCategoryOrderingData( categories ? categories : state.categoryList, this.getters['forum/getCategoryOrdering'] );
 
-      computeCategoryOrderingData( state, this.getters['forum/getCategoryOrdering'] );
-    },
-    updateCategoryOrderingData( state ) {
-      computeCategoryOrderingData( state, this.getters['forum/getCategoryOrdering'] );
+      state.categoryList = data.categories;
+      state.categoriesById = data.categoriesById;
+      state.categoriesBySlug = data.categoriesBySlug;
+      state.categoriesByBreadcrumb = data.categoriesByBreadcrumb;
     },
   },
   actions: {
