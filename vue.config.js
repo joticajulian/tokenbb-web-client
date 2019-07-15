@@ -30,7 +30,7 @@ if ( isProd ) {
           threshold: 0,
           minRatio: 0.8,
           quality: 7,
-        } ),*/
+        } ),
         new CompressionPlugin( {
           compressionOptions: {
             numiterations: 15,
@@ -40,7 +40,7 @@ if ( isProd ) {
           algorithm( input, compressionOptions, callback ) {
             return zopfli.gzip( input, compressionOptions, callback );
           },
-        } ),
+        } ),*/
         new BundleAnalyzerPlugin( {
           defaultSizes: 'parsed',
           analyzerMode: 'static',
