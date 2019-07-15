@@ -23,13 +23,14 @@ if ( isProd ) {
   } else {
     webpackPlugins = webpackPlugins.concat(
       [
-        new BrotliPlugin( {
+
+        /* new BrotliPlugin( {
           asset: '[path].br[query]',
           test: /\.(js|css|html|svg)$/,
           threshold: 0,
           minRatio: 0.8,
           quality: 7,
-        } ),
+        } ),*/
         new CompressionPlugin( {
           compressionOptions: {
             numiterations: 15,
