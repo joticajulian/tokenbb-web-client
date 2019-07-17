@@ -50,6 +50,13 @@
     color: $content;
   }
 
+  .content {
+    h1, h2, h3, h4, h5, h6,
+    strong {
+      color: #fff;
+    }
+  }
+
   .markdown-body blockquote {
     color: $content;
   }
@@ -492,12 +499,6 @@
     color: #dee5ed;
   }
 
-  .setting-view {
-    h1, h2, h3, h4, h5, h6 {
-      color: $content;
-    }
-  }
-
   .b-table .table {
     background-color: transparent;
     padding: 0 !important;
@@ -536,7 +537,6 @@
     }
 
     h1, h2, h3, h4, h5, h6 {
-      color: #fff;
       font-weight: 600;
       line-height: 1.125;
     }

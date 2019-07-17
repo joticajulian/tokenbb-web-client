@@ -57,6 +57,13 @@
     color: $content;
   }
 
+  .content {
+    h1, h2, h3, h4, h5, h6,
+    strong {
+      color: #fff;
+    }
+  }
+
   .markdown-body blockquote {
     color: $content;
   }
@@ -467,12 +474,6 @@ font-size: 1em;
 
   .label {
     color: #dee5ed;
-  }
-
-  .setting-view {
-    h1, h2, h3, h4, h5, h6 {
-      color: $content;
-    }
   }
 
   .b-table .table {
