@@ -211,7 +211,16 @@
   }
 
   .navbar-burger span {
-    background-color: currentColor;
+    display: none;
+  }
+
+  .navbar-burger span:nth-child(1) {
+    display: inline-block;
+    background-color: transparent;
+  }
+
+  .navbar-burger span:nth-child(1)::before {
+    content: url("../public/themes/bitsports/icon_menu.png");
   }
 
   .navbar-menu {
