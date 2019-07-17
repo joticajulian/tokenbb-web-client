@@ -1,8 +1,8 @@
 <template>
   <div class="container topic-list">
     <div class="level is-tablet">
-      <div class="level-left">
-        <div class="level-item breadcrumb">
+      <div class="level-left breadcrumb-wrapper">
+        <div class="level-item">
           <Breadcrumb :crumbs="breadcrumb" />
         </div>
       </div>

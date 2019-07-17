@@ -16,7 +16,7 @@
           <h1 class="title is-3">
             {{ topic.title }}
           </h1>
-          <div class="level-left">
+          <div class="level-left breadcrumb-wrapper">
             <Breadcrumb :crumbs="breadcrumb" />
           </div>
           <div class="nav-control">

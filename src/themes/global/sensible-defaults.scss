@@ -231,3 +231,14 @@ a.pagination-link.is-current {
   top: 2px;
   left: 2px;
 }
+
+// Long Breadcrumb wrapping
+.breadcrumb-wrapper,
+.breadcrumb-wrapper > .level-item {
+  max-width: 100%;
+}
+
+// Long Breadcrumb wrapping
+.topic-list > .level {
+  flex-wrap: wrap;
+}

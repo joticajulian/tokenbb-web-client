@@ -1,6 +1,6 @@
 <template>
   <div class="container home">
-    <div class="level-left">
+    <div class="level-left breadcrumb-wrapper">
       <Breadcrumb :crumbs="queryCategoriesByBreadcrumb.breadcrumb" />
     </div>
     <div class="level-left all-cat">
