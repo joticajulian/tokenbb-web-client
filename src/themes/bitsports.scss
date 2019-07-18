@@ -148,6 +148,10 @@
     line-height: 2rem;
   }
 
+  .b-table .table-wrapper {
+    overflow-x: hidden;
+  }
+
   .table-wrapper .table tr:nth-child(even) .box {
     background-color: $background-content;
   }
