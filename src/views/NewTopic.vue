@@ -47,7 +47,7 @@
       >
         Cancel
       </button>
-      <span class="label is-small has-text-grey-light">
+      <span class="label is-small has-text-grey-light beneficiary-note">
         This forum takes {{ (beneficiaries.max/100).toFixed(2) }}% beneficiaries
         <template v-if="beneficiaries.topic_starter > 0">
           (you get {{ (beneficiaries.topic_starter/100).toFixed(2) }}% reply beneficiaries as the topic starter)
