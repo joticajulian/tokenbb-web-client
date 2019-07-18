@@ -7,6 +7,7 @@
             v-if="categoryGroups.length > 0"
             :data="categoryGroups"
             :loading="fetching"
+            class="category-groups"
             mobile-cards
           >
             <template slot-scope="cgprops">
@@ -46,7 +47,7 @@
             v-if="categories.length > 0"
             :loading="fetching"
             :data="categories"
-            class=""
+            class="categories"
             mobile-cards
           >
             <template slot-scope="cprops">

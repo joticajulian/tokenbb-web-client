@@ -84,7 +84,9 @@
   }
 
   .main,
-  .b-table .table-wrapper,
+  .home .b-table .table .card,
+  .home .b-table.categories,
+  .topic-list .b-table .table-wrapper,
   .post-page main,
   form.new-topic {
     padding: 30px;
@@ -93,12 +95,28 @@
     border-radius: 8px;
     margin-bottom: 25px;
   }
-  .b-table .table-wrapper .b-table .table-wrapper {
-    background: none;
-    padding: 0 0 20px 0;
-  }
-  .card-header-title {
+  .home .b-table.category-groups .b-table.categories {
     padding: 0;
+    background: none;
+    margin-bottom: 0;
+  }
+  .home .b-table .card {
+    padding: 0 30px;
+  }
+  .home .b-table .b-table .table .card {
+    background: rgba(43, 82, 125, 0.5);
+  }
+  .home .b-table .b-table {
+    margin-top: 20px;
+  }  
+  .card-header {
+    box-shadow: none;
+    margin: 0 !important;
+    padding: 0;
+  }
+  h5.card-header-title {
+    padding: 0;
+    margin: 0;
     text-transform: uppercase;
   }
   .card-header-icon {
@@ -460,10 +478,6 @@
   #contentIdForA11y3 {
     background-color: transparent;
   }
-  .card-header {
-    box-shadow: none;
-    margin: 0 0 20px 0;
-  }
 
   .table {
     width: 100%;
@@ -611,6 +625,7 @@
     }
   }
 
+  // Post Page
   .post-page {
     .title.is-3 {
       font-family: 'Prompt', sans-serif;
