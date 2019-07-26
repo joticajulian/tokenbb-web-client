@@ -90,7 +90,7 @@
   .post-page main,
   form.new-topic {
     padding: 30px;
-    background: rgb(240,49,0);
+    background: rgba(240,49,0, .28);
     background: linear-gradient(74deg, rgba(240,49,0,0.28) 0%, rgba(255,168,0,0.28) 100%); 
     border-radius: 8px;
     margin-bottom: 25px;
@@ -104,7 +104,14 @@
     padding: 0 30px;
   }
   .home .b-table .b-table .table .card {
-    background: rgba(43, 82, 125, 0.5);
+    background: rgba(9, 45, 87, .8);
+  }
+  .home .b-table .b-table .b-table .table .card {
+    background: rgba(240,49,0, .28);
+    background: linear-gradient(74deg, rgba(240,49,0,0.28) 0%, rgba(255,168,0,0.28) 100%); 
+  }
+  .home .b-table .b-table .b-table .b-table .table .card {
+    background: rgba(9, 45, 87, .8);
   }
   .home .b-table .b-table {
     margin-top: 20px;
