@@ -2,9 +2,12 @@ body {
   min-height: 100vh !important;
 }
 /* Navigation Bar */
-.logo {
-  content: $logo;
-  min-height: 3rem;
+.nav-logo {
+  margin-left: 30px;
+}
+
+.navbar-item img.logo {
+  max-height: 44px;
 }
 .navbar {
 a.dropdown-item {

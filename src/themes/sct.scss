@@ -8,7 +8,6 @@
   // Import Bulma's core
   @import "~bulma/sass/utilities/_all";
   @import "./global/variables.scss";
-  $logo: url("http://pey.dothome.co.kr/assets/img/logo_h.png");
   // Import Bulma and Buefy styles
   @import "~bulma";
   @import "~buefy/src/scss/buefy";
@@ -488,9 +487,6 @@
     height: 84px;
     background: linear-gradient(90deg,#081f37 0,#1f4f82);
   }
-  .navbar.navstyle .logo {
-    content: url('http://pey.dothome.co.kr/assets/img/logo_h.png');
-  }
   .navbar.navstyle + .section {
     padding: 84px 0 0;
     background: url('http://pey.dothome.co.kr/assets/img/antarctica-3093274_1920.jpg') no-repeat 0 -100px;
@@ -502,12 +498,9 @@
   .navbar.navstyle .navbar-item {
     padding: 0 48px;
   }
-  .navbar.navstyle .navbar-item img.logo {
-    min-height: auto;
-    max-height: none;
-    height: 2rem;
-    width: auto;
-  }
+  .navbar.navstyle .nav-logo .navbar-item {
+    padding: 0;
+  }  
   .navbar-end .button.is-small {
     border-color: #000;
     font-size: 1.4em;
@@ -631,9 +624,6 @@
     }
     .navbar.navstyle .navbar-item {
       padding: 0 1.5rem;
-    }
-    .navbar.navstyle .navbar-item img.logo {
-      height: 1.6rem;
     }
     .navbar-menu {
       background: rgba(255,255,255,0.5);

@@ -10,7 +10,10 @@
         exact-active-class="noop"
         class="navbar-item"
       >
-        <img class="logo">
+        <img
+          class="logo"
+          :src="logo"
+        >
       </router-link>
       <a
         role="button"
@@ -199,7 +202,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 import Dropdown from 'buefy/src/components/dropdown/Dropdown';
 import DropdownItem from 'buefy/src/components/dropdown/DropdownItem';
@@ -225,6 +228,9 @@ export default {
       'auth',
       'forum',
     ] ),
+    logo() {
+      return global.logo;
+    },
   },
   created() {
     this.timer = setInterval( this.updateVpRcBars, 60000 );

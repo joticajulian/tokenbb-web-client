@@ -20,15 +20,19 @@ import { errorAlertOptions } from './utils/notifications.js';
 registerSW();
 
 const contextMap = {
-  default: { theme: 'theme-default', forum: 'monsters', icon: 'favicon.ico' },
-  bitsports: { theme: 'theme-bitsports', forum: 'bitsports', icon: 'themes/bitsports/bitsports_icon_flame_128.png' },
-  monsters: { theme: 'theme-monsters', forum: 'monsters', icon: 'themes/monsters/favicon_teeth.png' },
-  drugwars: { theme: 'theme-drugwars', forum: 'drugwars', icon: 'themes/drugwars/small.png' },
-  nextcolony: { theme: 'theme-nextcolony', forum: 'nextcolony', icon: 'themes/nextcolony/favicon.png' },
-  steem: { theme: 'theme-steem', forum: 'steem', icon: 'themes/steem/logo.png' },
-  droneshot: { theme: 'theme-droneshot', forum: 'droneshot', icon: 'droneshot-favicon.png' },
-  sct: { theme: 'theme-sct', forum: 'sct', icon: 'themes/sct/sct_logo.png' },
-  localhost: { theme: 'theme-steem', forum: 'steem', icon: 'themes/steem/logo.png' },
+  bitsports: { theme: 'theme-bitsports', forum: 'bitsports', icon: 'themes/bitsports/bitsports_icon_flame_128.png', logo: 'themes/bitsports/logo.png' },
+  droneshot: { theme: 'theme-droneshot', forum: 'droneshot', icon: 'droneshot-favicon.png', logo: 'themes/droneshot/droneshot-logo.png' },
+  drugwars: { theme: 'theme-drugwars', forum: 'drugwars', icon: 'themes/drugwars/small.png', logo: 'themes/drugwars/logo.png' },
+  monsters: { theme: 'theme-monsters', forum: 'monsters', icon: 'themes/monsters/favicon_teeth.png', logo: 'themes/monsters/splinterlands_logo_fx_1200.png' },
+  nextcolony: { theme: 'theme-nextcolony', forum: 'nextcolony', icon: 'themes/nextcolony/favicon.png', logo: 'themes/nextcolony/nc-logo.png' },
+  sct: { theme: 'theme-sct', forum: 'sct', icon: 'themes/sct/sct_logo.png', logo: 'themes/sct/logo_h.png' },
+  steem: { theme: 'theme-steem', forum: 'steem', icon: 'themes/steem/logo.png', logo: 'themes/steem/logo.png' },
+
+  /* --- */
+  default: { theme: 'theme-default', forum: 'monsters', icon: 'favicon.ico', logo: 'themes/default/icon-reverse.png' },
+
+  /* --- */
+  localhost: { theme: 'theme-default', forum: 'monsters', icon: 'favicon.ico', logo: 'themes/default/icon-reverse.png' },
 };
 
 function setUpForum( forumContext, forum ) {
@@ -40,6 +44,7 @@ function setUpForum( forumContext, forum ) {
   console.log( `Loading TokenBB on ${ context.forum } with ${ context.theme }` );
   document.documentElement.className = `${ context.theme }`;
   global.forumname = context.forum;
+  global.logo = context.logo;
   document.title = `TokenBB ${global.forumname}`;
 
   const link = document.querySelector( 'link[rel*=\'icon\']' ) || document.createElement( 'link' );

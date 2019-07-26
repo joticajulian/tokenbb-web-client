@@ -3,7 +3,6 @@
   @import url(https://fonts.googleapis.com/css?family=Noto+Sans+HK:300,400,500,700&display=swap);
 
   background-color: #f5f6fa;
-  $logo: url("../public/themes/droneshot/droneshot-logo.png");
 
   // Set your brand colors
   $primary: #df691a;
@@ -157,30 +156,6 @@
     .navbar-menu {
       background-color: #002A30;
     }
-  }
-
-  .nav-logo {
-    margin-left: 0px;
-  }
-
-  .nav-logo a.navbar-item {
-    background: $logo no-repeat center center;
-    background-size: contain !important;
-    width: 280px;
-    height: 65px;
-    padding: 0;
-    margin: 5px;
-  }
-
-  @media #{$retina} {
-    .nav-logo a.navbar-item {
-      background: $logo no-repeat center center;
-    }
-  }
-
-  .navbar .logo {
-    display: none;
-    content: none;
   }
 
   .navbar-burger {

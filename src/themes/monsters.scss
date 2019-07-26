@@ -4,7 +4,6 @@
   @import url('../public/themes/monsters/fonts/monsters-fonts.css');
 
   background-color: #001B1F;
-  $logo: url("../public/themes/monsters/splinterlands_logo_fx_1200.png");
 
   // Set your brand colors
   $primary: #df691a;
@@ -160,31 +159,7 @@
       background-color: #002A30;
     }
   }
-
-  .nav-logo {
-    margin-left: 30px;
-  }
-
-  .nav-logo a.navbar-item {
-    background: $logo no-repeat center center;
-    background-size: contain !important;
-    width: 318px;
-    height: 55px;
-    padding: 0;
-    margin: 5px 0;
-  }
-
-  @media #{$retina} {
-    .nav-logo a.navbar-item {
-      background: $logo no-repeat center center;
-    }
-  }
-
-  .navbar .logo {
-    display: none;
-    content: none;
-  }
-
+  
   .navbar-burger {
     color: #dee5ed;
   }

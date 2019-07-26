@@ -3,7 +3,6 @@
   @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
   background-color: #001B1F;
-  $logo: url("../public/themes/steem/logo.png");
 
   // Set your brand colors
   $primary: #0079FF;
@@ -198,30 +197,6 @@
     .navbar-menu {
       background-color: #1B1464;
     }
-  }
-
-  .nav-logo {
-    margin-left: 30px;
-  }
-
-  .nav-logo a.navbar-item {
-    background: $logo no-repeat center center;
-    background-size: contain !important;
-    width: 54px;
-    height: 54px;
-    padding: 0;
-    margin: 10px 0;
-  }
-
-  @media #{$retina} {
-    .nav-logo a.navbar-item {
-      background: $logo no-repeat center center;
-    }
-  }
-
-  .navbar .logo {
-    display: none;
-    content: none;
   }
 
   .navbar-burger {

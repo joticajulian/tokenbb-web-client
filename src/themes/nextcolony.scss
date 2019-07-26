@@ -3,7 +3,6 @@
   @import url(https://fonts.googleapis.com/css?family=Saira&display=swap);
 
   background-color: #001B1F;
-  $logo: url("../public/themes/nextcolony/nc-logo.png");
 
   // Set your brand colors
   $primary: #FFFFFF;
@@ -174,28 +173,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1affffff', e
   }
 
   .nav-logo {
-    margin-left: 30px;
     margin-top: 4px;
-  }
-
-  .nav-logo a.navbar-item {
-    background: $logo no-repeat center center;
-    background-size: contain !important;
-    width: 318px;
-    height: 55px;
-    padding: 0;
-    margin: 5px 0;
-  }
-
-  @media #{$retina} {
-    .nav-logo a.navbar-item {
-      background: $logo no-repeat center center;
-    }
-  }
-
-  .navbar .logo {
-    display: none;
-    content: none;
   }
 
   .navbar-burger {

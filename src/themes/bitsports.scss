@@ -3,7 +3,6 @@
   @import url(https://fonts.googleapis.com/css?family=Prompt&display=swap);
 
   background-color: #001B1F;
-  $logo: url("../public/themes/bitsports/logo.png");
 
   // Set your brand colors
   $primary: #FFA800;
@@ -209,30 +208,6 @@
     .navbar-menu {
       background-color: #002A30;
     }
-  }
-
-  .nav-logo {
-    margin-left: 30px;
-  }
-
-  .nav-logo a.navbar-item {
-    background: $logo no-repeat center center;
-    background-size: contain !important;
-    width: 260px;
-    height: 45px;
-    padding: 0;
-    margin: 20px 0;
-  }
-
-  @media #{$retina} {
-    .nav-logo a.navbar-item {
-      background: $logo no-repeat center center;
-    }
-  }
-
-  .navbar .logo {
-    display: none;
-    content: none;
   }
 
   .navbar-burger {

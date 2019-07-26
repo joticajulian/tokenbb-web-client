@@ -25,7 +25,6 @@
   $link: $primary;
   $link-invert: $primary-invert;
   $link-focus-border: $primary;
-  $logo: url("https://tokenbb.io/wp-content/uploads/2018/11/icon-reverse.png");
   // Import Bulma and Buefy styles
   @import "~bulma";
   @import "~buefy/src/scss/buefy";
@@ -52,9 +51,6 @@
   }
   strong {
     color: white;
-  }
-  .logo {
-    content: $logo;
   }
   /* Upvote Button Front-page */
   .field.has-addons .control:last-child .button {
