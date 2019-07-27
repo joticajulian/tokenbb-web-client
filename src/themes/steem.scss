@@ -263,22 +263,26 @@
     max-width: none;
   }
 
-  // VP and RC indicator
+   // VP and RC indicator
 
-.progress {
-  background-color: #1B1464;
+   .progress-table {
+    .progress-label {
+      color: #dee5ed;
+    }
 
-}
+    .progress-percentage {
+      color: #dee5ed;
+    }    
 
-.progress-percentage {
-  background-color: #5F00DE;
-  color: white
-}
-
-.progress-label {
-color: #dee5ed;
-font-size: 1em;
-}
+    .progress {
+      background-color: #994DFF;
+    }
+    
+    .progress-bar {
+      background: #5F00DE;
+      background: linear-gradient(90deg, #5F00DE 0%, #3100FF 100%); 
+    }
+  }
 
   // Button
   .button.is-small {

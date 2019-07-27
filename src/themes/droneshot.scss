@@ -224,8 +224,29 @@
     height: 38px;
     max-height: none;
     max-width: none;
-  }
+  } 
 
+  // VP and RC indicator
+
+  .progress-table {
+    .progress {
+      background-color: #ccc;
+    }
+
+    .progress-bar {
+      background-color: #067080;
+      background: linear-gradient(90deg, #374a66 0%, #067080 100%);
+    }
+
+    .progress-label {
+      color: #00282e;
+    }
+
+    .progress-percentage {
+      color: #00282e;
+    }
+  }
+  
   // Button
   .button.is-small {
     font-size: 20px;

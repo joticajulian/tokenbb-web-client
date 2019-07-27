@@ -111,19 +111,23 @@ h6.card-header-title a {
 
 // VP and RC indicator
 
-.progress {
-  background-color: #f3f3f3;
+.progress-table {
+  .progress {
+    background-color: #f3f3f3;
+  }
 
-}
+  .progress-bar {
+    background-color: #00A32A;
+    background: linear-gradient(90deg, #FFC400 0%, #00A32A 100%);
+  }
 
-.progress-percentage {
-  background-color: #00A32A;
-  color: white
-}
+  .progress-label {
+    color: #f3f3f3;
+  }
 
-.progress-label {
-  color: #f3f3f3;
-  font-size: 1em;
+  .progress-percentage {
+    color: #f3f3f3;
+  }
 }
 
 //Button

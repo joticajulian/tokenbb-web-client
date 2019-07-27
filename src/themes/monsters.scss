@@ -227,23 +227,26 @@
     max-width: none;
   }
 
-  // VP and RC indicator
+   // VP and RC indicator
 
-  .progress {
-    background-color: #00414b;
-  
-  }
-  
-  .progress-percentage {
-    background-color: #5496a0;
-    color: black
-  }
+   .progress-table {
+    .progress-label {
+      font-family: 'Nanami Bold Oblique', sans-serif;
+      color: #86CED9;
+    }
 
-  .progress-label {
-    font-family: 'Nanami Bold Oblique', sans-serif;
-    color: #86CED9;
-    text-transform: uppercase;
-    font-size: 1em;
+    .progress-percentage {
+      color: #86CED9;
+    }    
+
+    .progress {
+      background-color: #00414b;
+    }
+    
+    .progress-bar {
+      background: #5496a0;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, #5496a0 100%); 
+    }
   }
 
   // Button

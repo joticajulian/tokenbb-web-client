@@ -40,17 +40,6 @@
           class="progress-table"
         >
           <tr>
-            <td>
-              <div class="progress">
-                <div
-                  :title="`Votig Power: ${auth.vp}%\nIndicates how powerful your vote is.`"
-                  class="progress-percentage"
-                  :style="{width: auth.vp + '%'}"
-                >
-                  {{ auth.vp + '%' }}
-                </div>
-              </div>
-            </td>
             <td
               rowspan="2"
             >
@@ -64,37 +53,43 @@
                 vp
               </p>
             </td>
-          </tr>
-          <tr>
+            <td>
+              <p class="progress-percentage">
+                {{ Math.round(auth.vp) + '%' }}
+              </p>
+            </td>
             <td>
               <div class="progress">
                 <div
-                  :title="`Resource Credits: ${auth.rc}%\nIndicates how many transactions you can still make.`"
-                  class="progress-percentage"
-                  :style="{width: auth.rc + '%'}"
-                >
-                  {{ auth.rc + '%' }}
-                </div>
+                  :title="`Voting Power: ${auth.vp}%\nIndicates how powerful your vote is.`"
+                  class="progress-bar"
+                  :style="{width: auth.vp + '%'}"
+                />
               </div>
             </td>
+          </tr>
+          <tr>
             <td>
               <p class="progress-label">
                 rc
               </p>
             </td>
-          </tr>
-          <tr v-if="forum.token.enabled">
+            <td>
+              <p class="progress-percentage">
+                {{ Math.round(auth.rc) + '%' }}
+              </p>
+            </td>
             <td>
               <div class="progress">
                 <div
-                  :title="`${forum.token.symbol} Votig Power: ${auth.scotVp}%\nIndicates how powerful your vote is.`"
-                  class="progress-percentage"
-                  :style="{width: auth.scotVp + '%'}"
-                >
-                  {{ auth.scotVp + '%' }}
-                </div>
+                  :title="`Resource Credits: ${auth.rc}%\nIndicates how many transactions you can still make.`"
+                  class="progress-bar"
+                  :style="{width: auth.rc + '%'}"
+                />
               </div>
             </td>
+          </tr>
+          <tr v-if="forum.token.enabled">
             <td>
               <img
                 class="token-icon"
@@ -105,6 +100,20 @@
               <p class="progress-label">
                 vp
               </p>
+            </td>
+            <td>
+              <p class="progress-percentage">
+                {{ Math.round(auth.scotVp) + '%' }}
+              </p>
+            </td>
+            <td>
+              <div class="progress">
+                <div
+                  :title="`${forum.token.symbol} Voting Power: ${auth.scotVp}%\nIndicates how powerful your vote is.`"
+                  class="progress-bar"
+                  :style="{width: auth.scotVp + '%'}"
+                />
+              </div>
             </td>
           </tr>
         </table>

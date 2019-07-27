@@ -78,38 +78,63 @@ width: auto;
 }
 
 // VP and RC indicator
-.progress {
-  width: 15em;
-  height: 1em;
-  font-size: 0.7em;
-  border-radius: 0.5em;
-  overflow:hidden;
-}
 
-.progress-percentage {
-  height: 1em;
-  text-align: center;
-  line-height:1em
+.progress-table {
+  margin-right: 1em;
 }
 
 .progress-table td {
   vertical-align: middle;
 }
 
-.progress-label {
-margin: 0 0.5em;
-}
-
 .steem-icon {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;    
   vertical-align: top;
-  margin-left: 0.5em;
   height:1.3em;
 }
 
-.token-icon {  
+.token-icon {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;    
   vertical-align: middle;
-  margin-left: 0.5em;
   height:1.2em;
+}
+
+.progress-label {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;    
+  margin: 0 0.6em;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.progress-percentage {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;    
+  width: 100%;
+  text-align: right;
+  padding-right: 0.6em;
+  font-size: .875em
+}
+
+.progress {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;  
+  width: 100px;
+  height: 8px;
+  padding: 2px 3px;
+  border-radius: 100px;
+  overflow:hidden;
+  background-color: #333;
+}
+
+.progress-bar {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;    
+  height: 4px;
+  border-radius: 100px;
+  background-color: #ccc;
 }
 
 // Upvote Button Size

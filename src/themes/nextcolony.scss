@@ -243,22 +243,26 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1affffff', e
     max-width: none;
   }
 
-    // VP and RC indicator
+ // VP and RC indicator
 
-.progress {
-  background-color: #081E36;
+ .progress-table {
+    .progress-percentage {
+      color: #dee5ed;
+    }
+      
+    .progress-label {
+      color: #dee5ed;
+    }
 
-}
-
-.progress-percentage {
-  background-color: #143A63;
-  color: white
-}
-
-.progress-label {
-color: #dee5ed;
-font-size: 1em;
-}
+    .progress {
+      background-color: #081E36;
+    }
+    
+    .progress-bar {
+      background: #143A63;
+      background: linear-gradient(90deg, rgba(255,255,255,.05) 0%, #143A63 100%); 
+    }
+  }
 
   // Button
   .button.is-small {
