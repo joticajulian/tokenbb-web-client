@@ -63,8 +63,10 @@
     }
   }
 
-  .markdown-body blockquote {
-    color: $content;
+  .content blockquote {
+    background-color: $background;
+    border-left: 5px solid $primary;
+    padding: 1.25em 1.5em;
   }
 
   a {
@@ -480,12 +482,6 @@ font-size: 1em;
 
   // Topic View Page {
   .topic-view {
-
-    blockquote {
-      background-color: $background;
-      border-left: 5px solid $primary;
-      padding: 1.25em 1.5em;
-    }
 
     h1, h2, h3, h4, h5, h6 {
       color: #fff;
