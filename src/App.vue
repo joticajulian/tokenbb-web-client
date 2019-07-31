@@ -43,28 +43,29 @@ export default {
     };
   },
   watch: {
-    '$route'( to ) {
+    async '$route'( to ) {
       if ( process.env.VUE_APP_WRAPPER_IFRAME_ORIGIN ) {
         window.parent.postMessage( {
           type: 'tokenbb_wrapper_route',
           payload: to.fullPath,
         }, process.env.VUE_APP_WRAPPER_IFRAME_ORIGIN );
       }
+
+      // On initial load, route appears to be '/' and then adjusts to correct one.
+      try {
+        await this.$store.commit( 'auth/init', this.$store );
+
+        const category = this.$route.query.category;
+        await this.$store.dispatch( 'forum/fetch' );
+        await this.$store.dispatch( 'categories/fetchAll' );
+        if ( this.$route.path.startsWith( '/topic-list' ) ) {
+          await this.$store.dispatch( 'topics/fetchAll', { category } );
+        }
+        this.loaded = true;
+      } catch ( err ) {
+        console.error( err );
+      }
     },
-  },
-  mounted() {
-    this.$nextTick( () => {
-
-      this.$store.commit( 'auth/init', this.$store );
-
-      const category = this.$route.query.category;
-      this.$store.dispatch( 'forum/fetch' )
-        .then( () => this.$store.dispatch( 'categories/fetchAll' ) )
-        .then( () => this.$store.dispatch( 'topics/fetchAll', { category } ) )
-        .then( () => {
-          this.loaded = true;
-        } );
-    } );
   },
 };
 </script>
