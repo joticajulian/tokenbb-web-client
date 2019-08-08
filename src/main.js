@@ -110,34 +110,33 @@ if ( urlForum !== 'app' && !process.env.VUE_APP_WRAPPER_IFRAME_ORIGIN ) {
   const localStorageCallbacks = {};
 
   // Set up keychain and localStorage communication to parent iframe
-  window.steem_keychain = new Proxy( proxyKeychainMethods
-, {
-    get: ( obj, method ) => {
-      return ( ...args ) => {
-        steemKeychainCallId++;
-        steemKeychainCallbacks[steemKeychainCallId] = args[args.length - 1];
-        window.parent.postMessage( { type: 'tokenbb_wrapper_keychain',
-          method,
-          args: args.slice( 0, args.length - 1 ),
-          call_id: steemKeychainCallId,
-        }, process.env.VUE_APP_WRAPPER_IFRAME_ORIGIN );
-      };
-    },
-  } );
-  window.localStorageProxy = new Proxy( proxyKeychainMethods, {
+  window.steem_keychain = new Proxy( proxyKeychainMethods, {
     get: ( obj, method ) => {
       // needs parent to send method list, set by tokenbb_wrapper_keychain_methods message.
       if ( obj[method] ) {
         return ( ...args ) => {
-          localStorageCallId++;
-          localStorageCallbacks[localStorageCallId] = args[args.length - 1];
-          window.parent.postMessage( { type: 'tokenbb_wrapper_localstorage',
+          steemKeychainCallId++;
+          steemKeychainCallbacks[steemKeychainCallId] = args[args.length - 1];
+          window.parent.postMessage( { type: 'tokenbb_wrapper_keychain',
             method,
             args: args.slice( 0, args.length - 1 ),
-            call_id: localStorageCallId,
+            call_id: steemKeychainCallId,
           }, process.env.VUE_APP_WRAPPER_IFRAME_ORIGIN );
         };
       }
+    },
+  } );
+  window.localStorageProxy = new Proxy( {}, {
+    get: ( obj, method ) => {
+      return ( ...args ) => {
+        localStorageCallId++;
+        localStorageCallbacks[localStorageCallId] = args[args.length - 1];
+        window.parent.postMessage( { type: 'tokenbb_wrapper_localstorage',
+          method,
+          args: args.slice( 0, args.length - 1 ),
+          call_id: localStorageCallId,
+        }, process.env.VUE_APP_WRAPPER_IFRAME_ORIGIN );
+      };
     },
   } );
 
