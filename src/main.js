@@ -96,6 +96,7 @@ function setUpForum( forumContext, forum ) {
 const subs = ( new URL( window.location ) ).hostname.split( '.' );
 const urlForum = subs[0];
 const urlIsTokenbbDomain = subs.length >= 2 && subs[1] === 'tokenbb';
+const proxyKeychainMethods = {};
 
 console.log( `Forum: ${urlForum} domain: ${( new URL( window.location ) ).hostname}` );
 
@@ -109,7 +110,8 @@ if ( urlForum !== 'app' && !process.env.VUE_APP_WRAPPER_IFRAME_ORIGIN ) {
   const localStorageCallbacks = {};
 
   // Set up keychain and localStorage communication to parent iframe
-  window.steem_keychain = new Proxy( {}, {
+  window.steem_keychain = new Proxy( proxyKeychainMethods
+, {
     get: ( obj, method ) => {
       return ( ...args ) => {
         steemKeychainCallId++;
@@ -122,17 +124,20 @@ if ( urlForum !== 'app' && !process.env.VUE_APP_WRAPPER_IFRAME_ORIGIN ) {
       };
     },
   } );
-  window.localStorageProxy = new Proxy( {}, {
+  window.localStorageProxy = new Proxy( proxyKeychainMethods, {
     get: ( obj, method ) => {
-      return ( ...args ) => {
-        localStorageCallId++;
-        localStorageCallbacks[localStorageCallId] = args[args.length - 1];
-        window.parent.postMessage( { type: 'tokenbb_wrapper_localstorage',
-          method,
-          args: args.slice( 0, args.length - 1 ),
-          call_id: localStorageCallId,
-        }, process.env.VUE_APP_WRAPPER_IFRAME_ORIGIN );
-      };
+      // needs parent to send method list, set by tokenbb_wrapper_keychain_methods message.
+      if ( obj[method] ) {
+        return ( ...args ) => {
+          localStorageCallId++;
+          localStorageCallbacks[localStorageCallId] = args[args.length - 1];
+          window.parent.postMessage( { type: 'tokenbb_wrapper_localstorage',
+            method,
+            args: args.slice( 0, args.length - 1 ),
+            call_id: localStorageCallId,
+          }, process.env.VUE_APP_WRAPPER_IFRAME_ORIGIN );
+        };
+      }
     },
   } );
 
@@ -169,7 +174,7 @@ if ( urlForum !== 'app' && !process.env.VUE_APP_WRAPPER_IFRAME_ORIGIN ) {
       router.replace( { path: e.data.pathname, query } );
     } else if ( e.data.type === 'tokenbb_wrapper_keychain_methods' ) {
       e.data.methods.forEach( ( m ) => {
-        window.steem_keychain[m] = m;
+        proxyKeychainMethods[m] = m;
       } );
     }
   } );
