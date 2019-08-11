@@ -228,11 +228,16 @@ export function setCategoryOrdering( categoryOrdering ) {
   return requestAsync( opts );
 }
 
-export function listValidTopics( category ) {
+export function listValidTopics( args ) {
+  const category = args && args.category;
   let url = apiURL() + '/topics';
 
   if ( category ) {
     url = apiURL() + `/${category}/topics`;
+  }
+
+  if ( args && args.page && args.pageSize ) {
+    url += `?page=${args.page}&page_size=${args.pageSize}`;
   }
 
   const opts = {
