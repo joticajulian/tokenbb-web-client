@@ -17,15 +17,15 @@
 
 <style lang="scss">
 @import "./themes/default.scss";
-//@import "./themes/bitsports.scss";
-//@import "./themes/drugwars.scss";
+@import "./themes/bitsports.scss";
+@import "./themes/drugwars.scss";
 @import "./themes/monsters.scss";
-//@import "./themes/steem.scss";
+@import "./themes/steem.scss";
 //@import "./themes/lightmode.scss";
 //@import "./themes/darkmode.scss";
-//@import "./themes/nextcolony.scss";
-//@import "./themes/droneshot.scss";
-//@import "./themes/sct.scss";
+@import "./themes/nextcolony.scss";
+@import "./themes/droneshot.scss";
+@import "./themes/sct.scss";
 </style>
 
 <script>
