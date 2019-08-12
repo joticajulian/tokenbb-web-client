@@ -60,7 +60,9 @@ export default {
         await this.$store.dispatch( 'forum/fetch' );
         await this.$store.dispatch( 'categories/fetchAll' );
         if ( this.$route.path.startsWith( '/topic-list' ) ) {
-          await this.$store.dispatch( 'topics/fetchAll', { category } );
+          const page = this.$route.query.page ? this.$route.query.page : 1;
+          const pageSize = this.$route.query.page_size ? this.$route.query.page_size : 10;
+          await this.$store.dispatch( 'topics/fetchAll', { category, page, pageSize } );
         }
         this.loaded = true;
       } catch ( err ) {

@@ -9,6 +9,7 @@ export default {
   state: {
     fetching: true,
     topicList: [],
+    topicSize: 0,
   },
   mutations: {
     reorder( state ) {
@@ -36,6 +37,9 @@ export default {
     updateTopicList( state, topics ) {
       state.topicList = topics;
     },
+    updateTopicSize( state, topicSize ) {
+      state.topicSize = topicSize;
+    },
     addTopic( state, topic ) {
       state.topicList.push( topic );
     },
@@ -60,9 +64,10 @@ export default {
     fetchAll( { commit }, args ) {
       commit( 'setFetching', true );
 
-      listTopics( args ? args.category : null )
-        .then( ( topics ) => {
-          commit( 'updateTopicList', withPinnedToTop( topics ) );
+      listTopics( args )
+        .then( ( response ) => {
+          commit( 'updateTopicList', withPinnedToTop( response.topics ) );
+          commit( 'updateTopicSize', response.totalSize );
           commit( 'setFetching', false );
         } )
         .catch( ( err ) => {

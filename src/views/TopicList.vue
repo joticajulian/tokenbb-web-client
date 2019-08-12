@@ -111,8 +111,8 @@
       </template>
     </b-table>
     <b-pagination
-      v-if="topicList.length > perPage"
-      :total="topicList.length"
+      v-if="topicSize > perPage"
+      :total="topicSize"
       :current.sync="current"
       order="is-centered"
       size="is-small"
@@ -153,13 +153,14 @@ export default {
     return {
       selectedCategory: null,
       total: 0,
-      current: 1,
-      perPage: 10,
+      current: this.$route.query.page ? this.$route.query.page : 1,
+      perPage: this.$route.query.page_size ? this.$route.query.page_size : 10,
     };
   },
   computed: {
     ...mapState( 'topics', [
       'topicList',
+      'topicSize',
     ] ),
     ...mapState( 'categories', [
       'categoryList',
@@ -204,10 +205,7 @@ export default {
       return breadcrumb;
     },
     currentPage() {
-      const topics = this.topicList || [];
-      const start = ( this.current - 1 ) * this.perPage;
-      const end = this.current * this.perPage;
-      return topics.slice( start, end );
+      return this.topicList || [];
     },
     topicList() {
       if ( !this.selectedCategory ) {
@@ -220,10 +218,12 @@ export default {
     },
   },
   beforeRouteUpdate( to, from, next ) {
+    const page = to.query.page ? to.query.page : 1;
+    const pageSize = to.query.page_size ? to.query.page : 10;
     if ( to.query.category ) {
-      this.$store.dispatch( 'topics/fetchAll', { category: to.query.category } );
+      this.$store.dispatch( 'topics/fetchAll', { category: to.query.category, page, pageSize } );
     } else {
-      this.$store.dispatch( 'topics/fetchAll' );
+      this.$store.dispatch( 'topics/fetchAll', { page, pageSize } );
       this.selectedCategory = null;
     }
     next();
@@ -231,6 +231,11 @@ export default {
   watch: {
     categoryList( value ) {
       this.setSelectedCategory( value );
+    },
+    current( value ) {
+      const query = { ...this.$route.query };
+      query.page = value;
+      this.$router.push( { path: 'topic-list', query } );
     },
   },
   created() {

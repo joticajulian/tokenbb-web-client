@@ -6,9 +6,10 @@ import {
 } from './api.service.js';
 
 
-export async function listTopics( category ) {
-  const topics = await listValidTopics( category );
-  return topics.data.map( postToTopic );
+export async function listTopics( args ) {
+  const listTopicResponse = ( await listValidTopics( args ) ).data;
+  listTopicResponse.topics = listTopicResponse.topics.map( postToTopic );
+  return listTopicResponse;
 }
 
 export function postToTopic( post ) {
