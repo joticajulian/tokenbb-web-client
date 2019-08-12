@@ -1,4 +1,4 @@
-import { Toast } from 'buefy/dist/components/toast';
+import { ToastProgrammatic as Toast } from 'buefy';
 
 import { addCategory, editCategory, listCategories, removeCategory } from '../services/api.service';
 import { errorAlertOptions } from '../utils/notifications.js';

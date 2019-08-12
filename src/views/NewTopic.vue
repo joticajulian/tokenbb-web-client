@@ -67,7 +67,6 @@ import Input from 'buefy/src/components/input/Input';
 import TextEditor from '../components/TextEditor.vue';
 import CategoryDropdown from '../components/CategoryDropdown.vue';
 
-import { Toast } from 'buefy/dist/components/toast';
 import { localStorageGetItem, localStorageSetItem, localStorageRemoveItem } from '../utils/localStorage';
 
 export default {
@@ -124,7 +123,7 @@ export default {
     },
     async onSubmit() {
       if ( !this.selectedCategory ) {
-        return Toast.open( {
+        return this.$buefy.toast.open( {
           type: 'is-danger',
           message: 'Please select a category',
         } );
@@ -144,13 +143,13 @@ export default {
         await localStorageRemoveItem( this.$route.fullPath + '-TITLE' );
         await this.$store.dispatch( 'topics/fetchAll' );
         this.$router.push( { path: '/topic-list', query: { category: this.selectedCategory.slug } } );
-        Toast.open( {
+        this.$buefy.toast.open( {
           message: 'Your topic has been posted.',
           type: 'is-primary',
         } );
       } catch ( err ) {
         console.error( err );
-        Toast.open( {
+        this.$buefy.toast.open( {
           message: 'Oops! Could not create your topic at this moment. ' + err.message,
           type: 'is-danger',
         } );

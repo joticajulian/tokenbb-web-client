@@ -134,8 +134,6 @@ import { errorAlertOptions } from '../utils/notifications.js';
 import ShowIfLoggedIn from '../components/ShowIfLoggedIn.vue';
 import DateTimeTag from '../components/DateTimeTag';
 
-import { Toast } from 'buefy/dist/components/toast';
-
 export default {
   components: {
     BField: Field,
@@ -191,7 +189,7 @@ export default {
         } )
         .catch( ( err ) => {
           console.error( err );
-          Toast.open( errorAlertOptions( 'Oops! Could not edit your post at this moment' ) );
+          this.$buefy.toast.open( errorAlertOptions( 'Oops! Could not edit your post at this moment' ) );
           this.fetching = false;
         } );
     },

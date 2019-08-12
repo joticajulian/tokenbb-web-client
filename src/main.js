@@ -14,7 +14,7 @@ import VueAnalytics from 'vue-analytics';
 import { formatDate, formatDateTimeFromNow } from './utils/content';
 import { getDomainForum } from './services/api.service.js';
 
-import { Toast } from 'buefy/dist/components/toast';
+import { Dialog, Toast, ToastProgrammatic } from 'buefy';
 import { errorAlertOptions } from './utils/notifications.js';
 
 registerSW();
@@ -75,6 +75,8 @@ function setUpForum( forumContext, forum ) {
   }
 
   Vue.use( steemEditor );
+  Vue.use( Dialog );
+  Vue.use( Toast );
 
   Vue.filter( 'formatDate', formatDate );
   Vue.filter( 'fromNow', formatDateTimeFromNow );
@@ -112,6 +114,7 @@ if ( urlForum !== 'app' && !process.env.VUE_APP_WRAPPER_IFRAME_ORIGIN ) {
   // Set up keychain and localStorage communication to parent iframe
   window.steem_keychain = new Proxy( proxyKeychainMethods, {
     get: ( obj, method ) => {
+
       // needs parent to send method list, set by tokenbb_wrapper_keychain_methods message.
       if ( obj[method] ) {
         return ( ...args ) => {
@@ -161,7 +164,7 @@ if ( urlForum !== 'app' && !process.env.VUE_APP_WRAPPER_IFRAME_ORIGIN ) {
           setUpForum( forum.data.slug, forum.data.slug );
         } )
         .catch( ( err ) => {
-          Toast.open( errorAlertOptions( `Could not find forum for domain ${e.origin}`, err ) );
+          ToastProgrammatic.open( errorAlertOptions( `Could not find forum for domain ${e.origin}`, err ) );
           console.error( err );
         } );
     } else if ( e.data.type === 'tokenbb_wrapper_nav' ) {

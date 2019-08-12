@@ -1,4 +1,4 @@
-import { Toast } from 'buefy/dist/components/toast';
+import { ToastProgrammatic as Toast } from 'buefy';
 
 import { createTopic, listTopics } from '../services/post.service.js';
 import { errorAlertOptions } from '../utils/notifications.js';

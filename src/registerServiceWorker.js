@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 
 import { register } from 'register-service-worker';
-import { Snackbar } from 'buefy/dist/components/snackbar';
+import { SnackbarProgrammatic as Snackbar } from 'buefy';
 
 export function registerSW() {
   if ( process.env.NODE_ENV === 'production' ) {

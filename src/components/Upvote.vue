@@ -103,8 +103,6 @@ import ShowIfLoggedIn from './ShowIfLoggedIn.vue';
 
 import Timeout from 'await-timeout';
 
-import { Toast } from 'buefy/dist/components/toast';
-
 const client = new Client( 'https://api.steemit.com' );
 
 export default {
@@ -187,7 +185,7 @@ export default {
     },
     async handleClick() {
       if ( this.voted ) {
-        return Toast.open( {
+        return this.$buefy.toast.open( {
           message: 'Oops! Already voted!.',
           type: 'is-danger',
         } );
@@ -196,7 +194,7 @@ export default {
 
       try {
         await vote( this.author, this.permlink, this.$store.state.auth.current, this.percent );
-        Toast.open( {
+        this.$buefy.toast.open( {
           message: 'Upvoted!',
           type: 'is-primary',
         } );
@@ -211,7 +209,7 @@ export default {
         }
       } catch ( err ) {
         console.error( 'oops!', err );
-        Toast.open( {
+        this.$buefy.toast.open( {
           message: 'Oops! Could not upvote at this time. ' + err,
           type: 'is-danger',
         } );

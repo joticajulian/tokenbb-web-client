@@ -1,6 +1,6 @@
 import jwtdecode from 'jwt-decode';
 
-import { Toast } from 'buefy/dist/components/toast';
+import { ToastProgrammatic as Toast } from 'buefy';
 
 import steem from '../services/steem.service';
 import { getVotingPower, getScotVotingPower, getResourceCredits } from '../services/api.service.js';

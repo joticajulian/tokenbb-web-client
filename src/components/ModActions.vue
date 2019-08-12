@@ -24,9 +24,6 @@ import Select from 'buefy/src/components/select/Select';
 
 import { hide, move, pin, unpin } from '../services/api.service.js';
 
-import { Toast } from 'buefy/dist/components/toast';
-import { Dialog } from 'buefy/dist/components/dialog';
-
 function noop() {}
 
 export default {
@@ -94,7 +91,7 @@ export default {
       } );
     },
     pinTopic() {
-      Dialog.confirm( {
+      this.$buefy.dialog.confirm( {
         message: 'This will pin the topic to the top of the category. '
           + 'Are you sure you want to do this?',
         onConfirm: async () => {
@@ -105,14 +102,14 @@ export default {
 
             this.$store.commit( 'topics/pin', this.post );
 
-            Toast.open( {
+            this.$buefy.toast.open( {
               message: 'The topic has been pinned.',
               type: 'is-primary',
             } );
             this.$router.push( { name: 'home' } );
           } catch ( err ) {
             const result = err.error.message;
-            Toast.open( {
+            this.$buefy.toast.open( {
               message: `Failed to pin the topic: ${result}`,
               type: 'is-danger',
             } );
@@ -123,7 +120,7 @@ export default {
       } );
     },
     unpinTopic() {
-      Dialog.confirm( {
+      this.$buefy.dialog.confirm( {
         message: 'This will unpin the topic. '
           + 'Are you sure you want to do this?',
         onConfirm: async () => {
@@ -134,14 +131,14 @@ export default {
 
             this.$store.commit( 'topics/unpin', this.post );
 
-            Toast.open( {
+            this.$buefy.toast.open( {
               message: 'The topic has been unpinned.',
               type: 'is-primary',
             } );
             this.$router.push( { name: 'home' } );
           } catch ( err ) {
             const result = err.error.message;
-            Toast.open( {
+            this.$buefy.toast.open( {
               message: `Failed to unpin the topic: ${result}`,
               type: 'is-danger',
             } );
@@ -152,7 +149,7 @@ export default {
       } );
     },
     hideTopic() {
-      Dialog.confirm( {
+      this.$buefy.dialog.confirm( {
         message: 'This will hide the post from users. '
                 + 'Are you sure you want to do this?',
         onConfirm: async () => {
@@ -161,7 +158,7 @@ export default {
           try {
             await hide( this.post );
 
-            Toast.open( {
+            this.$buefy.toast.open( {
               message: 'The post has been hidden.',
               type: 'is-primary',
             } );
@@ -172,7 +169,7 @@ export default {
             }
           } catch ( err ) {
             const result = err.error.message;
-            Toast.open( {
+            this.$buefy.toast.open( {
               message: `Failed to hide the post: ${result}`,
               type: 'is-danger',
             } );
@@ -183,7 +180,7 @@ export default {
       } );
     },
     moveTopic() {
-      Dialog.prompt( {
+      this.$buefy.dialog.prompt( {
         message: 'Input a category slug to move this topic to.',
         inputAttrs: {
           placeholder: '',
@@ -195,14 +192,14 @@ export default {
           try {
             await move( this.post, value );
 
-            Toast.open( {
+            this.$buefy.toast.open( {
               message: 'The post has been moved.',
               type: 'is-primary',
             } );
             this.$router.go();
           } catch ( err ) {
             const result = err.message || err.error.message;
-            Toast.open( {
+            this.$buefy.toast.open( {
               message: `Failed to move the post: ${ result }`,
               type: 'is-danger',
             } );
