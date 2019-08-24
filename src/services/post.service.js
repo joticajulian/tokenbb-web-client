@@ -32,10 +32,10 @@ export function postToTopic( post ) {
   };
 }
 
-export async function getTopic( author, permlink ) {
+export async function getTopic( author, permlink, page, pageSize ) {
 
   // throw Error('Implement this with api call to db and redirect')
-  const topic = await getValidTopic( author, permlink );
+  const topic = await getValidTopic( author, permlink, page, pageSize );
   if ( topic === null ) {
     return null;
   }

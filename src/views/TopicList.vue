@@ -219,7 +219,7 @@ export default {
   },
   beforeRouteUpdate( to, from, next ) {
     const page = to.query.page ? to.query.page : 1;
-    const pageSize = to.query.page_size ? to.query.page : 10;
+    const pageSize = to.query.page_size ? to.query.page_size : 10;
     if ( to.query.category ) {
       this.$store.dispatch( 'topics/fetchAll', { category: to.query.category, page, pageSize } );
     } else {

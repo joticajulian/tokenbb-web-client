@@ -312,10 +312,14 @@ export function publishEdit( post, message ) {
   return requestAsync( opts );
 }
 
-export function getValidTopic( author, permlink ) {
+export function getValidTopic( author, permlink, page, pageSize ) {
+  let url = apiURL() + `/topics/${author}/${permlink}`;
+  if ( page && pageSize ) {
+    url += `?page=${page}&page_size=${pageSize}`;
+  }
   const opts = {
     method: 'GET',
-    url: apiURL() + `/topics/${author}/${permlink}`,
+    url,
     json: true,
     headers: steem.token ? { 'Authorization': 'Bearer ' + steem.token } : {},
   };

@@ -33,8 +33,8 @@
         <main ref="posts">
           <Post :data="topic" />
           <b-pagination
-            v-if="topic.replies.length > perPage"
-            :total="topic.replies.length"
+            v-if="replySize > perPage"
+            :total="replySize"
             :current.sync="current"
             order="is-centered"
             size="is-normal"
@@ -55,8 +55,8 @@
             Back to Top
           </a>
           <b-pagination
-            v-if="topic.replies.length > perPage"
-            :total="topic.replies.length"
+            v-if="replySize > perPage"
+            :total="replySize"
             :current.sync="current"
             order="is-centered"
             size="is-normal"
@@ -114,7 +114,7 @@ export default {
       replyText: '',
       total: 0,
       current: this.$route.query && this.$route.query.page ? this.$route.query.page : 1,
-      perPage: 10,
+      perPage: this.$route.query && this.$route.query.page_size ? this.$route.query.page_size : 10,
     };
   },
   computed: {
@@ -122,14 +122,14 @@ export default {
       'categoriesById',
       'categoriesByBreadcrumb',
     ] ),
+    replySize() {
+      return this.topic.numberOfReplies || 0;
+    },
     currentPage() {
-      const replies = this.topic.replies || [];
-      const start = ( this.current - 1 ) * this.perPage;
-      const end = this.current * this.perPage;
-      return replies.slice( start, end );
+      return this.topic.replies || [];
     },
     lastPage() {
-      return Math.floor( this.topic.replies.length / this.perPage ) + 1;
+      return Math.ceil( this.replySize / this.perPage );
     },
     quote() {
       const arr = this.currentPage;
@@ -164,11 +164,29 @@ export default {
       return breadcrumb;
     },
   },
+  watch: {
+    current( value ) {
+      const query = { ...this.$route.query };
+      query.page = value;
+      this.$router.push( { path: this.$route.path, query } );
+    },
+  },
   created() {
     this.fetchTopic( Boolean( this.$route.query && (
       this.$route.query.postId
       || this.$route.query.scrollToEnd ) ) );
     this.$root.$on( 'topicRefresh', this.fetchTopic );
+  },
+  beforeRouteUpdate( to, from, next ) {
+    const { author, permlink } = this.$route.params;
+    const page = to.query.page ? to.query.page : 1;
+    const pageSize = to.query.page_size ? to.query.page_size : 10;
+    this.fetching = true;
+    return getTopic( author, permlink, page, pageSize ).then( ( topic ) => {
+      this.topic = topic;
+      this.fetching = false;
+      next();
+    } );
   },
   methods: {
     async onReplyInput( text ) {
@@ -199,7 +217,7 @@ export default {
 
       this.fetching = true;
 
-      return getTopic( author, permlink ).then( ( topic ) => {
+      return getTopic( author, permlink, this.current, this.perPage ).then( ( topic ) => {
         if ( !topic ) {
           return this.$router.push( '/' );
         }
