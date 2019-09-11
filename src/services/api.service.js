@@ -36,8 +36,12 @@ export function getScotTokenPayout( author, permlink ) {
   return requestAsync( opts );
 }
 
+export function baseApiUrl() {
+  return `${process.env.VUE_APP_API_HOST}/v1`;
+}
+
 export function apiURL() {
-  return `${process.env.VUE_APP_API_HOST}/v1/forum/${global.forumname}`;
+  return `${baseApiUrl()}/forum/${global.forumname}`;
 }
 
 export function uploadImage( image ) {
@@ -125,6 +129,22 @@ export function getDomainForum( domain ) {
       domain,
     },
   };
+  return requestAsync( opts );
+}
+
+export function listForums( args ) {
+  let query = '';
+  if ( args ) {
+    Object.keys( args ).forEach( ( k ) => {
+      query += `${k}=${args[k]}`;
+    } );
+  }
+  const opts = {
+    method: 'GET',
+    json: true,
+    url: `${baseApiUrl()}/forums${query ? '?' + query : ''}`,
+  };
+
   return requestAsync( opts );
 }
 

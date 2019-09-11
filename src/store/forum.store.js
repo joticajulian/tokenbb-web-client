@@ -2,6 +2,7 @@ import { ToastProgrammatic as Toast } from 'buefy';
 
 import {
   listRoles,
+  listForums,
   setCategoryOrdering,
   getUsers,
   modifyForumPermission,
@@ -41,6 +42,7 @@ export default {
       topic_starter: 0,
       split: [],
     },
+    forumList: [],
   },
   mutations: {
     setTokenIcon( state, icon ) {
@@ -48,6 +50,9 @@ export default {
     },
     setFetching( state, fetching ) {
       state.fetching = fetching;
+    },
+    updateForumList( state, forumList ) {
+      state.forumList = forumList;
     },
     updateForum( state, forum ) {
       try {
@@ -122,6 +127,19 @@ export default {
       } catch ( err ) {
         commit( 'setFetching', false );
         Toast.open( errorAlertOptions( 'Error fetching forum', err ) );
+        console.error( err );
+      }
+    },
+    async fetchForums( { commit, state }, args ) {
+      commit( 'setFetching', true );
+
+      try {
+        const forumList = await listForums( args );
+        commit( 'updateForumList', forumList.data );
+        commit( 'setFetching', false );
+      } catch ( err ) {
+        commit( 'setFetching', false );
+        Toast.open( errorAlertOptions( 'Error fetching forum list', err ) );
         console.error( err );
       }
     },

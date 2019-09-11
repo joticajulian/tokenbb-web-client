@@ -18,6 +18,12 @@ const router = new Router( {
       component: loadView( 'Home' ),
     },
     {
+      path: '/forums',
+      name: 'forums',
+      component: loadView( 'ForumList' ),
+    },
+
+    {
       path: '/topic-list',
       name: 'topic-list',
       component: loadView( 'TopicList' ),

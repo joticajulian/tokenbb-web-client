@@ -63,6 +63,10 @@ export default {
           const page = this.$route.query.page ? this.$route.query.page : 1;
           const pageSize = this.$route.query.page_size ? this.$route.query.page_size : 10;
           await this.$store.dispatch( 'topics/fetchAll', { category, page, pageSize } );
+        } else if ( this.$route.path.startsWith( '/forums' ) ) {
+          const page = this.$route.query.page ? this.$route.query.page : 1;
+          const pageSize = this.$route.query.page_size ? this.$route.query.page_size : 10;
+          await this.$store.dispatch( 'forum/fetchForums', { page, pageSize } );
         }
         this.loaded = true;
       } catch ( err ) {
