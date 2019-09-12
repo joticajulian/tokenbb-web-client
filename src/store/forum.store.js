@@ -7,6 +7,7 @@ import {
   getUsers,
   modifyForumPermission,
   getTokenIcon,
+  patchForum,
 } from '../services/api.service.js';
 import { errorAlertOptions } from '../utils/notifications.js';
 
@@ -43,6 +44,9 @@ export default {
       split: [],
     },
     forumList: [],
+    name: '',
+    description: '',
+    discoverable: false,
   },
   mutations: {
     setTokenIcon( state, icon ) {
@@ -90,7 +94,13 @@ export default {
           weight: btWeight,
         } );
       }
+      state.name = forum.name;
+      state.description = forum.description;
+      state.discoverable = forum.discoverable;
       this.commit( 'categories/updateCategoryList' );
+    },
+    updateForumProperty( state, property ) {
+      state[property.name] = property.value;
     },
   },
   getters: {
@@ -165,6 +175,19 @@ export default {
     },
     async removeForumMod( { commit }, username ) {
       await sendModifyForumPermission( commit, 'remove', 'mod', username );
+    },
+    async patch( { commit }, forum ) {
+      commit( 'setFetching', true );
+      try {
+        const saved = await patchForum( forum );
+        commit( 'updateForum', saved.data );
+        commit( 'setFetching', false );
+        Toast.open( 'Successfully saved forum settings!' );
+      } catch ( err ) {
+        commit( 'setFetching', false );
+        Toast.open( errorAlertOptions( 'Error patching forum', err ) );
+        console.error( err );
+      }
     },
   },
 };

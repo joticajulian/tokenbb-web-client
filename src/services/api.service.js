@@ -411,3 +411,14 @@ export function modifyForumPermission( action, type, username ) {
   };
   return requestAsync( opts );
 }
+
+export function patchForum( forum ) {
+  const opts = {
+    method: 'POST',
+    json: true,
+    headers: steem.token ? { 'Authorization': 'Bearer ' + steem.token } : {},
+    url: `${apiURL()}/patch`,
+    body: forum,
+  };
+  return requestAsync( opts );
+}
