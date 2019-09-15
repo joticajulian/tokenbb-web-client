@@ -35,6 +35,13 @@
       :class="{ 'is-active': menuActive }"
     >
       <div class="navbar-end">
+        <div class="navbar-item is-expanded tr">
+          <b-icon
+            icon="compass"
+            size="is-large"
+            title="Forum Explorer – find out about other forums you might like!"
+          />
+        </div>
         <table
           v-if="auth.username"
           class="progress-table"

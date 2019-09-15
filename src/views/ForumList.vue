@@ -27,12 +27,13 @@
                     <span>{{ column.label }}</span>
                   </div>
                 </template>
-                <div class="">
-                  <span class="cprops-title">
-                    <a
-                      :href="cprops.row.steem.canonical"
-                      target="_blank"
-                    >{{ cprops.row.name }}</a></span><br>
+                <div class="column is-half cat-title">
+                  <a
+                    :href="cprops.row.steem.canonical"
+                    target="_blank"
+                    class="cprops-title"
+                  >{{ cprops.row.name }}</a><br>
+                  <span class="cprops-description">{{ cprops.row.description }}</span>
                 </div>
               </b-table-column>
               <b-table-column
