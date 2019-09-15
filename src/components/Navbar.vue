@@ -36,11 +36,13 @@
     >
       <div class="navbar-end">
         <div class="navbar-item is-expanded tr">
-          <b-icon
-            icon="compass"
-            size="is-large"
-            title="Forum Explorer – find out about other forums you might like!"
-          />
+          <router-link :to="{ path: 'forums' }">
+            <b-icon
+              icon="compass"
+              size="is-large"
+              title="Forum Explorer – find out about other forums you might like!"
+            />
+          </router-link>
         </div>
         <table
           v-if="auth.username"
