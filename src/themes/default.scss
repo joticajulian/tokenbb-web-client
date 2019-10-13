@@ -132,6 +132,8 @@ h5.card-header-title a {
   text-align: center;
   font-size: 1em;
   min-width: 100px;
+  height: 1.5em;
+  border-radius: 8px;
 }
 .button.is-small:hover, .button.is-hovered {
   border-color: $link;
